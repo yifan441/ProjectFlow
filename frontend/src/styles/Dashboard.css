@@ -17,8 +17,10 @@
 
 .active-project {
   background-color: #d3d3d3;
+  font-weight: bold;
 }
 
-.project-list-item:hover {
+.project-list-item:hover,
+.home:hover {
   background-color: #d3d3d3;
 }
