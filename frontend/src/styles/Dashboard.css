@@ -1,6 +1,7 @@
 .outer-container-div {
   display: flex;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 .navbar-div {
@@ -9,7 +10,7 @@
   padding: 20px;
 }
 
-.display-div {
+.outer-display-div {
   flex: 12;
   background-color: #e0e0e0; /* Just for visualization */
   padding: 20px;
