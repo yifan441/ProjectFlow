@@ -92,7 +92,7 @@ export default function Dashboard() {
               onChange={handleChange}
               placeholder="New project"
               aria-label="New project"
-            ></input>
+            />
             <button type="submit" className="btn-create" aria-label="create new project">
               +
             </button>
@@ -104,31 +104,41 @@ export default function Dashboard() {
         <button onClick={handleProjectDelete}> delete project</button>
         <button>+ list</button>
         <div id="list 1">
-          <h3>List 1</h3>
-          <ul>
-            <li>Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li>
-          </ul>
-          <button>+ task</button>
-        </div>
-        <div id="list 2">
-          <h3>List 2</h3>
-          <ul>
-            <li>Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li>
-          </ul>
-          <button>+ task</button>
-        </div>
-        <div id="list 3">
-          <h3>List 3</h3>
-          <ul>
-            <li>Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li>
-          </ul>
-          <button>+ task</button>
+          <div className="list-header">
+            <h3 className="list-title">List 1</h3>
+            <p className="task-count">3 tasks remaining</p>
+          </div>
+          <div className="list-body">
+            <div className="tasks-div">
+              <div className="task">
+                <input type="checkbox" id="task-1" />
+                <label for="task-1">
+                  <span class="custom-checkbox"></span>
+                  task 1
+                </label>
+              </div>
+              <div className="task">
+                <input type="checkbox" id="task-1" />
+                <label for="task-1">
+                  <span class="custom-checkbox"></span>
+                  task 2
+                </label>
+              </div>
+              <div className="task">
+                <input type="checkbox" id="task-1" />
+                <label for="task-1">
+                  <span class="custom-checkbox"></span>
+                  task 3
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="new-task-creator">
+            <form action="">
+              <input type="text" placeholder="new task name" aria-label="new task name" />
+              <button aria-label="create new task">+</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
