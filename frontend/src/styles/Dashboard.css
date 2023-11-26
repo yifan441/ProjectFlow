@@ -1,4 +1,4 @@
-.container-div {
+.outer-container-div {
   display: flex;
   width: 100%;
 }
@@ -10,7 +10,15 @@
 }
 
 .display-div {
-  flex: 8;
+  flex: 12;
   background-color: #e0e0e0; /* Just for visualization */
   padding: 20px;
+}
+
+.active-project {
+  background-color: #d3d3d3;
+}
+
+.project-list-item:hover {
+  background-color: #d3d3d3;
 }
