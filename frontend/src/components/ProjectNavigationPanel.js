@@ -9,13 +9,13 @@ export default function ProjectNavigationPanel({
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
   // updates inputValue to be user inputed value everytime a change is detected
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   // creates a new project object and adds it to list of projects
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (inputValue === '') return;
     let newProjectObj = createProject(inputValue);
     handleProjectAdd(newProjectObj); // calls parent function
@@ -27,7 +27,7 @@ export default function ProjectNavigationPanel({
     return {
       id: Date.now().toString(),
       name: projectName,
-      tasks: [],
+      lists: [],
     };
   }
 
