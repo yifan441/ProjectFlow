@@ -3,10 +3,11 @@ import List from './List';
 
 export default function ProjectDashboard({
   handleProjectDelete,
-  listsData,
+  listsArray,
   projectName,
   projectId,
   handleAddList,
+  handleAddTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
@@ -15,7 +16,7 @@ export default function ProjectDashboard({
     setInputValue(e.target.value);
   };
 
-  // creates a new list object and adds it project lists
+  // creates a new list object and adds it array of lists
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue === '') return;
@@ -24,6 +25,7 @@ export default function ProjectDashboard({
     setInputValue('');
   };
 
+  // create a new list object
   function createList(listName) {
     return {
       id: Date.now().toString(),
@@ -51,9 +53,16 @@ export default function ProjectDashboard({
             </button>
           </form>
         </div>
+        <hr className="line" />
         <div className="project-display-lists-div">
-          {listsData.map((list) => (
-            <List key={list.id} listObj={list} />
+          {listsArray.map((list) => (
+            <List
+              key={list.id}
+              listObj={list}
+              handleAddTask={handleAddTask}
+              projectId={projectId}
+              listId={list.id}
+            />
           ))}
         </div>
       </div>
