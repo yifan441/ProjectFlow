@@ -1,22 +1,81 @@
 import '../styles/Dashboard.css';
 import { useState, useEffect } from 'react';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
+import ProjectDashboard from '../components/ProjectDashboard';
+import Home from '../components/Home';
 
 export default function Dashboard() {
-  // GET "data" FROM BACKEND --> will end up being something like data.projects
+  // TODO: get "data" from backend --> will end up being something like data.projects
+  // placeholder dummy data
   let data = [
-    { id: 1, name: 'Project 1' },
-    { id: 2, name: 'Project 2' },
+    {
+      name: 'Project 1',
+      id: 1,
+      lists: [
+        {
+          name: 'List 1',
+          id: 1.1,
+          tasks: [
+            { name: 'Task 1', id: 12, complete: false },
+            { name: 'Task 2', id: 13, complete: false },
+            { name: 'Task 3', id: 14, complete: false },
+          ],
+        },
+        {
+          name: 'List 2',
+          id: 1.2,
+          tasks: [{ name: 'Task 2', id: 13, complete: false }],
+        },
+      ],
+    },
+    {
+      name: 'Project 2',
+      id: 2,
+      lists: [
+        {
+          name: 'List 1',
+          id: 1.1,
+          tasks: [{ name: 'Task 1.2', id: 12, complete: false }],
+        },
+      ],
+    },
   ];
   const [projects, setProjects] = useState(data); // array of all project objects
-  const [selectedProjectId, setSelectedProjectId] = useState('home'); // project id that is currently selected
+  const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
 
   // updates array of projects
   function handleProjectAdd(newProjectObj) {
     setProjects([...projects, newProjectObj]);
   }
 
-  // sends updated projects array to backend (send selectedProjectId as well?????)
+  // updates selectedProject
+  function handleSelect(id) {
+    if (id !== selectedProject.id) {
+      const newSelectedProj = projects.find((proj) => proj.id === id);
+      setSelectedProject({ id: id, obj: newSelectedProj });
+    }
+  }
+
+  // deletes a project
+  function handleProjectDelete() {
+    const newProjects = [...projects].filter((proj) => proj.id !== selectedProject.id);
+    setProjects(newProjects);
+    setSelectedProject({ id: 'home', obj: null });
+    // TODO: add a window.alert('are you sure you want to delete the project?') security feature --> maybe type project name to delete
+  }
+
+  function handleAddList(newListObj, projectId) {
+    // TODO
+    const newProjectsData = [...projects];
+    const projectIndex = newProjectsData.findIndex((project) => project.id === projectId);
+    if (projectIndex !== -1) {
+      // check is probably unnecessary
+      newProjectsData[projectIndex].lists.push(newListObj);
+      setProjects(newProjectsData);
+    }
+  }
+
+  // sends updated projects array to backend (send selectedProject as well?????)
   function updateBackend() {
     // TO DO
     // have this function take a argument that gets sent to BE to allow them to differentiate what info FE is sending?
@@ -31,73 +90,28 @@ export default function Dashboard() {
     updateBackend();
   }, [projects]);
 
-  // updates selectedProjectId
-  function handleSelect(id) {
-    if (id !== selectedProjectId) {
-      setSelectedProjectId(id);
-    }
-  }
-
-  // deletes a project
-  function handleProjectDelete() {
-    const newProjects = [...projects].filter((proj) => proj.id !== selectedProjectId);
-    setProjects(newProjects);
-    setSelectedProjectId('home'); // set it to null instead?
-  }
-
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
         <ProjectNavigationPanel
-          selectedProjectId={selectedProjectId}
+          selectedProjectId={selectedProject.id}
           handleSelect={handleSelect}
           projects={projects}
           handleProjectAdd={handleProjectAdd}
         />
       </div>
-      <div className="outer-display-div">
-        <div className="inner-display-div">
-          <h1>Project Name</h1>
-          <button onClick={handleProjectDelete}> delete project</button>
-          <button>+ list</button>
-          <div id="list 1">
-            <div className="list-header">
-              <h3 className="list-title">List 1</h3>
-              <p className="task-count">3 tasks remaining</p>
-            </div>
-            <div className="list-body">
-              <div className="tasks-div">
-                <div className="task">
-                  <input type="checkbox" id="task-1" />
-                  <label for="task-1">
-                    <span class="custom-checkbox"></span>
-                    task 1
-                  </label>
-                </div>
-                <div className="task">
-                  <input type="checkbox" id="task-1" />
-                  <label for="task-1">
-                    <span class="custom-checkbox"></span>
-                    task 2
-                  </label>
-                </div>
-                <div className="task">
-                  <input type="checkbox" id="task-1" />
-                  <label for="task-1">
-                    <span class="custom-checkbox"></span>
-                    task 3
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="new-task-creator">
-              <form action="">
-                <input type="text" placeholder="new task name" aria-label="new task name" />
-                <button aria-label="create new task">+</button>
-              </form>
-            </div>
-          </div>
-        </div>
+      <div className="display-div">
+        {selectedProject.id === 'home' ? (
+          <Home />
+        ) : (
+          <ProjectDashboard
+            handleProjectDelete={handleProjectDelete}
+            listsData={selectedProject.obj.lists}
+            projectName={selectedProject.obj.name}
+            projectId={selectedProject.obj.id}
+            handleAddList={handleAddList}
+          />
+        )}
       </div>
     </div>
   );

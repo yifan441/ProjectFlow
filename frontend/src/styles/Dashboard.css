@@ -1,3 +1,5 @@
+/* Dashboard */
+
 .outer-container-div {
   display: flex;
   width: 100vw;
@@ -10,11 +12,13 @@
   padding: 20px;
 }
 
-.outer-display-div {
+.display-div {
   flex: 12;
   background-color: #e0e0e0; /* Just for visualization */
   padding: 20px;
 }
+
+/* Project Navigation Panel */
 
 .active-project {
   background-color: #d3d3d3;
@@ -24,4 +28,12 @@
 .project-list-item:hover,
 .home:hover {
   background-color: #d3d3d3;
+}
+
+/* Project Dashboard */
+
+.list-div {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px 10px 10px 0px;
 }
