@@ -5,9 +5,9 @@ import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
 
 export default function Dashboard() {
-  // TODO: get "data" from backend --> will end up being something like data.projects
+  // TODO: get "data" from backend --> will end up being something like let data = JSON.parse(string from BE)
   // placeholder dummy data
-  let data = [
+  let userData = [
     {
       name: 'Project 1',
       id: 1,
@@ -40,7 +40,8 @@ export default function Dashboard() {
       ],
     },
   ];
-  const [projects, setProjects] = useState(data); // array of all project objects
+
+  const [projects, setProjects] = useState(userData); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
 
   // updates selectedProject
@@ -61,7 +62,7 @@ export default function Dashboard() {
 
   // updates array of projects
   function handleProjectAdd(newProjectObj) {
-    setProjects([...projects, newProjectObj]);
+    setProjects([...projects, newProjectObj]); // TODO rewatch useState gotcha video, might have to use (prev) => {return [...prev, newProjectObj]}
   }
 
   function handleAddList(newListObj, projectId) {

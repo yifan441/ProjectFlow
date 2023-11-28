@@ -10,6 +10,7 @@ export default function ProjectDashboard({
   handleAddTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
+  // TODO: insert query state component
 
   // updates inputValue to be user inputed value everytime a change is detected
   const handleChange = (e) => {
@@ -34,12 +35,17 @@ export default function ProjectDashboard({
     };
   }
 
+  // TODO: write a function that handles the logic of checking if the list name matches or not
+  // it will take in a list object
+  // if TRUE --> return the entire component
+
   return (
     <>
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
           <button onClick={handleProjectDelete}> delete project</button>
+          {/* move your search stuff here */}
           <form action="" className="new-list-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -56,6 +62,7 @@ export default function ProjectDashboard({
         <hr className="line" />
         <div className="project-display-lists-div">
           {listsArray.map((list) => (
+            /* call function here and pass it "list"*/
             <List
               key={list.id}
               listObj={list}
@@ -69,3 +76,6 @@ export default function ProjectDashboard({
     </>
   );
 }
+
+// .map can return the index if I have time refactor code so that I don't have to find manually
+// find the indexs to add a list or task
