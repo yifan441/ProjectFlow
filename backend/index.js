@@ -11,7 +11,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body;
-    RegisterModel.findOne({email: email})
+    RegisterModel.findOne({email: email, name:name})
     .then(user => {
         if(user){
             res.json("Already have an account")
