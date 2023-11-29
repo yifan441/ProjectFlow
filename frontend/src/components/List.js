@@ -33,7 +33,7 @@ export default function List({ listObj, handleAddTask, projectId, listId }) {
     if (list.tasks.length !== 0) {
       const completeTaskCount = list.tasks.filter((task) => task.complete).length;
       const totalTaskCount = list.tasks.length;
-      const percentageComplete = Number((completeTaskCount / totalTaskCount) * 100).toFixed(2);
+      const percentageComplete = Math.floor((completeTaskCount / totalTaskCount) * 100);
       return `${percentageComplete}% Complete`;
     } else {
       return 'No tasks created';
