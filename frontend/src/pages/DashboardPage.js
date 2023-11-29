@@ -5,7 +5,6 @@ import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
 
 export default function Dashboard() {
-  // TODO: get "data" from backend --> will end up being something like let data = JSON.parse(string from BE)
   // placeholder dummy data
   let userData = [
     {
@@ -44,6 +43,12 @@ export default function Dashboard() {
   const [projects, setProjects] = useState(userData); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
 
+  // TODO VIK: get projects data from backend when Dashboard loads for the very first time only
+  useEffect(() => {
+    // code to fetch array from backend
+    // setProjects(ARRAY RECIEVED FROM BACKEND);
+  }, []);
+
   // updates selectedProject
   function handleSelect(id) {
     if (id !== selectedProject.id) {
@@ -76,7 +81,6 @@ export default function Dashboard() {
   }
 
   function handleAddTask(newTaskObj, projectId, listId) {
-    // TODO
     const newProjectsData = [...projects];
     const projectIndex = getProjectIndex(newProjectsData, projectId);
     const listIndex = getListIndex(newProjectsData, projectId, listId);
@@ -87,12 +91,12 @@ export default function Dashboard() {
     }
   }
 
-  // sends updated projects array to backend (send selectedProject as well?????)
+  // TO DO: VIK
+  // sends updated projects array to backend (send selectedProject as well????? idk haven't decided yet)
   function updateBackend() {
-    // TO DO
-    // have this function take a argument that gets sent to BE to allow them to differentiate what info FE is sending?
-    // e.g. updating projects vs. lists vs. tasks etc.
-    // would have to think about cuz I can't hard code it if useEffect() is calling it instead of me
+    const copy = projects;
+    const updatedProjectData = JSON.stringify(copy);
+    // SEND updatedProjectData TO BACKEND TO UPDATE PREVIOUSLY STORED STRING
     console.log('updated info sent to backend');
   }
 
