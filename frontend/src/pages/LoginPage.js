@@ -1,37 +1,47 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post('http://localhost:3001/register', { name, email, password })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
+    try {
+      // Send a login request to the server
+      const response = await axios.post(
+        'http://localhost:3001/login',
+        {
+          email,
+          password,
+        },
+        {
+          validateStatus: (status) => status >= 200 && status < 500,
+        }
+      );
+
+      if (response.status === 200) {
+        // Redirect to dashboard or perform other actions on successful login
+        navigate('/dashboard');
+      } else {
+        // Handle other cases like incorrect credentials
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error('Error during login:', error);
+    }
   };
+
   return (
     <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
       <div className="bg-white p-3 rounded w-25">
-        <h2>Register</h2>
+        <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Name</strong>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
           <div className="mb-3">
             <label htmlFor="email">
               <strong>Email</strong>
@@ -42,11 +52,12 @@ function LoginPage() {
               autoComplete="off"
               name="email"
               className="form-control rounded-0"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="email">
+            <label htmlFor="password">
               <strong>Password</strong>
             </label>
             <input
@@ -54,18 +65,29 @@ function LoginPage() {
               placeholder="Enter Password"
               name="password"
               className="form-control rounded-0"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
-            Register
+            Log In
           </button>
-          <button className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">
-            Login
-          </button>
+          <div className="mt-3 text-center">
+            <p>
+              Don't have an account?{' '}
+              <span
+                onClick={() => navigate('/register')}
+                className="text-primary cursor-pointer"
+              >
+                Register
+              </span>
+            </p>
+          </div>
         </form>
       </div>
     </div>
   );
 }
+
 export default LoginPage;
+

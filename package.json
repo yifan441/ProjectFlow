@@ -2,10 +2,12 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-
-  "scripts":{
+  "scripts": {
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd backend && npm start",
     "start:frontend": "cd frontend && npm start"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.20.0"
   }
 }
