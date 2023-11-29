@@ -10,7 +10,8 @@ export default function ProjectDashboard({
   handleAddTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
-  // TODO: insert query state component
+  // TODO: insert query state component -- done MDR
+  const [query, setQuery] = useState('');
 
   // updates inputValue to be user inputed value everytime a change is detected
   const handleChange = (e) => {
@@ -39,13 +40,25 @@ export default function ProjectDashboard({
   // it will take in a list object
   // if TRUE --> return the entire component
 
+  const filteredLists = listsArray.filter((list) =>
+  list.name.toLowerCase().includes(query.toLowerCase())
+);
+
   return (
     <>
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
           <button onClick={handleProjectDelete}> delete project</button>
-          {/* move your search stuff here */}
+            <div> 
+              Search:
+              <input 
+              value={query} 
+              onChange={(e) => setQuery(e.target.value)} 
+              type="search" 
+              placeholder="Search lists"
+              />
+            </div>
           <form action="" className="new-list-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -61,7 +74,7 @@ export default function ProjectDashboard({
         </div>
         <hr className="line" />
         <div className="project-display-lists-div">
-          {listsArray.map((list) => (
+          {filteredLists.map((list) => (
             /* call function here and pass it "list"*/
             <List
               key={list.id}
