@@ -1,11 +1,15 @@
 import '../styles/Dashboard.css';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Dashboard() {
   // placeholder dummy data
+  const navigate = useNavigate();
   let userData = [
     {
       name: 'Project 1',
@@ -40,15 +44,53 @@ export default function Dashboard() {
     },
   ];
 
-  const [projects, setProjects] = useState(userData); // array of all project objects
+  const [projects, setProjects] = useState([]); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
-
+  const [loading, setLoading] = useState(true);
   // TODO VIK: get projects data from backend when Dashboard loads for the very first time only
+  
   useEffect(() => {
-    // code to fetch array from backend
-    // setProjects(ARRAY RECIEVED FROM BACKEND);
+    const fetchUserDashboard = async () => {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+          console.log('User is not logged in');
+          return;
+        }
+
+        const response = await axios.get('http://localhost:3001/user/dashboard', {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("retrieved dashboard");
+          setProjects(response.data.dashboard);
+        } else {
+          console.error('Error fetching user dashboard:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user dashboard:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserDashboard();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+    // Logout function
+    const handleLogout = () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userData');
+      navigate('/');
+      console.log('User logged out');
+    };
+  
   // updates selectedProject
   function handleSelect(id) {
     if (id !== selectedProject.id) {
@@ -102,10 +144,6 @@ export default function Dashboard() {
 
   // automatically calls updateBackend() when the state "projects" is changed
   // BUG: automatically runs once when component first renders...
-  useEffect(() => {
-    updateBackend();
-  }, [projects]);
-
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -115,6 +153,9 @@ export default function Dashboard() {
           projects={projects}
           handleProjectAdd={handleProjectAdd}
         />
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
       </div>
       <div className="display-div">
         {selectedProject.id === 'home' ? (

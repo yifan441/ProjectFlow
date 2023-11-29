@@ -21,7 +21,6 @@ function RegisterPage() {
           validateStatus:(status) => status >= 200 && status < 500,
         });
         if (response.status === 201) {
-          //REPLACE THIS WITH FUNCTION TO IMPORT TREE FROM DATABASE, THEN DISPLAY THE TREE AS THE DASHBOARD
           navigate('/dashboard');
         } else if (response.status === 409) {
           console.log(response.data.message);

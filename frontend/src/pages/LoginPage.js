@@ -25,14 +25,19 @@ function LoginPage() {
       );
 
       if (response.status === 200) {
-        // Redirect to dashboard or perform other actions on successful login
+
+        const { token, user } = response.data;
+
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('userData', JSON.stringify(user));
+
         navigate('/dashboard');
+
       } else {
-        // Handle other cases like incorrect credentials
+
         console.log(response.data.message);
       }
     } catch (error) {
-      // Handle network errors or other exceptions
       console.error('Error during login:', error);
     }
   };
