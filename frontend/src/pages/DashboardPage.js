@@ -1,5 +1,5 @@
 import '../styles/Dashboard.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
@@ -48,6 +48,9 @@ export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
   // TODO VIK: get projects data from backend when Dashboard loads for the very first time only
+  useEffect(() => {
+    updateBackend();
+  }, [projects]);
   
   useEffect(() => {
     const fetchUserDashboard = async () => {
@@ -77,11 +80,40 @@ export default function Dashboard() {
     };
 
     fetchUserDashboard();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
+    async function updateBackend() {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+          console.log('User is not logged in');
+          return;
+        }
+        const copy = projects; 
+        const updatedProjectData = JSON.stringify(copy);
+  
+        const response = await axios.post('http://localhost:3001/user/updateDashboard', {
+          updatedProjectData,
+        }, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (response.status === 200) {
+          console.log('Updated info sent to backend');
+          // Optionally, you can handle success if needed
+        } else {
+          console.error('Error updating user dashboard:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error updating user dashboard:', error);
+      }
+    }
     updateBackend();
-  }, [projects]);
+  }, [projects, navigate]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -137,35 +169,7 @@ export default function Dashboard() {
     }
   }
 
-  async function updateBackend() {
-    try {
-      const authToken = localStorage.getItem('authToken');
-      if (!authToken) {
-        console.log('User is not logged in');
-        return;
-      }
-      const copy = projects; 
-      const updatedProjectData = JSON.stringify(copy);
 
-      const response = await axios.post('http://localhost:3001/user/updateDashboard', {
-        updatedProjectData,
-      }, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.status === 200) {
-        console.log('Updated info sent to backend');
-        // Optionally, you can handle success if needed
-      } else {
-        console.error('Error updating user dashboard:', response.data.message);
-      }
-    } catch (error) {
-      console.error('Error updating user dashboard:', error);
-    }
-  }
 
   // automatically calls updateBackend() when the state "projects" is changed
   // BUG: automatically runs once when component first renders...
