@@ -1,5 +1,5 @@
 import '../styles/Dashboard.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
@@ -48,6 +48,9 @@ export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
   // TODO VIK: get projects data from backend when Dashboard loads for the very first time only
+  useEffect(() => {
+    updateBackend();
+  }, [projects]);
   
   useEffect(() => {
     const fetchUserDashboard = async () => {
