@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const RegisterModel = require('./models/Register')
 const app = express()
-const bcrypt = require ('bcrypt')
+const bcrypt = require ('bcryptjs')
 const jwt = require ('jsonwebtoken')
 const fs = require ('fs')
 
