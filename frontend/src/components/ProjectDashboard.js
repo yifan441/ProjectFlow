@@ -74,7 +74,11 @@ export default function ProjectDashboard({
         </div>
         <hr className="line" />
         <div className="project-display-lists-div">
-          {filteredLists.map((list) => (
+          {
+            filteredLists.length === 0 ? (
+            <p>No list found</p>
+            ) : (
+            filteredLists.map((list) => (
             /* call function here and pass it "list"*/
             <List
               key={list.id}
@@ -83,7 +87,8 @@ export default function ProjectDashboard({
               projectId={projectId}
               listId={list.id}
             />
-          ))}
+          ))
+        )}
         </div>
       </div>
     </>
