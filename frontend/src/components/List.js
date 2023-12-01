@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Task from './Task';
 
-export default function List({ listObj, handleAddTask, projectId, listId }) {
+export default function List({ listObj, handleAddTask, projectIndex, listIndex }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
   // updates inputValue to be user inputed value everytime a change is detected
@@ -14,8 +14,7 @@ export default function List({ listObj, handleAddTask, projectId, listId }) {
     e.preventDefault();
     if (inputValue === '') return;
     let newTaskObj = createTask(inputValue);
-    // do I really need to pass projectId down AGAIN?
-    handleAddTask(newTaskObj, projectId, listId); // calls parent function
+    handleAddTask(newTaskObj, projectIndex, listIndex); // calls parent function
     setInputValue('');
   };
 

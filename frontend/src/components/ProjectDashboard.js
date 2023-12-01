@@ -75,14 +75,13 @@ export default function ProjectDashboard({
           {filteredLists.length === 0 ? (
             <p>No list found</p>
           ) : (
-            filteredLists.map((list) => (
-              /* call function here and pass it "list"*/
+            filteredLists.map((list, index) => (
               <List
                 key={list.id}
                 listObj={list}
                 handleAddTask={handleAddTask}
-                projectId={projectId}
-                listId={list.id}
+                projectIndex={projectIndex}
+                listIndex={index}
               />
             ))
           )}
@@ -91,6 +90,3 @@ export default function ProjectDashboard({
     </>
   );
 }
-
-// .map can return the index if I have time refactor code so that I don't have to find manually
-// find the indexs to add a list or task
