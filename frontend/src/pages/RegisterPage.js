@@ -2,7 +2,8 @@ import { useState } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import PasswordSuitability from '../components/PasswordSuitability';
 
 function RegisterPage() {
   const [name, setName] = useState();
@@ -24,11 +25,26 @@ function RegisterPage() {
           navigate('/dashboard');
         } else if (response.status === 409) {
           console.log(response.data.message);
+        } 
+
+        //code error for invalid password input
+        else if (response.status === 403) {
+          console.log("Dispatching Event");
+          document.dispatchEvent(new CustomEvent('unsuitablePassword'));
+          console.log(response.data.message);
         }
+        //end addition - delete when merge
+        
       } catch (error) {
         console.error('Error during registration:', error);
       }
   };
+
+  //function should be defined separately in a different location --> probably can be removed.
+  function handleUnsuitablePassword() {
+    var passwordMessage = document.getElementById('passwordMessage');
+    passwordMessage.style.display = 'block';
+  }
 
   const handleLogin = () => {
     navigate ("/");
@@ -75,6 +91,12 @@ function RegisterPage() {
               className="form-control rounded-0"
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+          <PasswordSuitability />
+          <div className="mb-3">
+            <label htmlFor="pwd_requirments" style={{ fontSize: '10px', opacity: '0.7', fontWeight: 'normal' }}>
+              Password of at least 8 characters with:<br /> 1 Uppercase Character<br /> 1 Lowercase Character<br /> 1 Special Character
+            </label>
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
             Register
