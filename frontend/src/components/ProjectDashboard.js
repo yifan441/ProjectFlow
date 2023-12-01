@@ -3,15 +3,16 @@ import List from './List';
 
 export default function ProjectDashboard({
   handleProjectDelete,
-  listsArray,
-  projectName,
-  projectId,
   handleAddList,
   handleAddTask,
+  projectIndex,
+  projectObj,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
-  // TODO: insert query state component -- done MDR
   const [query, setQuery] = useState('');
+  const listsArray = projectObj.lists;
+  const projectName = projectObj.name;
+  const projectId = projectObj.id;
 
   // updates inputValue to be user inputed value everytime a change is detected
   const handleChange = (e) => {
@@ -23,7 +24,7 @@ export default function ProjectDashboard({
     e.preventDefault();
     if (inputValue === '') return;
     let newListObj = createList(inputValue);
-    handleAddList(newListObj, projectId); // calls parent function
+    handleAddList(newListObj, projectIndex); // calls parent function
     setInputValue('');
   };
 
@@ -36,13 +37,10 @@ export default function ProjectDashboard({
     };
   }
 
-  // TODO: write a function that handles the logic of checking if the list name matches or not
-  // it will take in a list object
-  // if TRUE --> return the entire component
-
+  // filter lists based on query
   const filteredLists = listsArray.filter((list) =>
-  list.name.toLowerCase().includes(query.toLowerCase())
-);
+    list.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <>
@@ -50,15 +48,15 @@ export default function ProjectDashboard({
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
           <button onClick={handleProjectDelete}> delete project</button>
-            <div> 
-              Search:
-              <input 
-              value={query} 
-              onChange={(e) => setQuery(e.target.value)} 
-              type="search" 
+          <div>
+            Search:
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              type="search"
               placeholder="Search lists"
-              />
-            </div>
+            />
+          </div>
           <form action="" className="new-list-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -74,21 +72,20 @@ export default function ProjectDashboard({
         </div>
         <hr className="line" />
         <div className="project-display-lists-div">
-          {
-            filteredLists.length === 0 ? (
+          {filteredLists.length === 0 ? (
             <p>No list found</p>
-            ) : (
+          ) : (
             filteredLists.map((list) => (
-            /* call function here and pass it "list"*/
-            <List
-              key={list.id}
-              listObj={list}
-              handleAddTask={handleAddTask}
-              projectId={projectId}
-              listId={list.id}
-            />
-          ))
-        )}
+              /* call function here and pass it "list"*/
+              <List
+                key={list.id}
+                listObj={list}
+                handleAddTask={handleAddTask}
+                projectId={projectId}
+                listId={list.id}
+              />
+            ))
+          )}
         </div>
       </div>
     </>

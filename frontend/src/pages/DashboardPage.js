@@ -74,7 +74,7 @@ export default function Dashboard() {
   ];
 
   const [projects, setProjects] = useState([]); // array of all project objects
-  const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
+  const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null, index: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
 
   // requests data from backend on mount
@@ -163,10 +163,11 @@ export default function Dashboard() {
   function handleSelect(id) {
     if (id !== selectedProject.id) {
       if (id === 'home') {
-        setSelectedProject({ id: id, obj: null });
+        setSelectedProject({ id: id, obj: null, index: null });
       } else {
-        const newSelectedProj = projects.find((proj) => proj.id === id);
-        setSelectedProject({ id: id, obj: newSelectedProj });
+        const newIndex = projects.findIndex((proj) => proj.id === id);
+        const newSelectedProj = { ...projects[newIndex] };
+        setSelectedProject({ id: id, obj: newSelectedProj, index: newIndex });
       }
     }
   }
@@ -175,7 +176,7 @@ export default function Dashboard() {
   function handleProjectDelete() {
     const newProjects = [...projects].filter((proj) => proj.id !== selectedProject.id);
     setProjects(newProjects);
-    setSelectedProject({ id: 'home', obj: null });
+    setSelectedProject({ id: 'home', obj: null, index: null });
     // TODO: add a window.alert('are you sure you want to delete the project?') security feature --> maybe type project name to delete
   }
 
@@ -185,14 +186,10 @@ export default function Dashboard() {
   }
 
   // adds a list
-  function handleAddList(newListObj, projectId) {
+  function handleAddList(newListObj, projectIndex) {
     const newProjectsData = [...projects];
-    const projectIndex = getProjectIndex(newProjectsData, projectId);
-    if (projectIndex !== -1) {
-      // check is probably unnecessary
-      newProjectsData[projectIndex].lists.push(newListObj);
-      setProjects(newProjectsData);
-    }
+    newProjectsData[projectIndex].lists.push(newListObj);
+    setProjects(newProjectsData);
   }
 
   // adds a task
@@ -226,11 +223,10 @@ export default function Dashboard() {
         ) : (
           <ProjectDashboard
             handleProjectDelete={handleProjectDelete}
-            listsArray={selectedProject.obj.lists}
-            projectName={selectedProject.obj.name}
-            projectId={selectedProject.obj.id}
             handleAddList={handleAddList}
             handleAddTask={handleAddTask}
+            projectIndex={selectedProject.index}
+            projectObj={selectedProject.obj}
           />
         )}
       </div>
