@@ -165,6 +165,9 @@ export default function Dashboard() {
         setSelectedProject({ id: id, obj: newSelectedProj, index: newIndex });
       }
     }
+    else if (id === selectedProject.id){
+      document.dispatchEvent(new CustomEvent('renameFlag'));
+    }
   }
 
   // deletes a project
@@ -211,6 +214,13 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
+  function handleRenameProject(newName, projectId){
+    const newProjectsData = [...projects];
+    const projectIndex = projects.findIndex((proj) => proj.id === projectId);
+    newProjectsData[projectIndex].name = newName;
+    setProjects(newProjectsData);
+  }
+
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -219,6 +229,7 @@ export default function Dashboard() {
           handleSelect={handleSelect}
           projects={projects}
           handleProjectAdd={handleProjectAdd}
+          handleRenameProject={handleRenameProject}
         />
         <button onClick={handleLogout} className="logout-button">
           Logout
