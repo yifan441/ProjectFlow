@@ -10,35 +10,64 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   // visual representation of an example of a possible user data array
-  let userData = [
+  let dummyUserData = [
     {
       name: 'Project 1',
       id: 1,
       lists: [
         {
           name: 'List 1',
-          id: 1.1,
+          id: 2,
           tasks: [
-            { name: 'Task 1', id: 12, complete: false, attributes: {} },
-            { name: 'Task 2', id: 13, complete: false, attributes: {} },
-            { name: 'Task 3', id: 14, complete: false, attributes: {} },
+            {
+              name: 'Task 1',
+              id: 3,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+            {
+              name: 'Task 2',
+              id: 4,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+            {
+              name: 'Task 3',
+              id: 5,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
           ],
         },
         {
           name: 'List 2',
-          id: 1.2,
-          tasks: [{ name: 'Task 2', id: 13, complete: false, attributes: {} }],
+          id: 6,
+          tasks: [
+            {
+              name: 'Task 2',
+              id: 7,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+          ],
         },
       ],
     },
     {
       name: 'Project 2',
-      id: 2,
+      id: 8,
       lists: [
         {
           name: 'List 1',
-          id: 1.1,
-          tasks: [{ name: 'Task 1.2', id: 12, complete: false, attributes: {} }],
+          id: 9,
+          tasks: [
+            {
+              name: 'Task 1.2',
+              id: 10,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+          ],
         },
       ],
     },
@@ -117,6 +146,7 @@ export default function Dashboard() {
     updateBackend();
   }, [projects, navigate]);
 
+  // render loading screen
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -149,11 +179,12 @@ export default function Dashboard() {
     // TODO: add a window.alert('are you sure you want to delete the project?') security feature --> maybe type project name to delete
   }
 
-  // updates array of projects
+  // adds a project
   function handleProjectAdd(newProjectObj) {
     setProjects([...projects, newProjectObj]); // TODO rewatch useState gotcha video, might have to use (prev) => {return [...prev, newProjectObj]}
   }
 
+  // adds a list
   function handleAddList(newListObj, projectId) {
     const newProjectsData = [...projects];
     const projectIndex = getProjectIndex(newProjectsData, projectId);
@@ -164,6 +195,7 @@ export default function Dashboard() {
     }
   }
 
+  // adds a task
   function handleAddTask(newTaskObj, projectId, listId) {
     const newProjectsData = [...projects];
     const projectIndex = getProjectIndex(newProjectsData, projectId);
