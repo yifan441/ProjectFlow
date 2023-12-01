@@ -10,42 +10,71 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   // visual representation of an example of a possible user data array
-  let userData = [
+  let dummyUserData = [
     {
       name: 'Project 1',
       id: 1,
       lists: [
         {
           name: 'List 1',
-          id: 1.1,
+          id: 2,
           tasks: [
-            { name: 'Task 1', id: 12, complete: false, attributes: {} },
-            { name: 'Task 2', id: 13, complete: false, attributes: {} },
-            { name: 'Task 3', id: 14, complete: false, attributes: {} },
+            {
+              name: 'Task 1',
+              id: 3,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+            {
+              name: 'Task 2',
+              id: 4,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+            {
+              name: 'Task 3',
+              id: 5,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
           ],
         },
         {
           name: 'List 2',
-          id: 1.2,
-          tasks: [{ name: 'Task 2', id: 13, complete: false, attributes: {} }],
+          id: 6,
+          tasks: [
+            {
+              name: 'Task 2',
+              id: 7,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+          ],
         },
       ],
     },
     {
       name: 'Project 2',
-      id: 2,
+      id: 8,
       lists: [
         {
           name: 'List 1',
-          id: 1.1,
-          tasks: [{ name: 'Task 1.2', id: 12, complete: false, attributes: {} }],
+          id: 9,
+          tasks: [
+            {
+              name: 'Task 1.2',
+              id: 10,
+              complete: false,
+              attributes: { priority: 'none', dueDate: null },
+            },
+          ],
         },
       ],
     },
   ];
 
   const [projects, setProjects] = useState([]); // array of all project objects
-  const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
+  const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null, index: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
 
   // requests data from backend on mount
@@ -117,6 +146,7 @@ export default function Dashboard() {
     updateBackend();
   }, [projects, navigate]);
 
+  // render loading screen
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -133,10 +163,11 @@ export default function Dashboard() {
   function handleSelect(id) {
     if (id !== selectedProject.id) {
       if (id === 'home') {
-        setSelectedProject({ id: id, obj: null });
+        setSelectedProject({ id: id, obj: null, index: null });
       } else {
-        const newSelectedProj = projects.find((proj) => proj.id === id);
-        setSelectedProject({ id: id, obj: newSelectedProj });
+        const newIndex = projects.findIndex((proj) => proj.id === id);
+        const newSelectedProj = { ...projects[newIndex] };
+        setSelectedProject({ id: id, obj: newSelectedProj, index: newIndex });
       }
     }
   }
@@ -145,25 +176,23 @@ export default function Dashboard() {
   function handleProjectDelete() {
     const newProjects = [...projects].filter((proj) => proj.id !== selectedProject.id);
     setProjects(newProjects);
-    setSelectedProject({ id: 'home', obj: null });
+    setSelectedProject({ id: 'home', obj: null, index: null });
     // TODO: add a window.alert('are you sure you want to delete the project?') security feature --> maybe type project name to delete
   }
 
-  // updates array of projects
+  // adds a project
   function handleProjectAdd(newProjectObj) {
     setProjects([...projects, newProjectObj]); // TODO rewatch useState gotcha video, might have to use (prev) => {return [...prev, newProjectObj]}
   }
 
-  function handleAddList(newListObj, projectId) {
+  // adds a list
+  function handleAddList(newListObj, projectIndex) {
     const newProjectsData = [...projects];
-    const projectIndex = getProjectIndex(newProjectsData, projectId);
-    if (projectIndex !== -1) {
-      // check is probably unnecessary
-      newProjectsData[projectIndex].lists.push(newListObj);
-      setProjects(newProjectsData);
-    }
+    newProjectsData[projectIndex].lists.push(newListObj);
+    setProjects(newProjectsData);
   }
 
+  // adds a task
   function handleAddTask(newTaskObj, projectId, listId) {
     const newProjectsData = [...projects];
     const projectIndex = getProjectIndex(newProjectsData, projectId);
@@ -194,11 +223,10 @@ export default function Dashboard() {
         ) : (
           <ProjectDashboard
             handleProjectDelete={handleProjectDelete}
-            listsArray={selectedProject.obj.lists}
-            projectName={selectedProject.obj.name}
-            projectId={selectedProject.obj.id}
             handleAddList={handleAddList}
             handleAddTask={handleAddTask}
+            projectIndex={selectedProject.index}
+            projectObj={selectedProject.obj}
           />
         )}
       </div>

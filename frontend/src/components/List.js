@@ -25,7 +25,7 @@ export default function List({ listObj, handleAddTask, projectId, listId }) {
       id: Date.now().toString(),
       name: taskName,
       complete: false,
-      attributes: {},
+      attributes: { priority: 'none', dueDate: null },
     };
   }
 
@@ -48,9 +48,20 @@ export default function List({ listObj, handleAddTask, projectId, listId }) {
           <span className="task-count">{getTaskCompletion(listObj)}</span>
         </div>
         <div className="list-body">
+          {listObj.tasks.length > 0 && (
+            <div className="task-attribute-label-div">
+              <p>Task name&nbsp;&nbsp;Priority&nbsp;&nbsp;Due</p>
+            </div>
+          )}
           <div className="tasks-div">
             {listObj.tasks.map((task) => (
-              <Task key={task.id} name={task.name} complete={task.complete} id={task.id} />
+              <Task
+                key={task.id}
+                name={task.name}
+                complete={task.complete}
+                id={task.id}
+                attributes={task.attributes}
+              />
             ))}
           </div>
         </div>
