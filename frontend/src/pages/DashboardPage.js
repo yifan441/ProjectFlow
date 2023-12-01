@@ -6,10 +6,10 @@ import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function Dashboard() {
-  // placeholder dummy data
   const navigate = useNavigate();
+
+  // visual representation of an example of a possible user data array
   let userData = [
     {
       name: 'Project 1',
@@ -47,8 +47,8 @@ export default function Dashboard() {
   const [projects, setProjects] = useState([]); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
-  // TODO VIK: get projects data from backend when Dashboard loads for the very first time only
-  
+
+  // requests data from backend on mount
   useEffect(() => {
     const fetchUserDashboard = async () => {
       try {
@@ -64,7 +64,7 @@ export default function Dashboard() {
           },
         });
         if (response.status === 200) {
-          console.log("retrieved dashboard");
+          console.log('retrieved dashboard');
           setProjects(response.data.dashboard);
         } else {
           console.error('Error fetching user dashboard:', response.data.message);
@@ -79,6 +79,7 @@ export default function Dashboard() {
     fetchUserDashboard();
   }, [navigate]);
 
+  // sends updated data to backend everytime projects variable changes
   useEffect(() => {
     async function updateBackend() {
       try {
@@ -87,18 +88,22 @@ export default function Dashboard() {
           console.log('User is not logged in');
           return;
         }
-        const copy = projects; 
+        const copy = projects;
         const updatedProjectData = JSON.stringify(copy);
-  
-        const response = await axios.post('http://localhost:3001/user/updateDashboard', {
-          updatedProjectData,
-        }, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            'Content-Type': 'application/json',
+
+        const response = await axios.post(
+          'http://localhost:3001/user/updateDashboard',
+          {
+            updatedProjectData,
           },
-        });
-  
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
         if (response.status === 200) {
           console.log('Updated info sent to backend');
           // Optionally, you can handle success if needed
@@ -116,19 +121,23 @@ export default function Dashboard() {
     return <div>Loading...</div>;
   }
 
-    // Logout function
-    const handleLogout = () => {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userData');
-      navigate('/');
-      console.log('User logged out');
-    };
-  
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userData');
+    navigate('/');
+    console.log('User logged out');
+  };
+
   // updates selectedProject
   function handleSelect(id) {
     if (id !== selectedProject.id) {
-      const newSelectedProj = projects.find((proj) => proj.id === id);
-      setSelectedProject({ id: id, obj: newSelectedProj });
+      if (id === 'home') {
+        setSelectedProject({ id: id, obj: null });
+      } else {
+        const newSelectedProj = projects.find((proj) => proj.id === id);
+        setSelectedProject({ id: id, obj: newSelectedProj });
+      }
     }
   }
 
@@ -166,10 +175,6 @@ export default function Dashboard() {
     }
   }
 
-
-
-  // automatically calls updateBackend() when the state "projects" is changed
-  // BUG: automatically runs once when component first renders...
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -185,7 +190,7 @@ export default function Dashboard() {
       </div>
       <div className="display-div">
         {selectedProject.id === 'home' ? (
-          <Home />
+          <Home projectsData={projects} />
         ) : (
           <ProjectDashboard
             handleProjectDelete={handleProjectDelete}
