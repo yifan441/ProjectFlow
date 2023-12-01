@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import Task from './Task';
 
-export default function List({ listObj, handleAddTask, projectIndex, listIndex }) {
+export default function List({
+  listObj,
+  handleAddTask,
+  projectIndex,
+  listIndex,
+  handleUpdateTaskAttributes,
+}) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
   // updates inputValue to be user inputed value everytime a change is detected
@@ -30,13 +36,17 @@ export default function List({ listObj, handleAddTask, projectIndex, listIndex }
 
   function getTaskCompletion(list) {
     if (list.tasks.length !== 0) {
-      const completeTaskCount = list.tasks.filter((task) => task.complete).length;
+      const completeTaskCount = list.tasks.filter((task) => task.attributes.complete).length;
       const totalTaskCount = list.tasks.length;
       const percentageComplete = Math.floor((completeTaskCount / totalTaskCount) * 100);
       return `${percentageComplete}% Complete`;
     } else {
       return 'No tasks created';
     }
+  }
+
+  function updateTaskAttributes(attributeType, newValue, taskIndex) {
+    handleUpdateTaskAttributes(attributeType, newValue, projectIndex, listIndex, taskIndex);
   }
 
   return (
@@ -49,17 +59,18 @@ export default function List({ listObj, handleAddTask, projectIndex, listIndex }
         <div className="list-body">
           {listObj.tasks.length > 0 && (
             <div className="task-attribute-label-div">
-              <p>Task name&nbsp;&nbsp;Priority&nbsp;&nbsp;Due</p>
+              <p>Task name&nbsp;&nbsp;Priority&nbsp;&nbsp;Duedate</p>
             </div>
           )}
           <div className="tasks-div">
-            {listObj.tasks.map((task) => (
+            {listObj.tasks.map((task, index) => (
               <Task
                 key={task.id}
                 name={task.name}
-                complete={task.complete}
                 id={task.id}
                 attributes={task.attributes}
+                taskIndex={index}
+                updateTaskAttributes={updateTaskAttributes}
               />
             ))}
           </div>

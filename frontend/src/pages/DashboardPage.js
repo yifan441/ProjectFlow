@@ -22,20 +22,17 @@ export default function Dashboard() {
             {
               name: 'Task 1',
               id: 3,
-              complete: false,
-              attributes: { priority: 'none', dueDate: null },
+              attributes: { complete: false, priority: 'none', dueDate: null },
             },
             {
               name: 'Task 2',
               id: 4,
-              complete: false,
-              attributes: { priority: 'none', dueDate: null },
+              attributes: { complete: false, priority: 'none', dueDate: null },
             },
             {
               name: 'Task 3',
               id: 5,
-              complete: false,
-              attributes: { priority: 'none', dueDate: null },
+              attributes: { complete: false, priority: 'none', dueDate: null },
             },
           ],
         },
@@ -46,8 +43,7 @@ export default function Dashboard() {
             {
               name: 'Task 2',
               id: 7,
-              complete: false,
-              attributes: { priority: 'none', dueDate: null },
+              attributes: { complete: false, priority: 'none', dueDate: null },
             },
           ],
         },
@@ -64,8 +60,7 @@ export default function Dashboard() {
             {
               name: 'Task 1.2',
               id: 10,
-              complete: false,
-              attributes: { priority: 'none', dueDate: null },
+              attributes: { complete: false, priority: 'none', dueDate: null },
             },
           ],
         },
@@ -199,6 +194,23 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
+  // updates task attributes
+  function handleUpdateTaskAttributes(attributeType, newValue, projectIndex, listIndex, taskIndex) {
+    const newProjectsData = [...projects];
+    if (attributeType === 'complete') {
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].attributes.complete =
+        newValue;
+    }
+    if (attributeType === 'priority') {
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].attributes.priority =
+        newValue;
+    }
+    if (attributeType === 'dueDate') {
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].attributes.dueDate = newValue;
+    }
+    setProjects(newProjectsData);
+  }
+
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -220,6 +232,7 @@ export default function Dashboard() {
             handleProjectDelete={handleProjectDelete}
             handleAddList={handleAddList}
             handleAddTask={handleAddTask}
+            handleUpdateTaskAttributes={handleUpdateTaskAttributes}
             projectIndex={selectedProject.index}
             projectObj={selectedProject.obj}
           />
