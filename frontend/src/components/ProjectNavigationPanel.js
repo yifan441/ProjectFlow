@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import RenameProject from './Rename.js'
 
 export default function ProjectNavigationPanel({
   selectedProjectId,
   handleSelect,
   projects,
   handleProjectAdd,
+  handleRenameProject,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
@@ -51,6 +53,9 @@ export default function ProjectNavigationPanel({
               {item.name}
             </li>
           ))}
+          <RenameProject 
+          handleRenameProject={handleRenameProject}
+          selectedProjectId={selectedProjectId}/>
         </ul>
         <form action="" className="new-project-form" onSubmit={handleSubmit}>
           <input
