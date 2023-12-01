@@ -2,24 +2,41 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function Task({ name, complete, id, attributes }) {
+export default function Task({ name, id, attributes, taskIndex, updateTaskAttributes }) {
+  const parsedDueDate = attributes.dueDate !== null ? new Date(attributes.dueDate) : null;
+  const [isChecked, setIsChecked] = useState(attributes.complete);
   const [priority, setPriority] = useState(attributes.priority);
-  const [dueDate, setDueDate] = useState(attributes.dueDate);
+  const [dueDate, setDueDate] = useState(parsedDueDate);
   const [showTimeInput, setshowTimeInput] = useState(false);
 
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    updateTaskAttributes('complete', !isChecked, taskIndex);
+  };
+
   const handlePriorityChange = (e) => {
+    if (e.target.value === priority || (e.target.value === 'clear' && priority === 'none')) return;
     if (e.target.value === 'clear') {
       setPriority('none');
+      updateTaskAttributes('priority', 'none', taskIndex);
     } else {
       setPriority(e.target.value);
+      updateTaskAttributes('priority', e.target.value, taskIndex);
     }
   };
 
   const handleDateChange = (date) => {
+    if (date === dueDate) return;
     setDueDate(date);
+    if (date !== null) {
+      const newDate = date.toISOString();
+      updateTaskAttributes('dueDate', newDate, taskIndex);
+    } else {
+      updateTaskAttributes('dueDate', null, taskIndex);
+    }
   };
 
-  // TODO: have a toggle to makes choosing a time optional (this doesn't work yet)
+  // TODO: build a toggle to makes choosing a time optional (this doesn't work yet)
   const CustomInput = ({ value, onClick }) => (
     <div>
       <input
@@ -43,7 +60,7 @@ export default function Task({ name, complete, id, attributes }) {
   return (
     <>
       <div className="task">
-        <input type="checkbox" id={id} />
+        <input type="checkbox" id={id} checked={isChecked} onChange={handleCheckboxChange} />
         <label htmlFor={id}>
           <span className="custom-checkbox"></span>
           {name}
@@ -69,7 +86,7 @@ export default function Task({ name, complete, id, attributes }) {
           timeFormat="HH:mm"
           isClearable
 
-          // TODO: have a toggle to makes choosing a time optional
+          // TODO: build a toggle to makes choosing a time optional
           // dateFormat={showTimeInput ? 'MMMM d, yyyy h:mm aa' : 'MMMM d, yyyy'}
           // showTimeInput={showTimeInput}
           // customInput={<CustomInput />}

@@ -5,6 +5,7 @@ export default function ProjectDashboard({
   handleProjectDelete,
   handleAddList,
   handleAddTask,
+  handleUpdateTaskAttributes,
   projectIndex,
   projectObj,
 }) {
@@ -12,7 +13,6 @@ export default function ProjectDashboard({
   const [query, setQuery] = useState('');
   const listsArray = projectObj.lists;
   const projectName = projectObj.name;
-  const projectId = projectObj.id;
 
   // updates inputValue to be user inputed value everytime a change is detected
   const handleChange = (e) => {
@@ -80,6 +80,7 @@ export default function ProjectDashboard({
                 key={list.id}
                 listObj={list}
                 handleAddTask={handleAddTask}
+                handleUpdateTaskAttributes={handleUpdateTaskAttributes}
                 projectIndex={projectIndex}
                 listIndex={index}
               />
