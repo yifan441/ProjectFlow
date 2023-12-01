@@ -33,6 +33,24 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+//Define Password Validity Function
+function isPasswordValid(password) {
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasDigit = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password);
+  const isValid =
+    password.length >= minLength &&
+    hasUpperCase &&
+    hasLowerCase &&
+    hasDigit &&
+    hasSpecialChar;
+
+  return isValid
+};
+//End definition - delete comments on merge
+
 app.post('/register', async (req, res) => {
     const {name, email, password} = req.body;
     try {
@@ -42,7 +60,15 @@ app.post('/register', async (req, res) => {
     
         if (existingUser) {
           res.status(409).json({ message: 'User already exists'});
-        } else {
+        } 
+        
+        //Password invalidity logged to console
+        else if (!isPasswordValid(password)){
+          res.status(403).json({message: 'Invalid password. Please meet the specified requirements.'});
+        }
+        //End definition - delete comments on merge
+
+        else {
           const hashedPassword = await bcrypt.hash(password, 10);
           const emptyDashboard = "[]"
           const newUser = await RegisterModel.create({
