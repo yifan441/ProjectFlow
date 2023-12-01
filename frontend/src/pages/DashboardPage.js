@@ -193,15 +193,10 @@ export default function Dashboard() {
   }
 
   // adds a task
-  function handleAddTask(newTaskObj, projectId, listId) {
+  function handleAddTask(newTaskObj, projectIndex, listIndex) {
     const newProjectsData = [...projects];
-    const projectIndex = getProjectIndex(newProjectsData, projectId);
-    const listIndex = getListIndex(newProjectsData, projectId, listId);
-    if (listIndex !== -1) {
-      // check is probably unnecessary
-      newProjectsData[projectIndex].lists[listIndex].tasks.push(newTaskObj);
-      setProjects(newProjectsData);
-    }
+    newProjectsData[projectIndex].lists[listIndex].tasks.push(newTaskObj);
+    setProjects(newProjectsData);
   }
 
   return (
@@ -232,15 +227,4 @@ export default function Dashboard() {
       </div>
     </div>
   );
-
-  // Utility Functions
-
-  function getProjectIndex(projectsArray, projectId) {
-    return projectsArray.findIndex((project) => project.id === projectId);
-  }
-
-  function getListIndex(projectsArray, projectId, listId) {
-    const projectIndex = projectsArray.findIndex((project) => project.id === projectId);
-    return projectsArray[projectIndex].lists.findIndex((list) => list.id === listId);
-  }
 }
