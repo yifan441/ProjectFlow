@@ -48,6 +48,37 @@ export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
   // TODO VIK: get projects data from backend when Dashboard loads for the very first time only
+  
+  useEffect(() => {
+    const fetchUserDashboard = async () => {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+          console.log('User is not logged in');
+          return;
+        }
+
+        const response = await axios.get('http://localhost:3001/user/dashboard', {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("retrieved dashboard");
+          setProjects(response.data.dashboard);
+        } else {
+          console.error('Error fetching user dashboard:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user dashboard:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserDashboard();
+  }, [navigate]);
+
   useEffect(() => {
     async function updateBackend() {
       try {
@@ -81,42 +112,9 @@ export default function Dashboard() {
     updateBackend();
   }, [projects, navigate]);
 
-
-  useEffect(() => {
-    const fetchUserDashboard = async () => {
-      try {
-        const authToken = localStorage.getItem('authToken');
-        if (!authToken) {
-          console.log('User is not logged in');
-          return;
-        }
-
-        const response = await axios.get('http://localhost:3001/user/dashboard', {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-        if (response.status === 200) {
-          console.log("retrieved dashboard");
-          setProjects(response.data.dashboard);
-        } else {
-          console.error('Error fetching user dashboard:', response.data.message);
-        }
-      } catch (error) {
-        console.error('Error fetching user dashboard:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserDashboard();
-  }, [navigate]);
-
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  
 
     // Logout function
     const handleLogout = () => {
