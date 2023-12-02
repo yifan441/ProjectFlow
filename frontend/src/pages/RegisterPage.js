@@ -22,6 +22,9 @@ function RegisterPage() {
           validateStatus:(status) => status >= 200 && status < 500,
         });
         if (response.status === 201) {
+          const { token, user } = response.data;
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('userData', JSON.stringify(user));
           navigate('/dashboard');
         } else if (response.status === 409) {
           console.log(response.data.message);
