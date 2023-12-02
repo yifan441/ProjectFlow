@@ -77,7 +77,11 @@ app.post('/register', async (req, res) => {
             password: hashedPassword,
             userDashboard: emptyDashboard,
           });
-          res.status(201).json({ message: 'Account Created', user: newUser });
+          const token = await jwt.sign({ email: newUser.email }, secretKey, {
+            expiresIn: '1h', // Token expires in 1 hour, adjust as needed
+          });
+          res.status(201).json({ message: 'Account Created', token, user: newUser });
+
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
