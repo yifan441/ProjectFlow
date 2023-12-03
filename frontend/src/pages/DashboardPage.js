@@ -164,8 +164,7 @@ export default function Dashboard() {
         const newSelectedProj = { ...projects[newIndex] };
         setSelectedProject({ id: id, obj: newSelectedProj, index: newIndex });
       }
-    }
-    else if (id === selectedProject.id){
+    } else if (id === selectedProject.id) {
       document.dispatchEvent(new CustomEvent('renameFlag'));
     }
   }
@@ -214,7 +213,7 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
-  function handleRenameProject(newName, projectId){
+  function handleRenameProject(newName, projectId) {
     const newProjectsData = [...projects];
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
     newProjectsData[projectIndex].name = newName;
@@ -230,6 +229,7 @@ export default function Dashboard() {
           projects={projects}
           handleProjectAdd={handleProjectAdd}
           handleRenameProject={handleRenameProject}
+          handleProjectDelete={handleProjectDelete}
         />
         <button onClick={handleLogout} className="logout-button">
           Logout
@@ -240,7 +240,6 @@ export default function Dashboard() {
           <Home projectsData={projects} />
         ) : (
           <ProjectDashboard
-            handleProjectDelete={handleProjectDelete}
             handleAddList={handleAddList}
             handleAddTask={handleAddTask}
             handleUpdateTaskAttributes={handleUpdateTaskAttributes}
