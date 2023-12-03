@@ -1,0 +1,32 @@
+/* Project Navigation Panel */
+
+.active-project {
+  background-color: #d3d3d3;
+  font-weight: bold;
+}
+
+.project-list-item:hover,
+.home:hover {
+  background-color: #d3d3d3;
+}
+
+.navbar-more-actions-div {
+}
+
+.navbar-more-actions-svg {
+}
+
+.navbar-dropdown-menu {
+  position: absolute;
+  z-index: 100;
+  background: white;
+}
+
+.navbar-dropdown-menu li {
+  font-weight: normal;
+}
+
+.navbar-dropdown-menu li:hover {
+  background: rgb(205, 202, 202);
+  font-weight: bold;
+}

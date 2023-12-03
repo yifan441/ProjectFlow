@@ -2,7 +2,6 @@ import { useState } from 'react';
 import List from './List';
 
 export default function ProjectDashboard({
-  handleProjectDelete,
   handleAddList,
   handleAddTask,
   handleUpdateTaskAttributes,
@@ -47,7 +46,6 @@ export default function ProjectDashboard({
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
-          <button onClick={handleProjectDelete}> delete project</button>
           <div>
             Search:
             <input
