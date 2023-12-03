@@ -7,6 +7,8 @@ export default function List({
   projectIndex,
   listIndex,
   handleUpdateTaskAttributes,
+  handleListDelete,
+  handleTaskDelete,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
@@ -49,11 +51,40 @@ export default function List({
     handleUpdateTaskAttributes(attributeType, newValue, projectIndex, listIndex, taskIndex);
   }
 
+  function handleTaskDeleteAux(taskIndex) {
+    handleTaskDelete(projectIndex, listIndex, taskIndex);
+  }
+
   return (
     <>
       <div className="list-div">
         <div className="list-header">
-          <h3 className="list-title">{listObj.name}</h3>
+          <div className="list-title-div">
+            <h3 className="list-title" style={{ display: 'inline-block' }}>
+              {listObj.name}
+            </h3>
+            <div className="list-delete-btn-div" style={{ display: 'inline-block' }}>
+              <svg
+                onClick={() => {
+                  handleListDelete(projectIndex, listIndex);
+                }}
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-trash"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </div>
+          </div>
+
           <span className="task-count">{getTaskCompletion(listObj)}</span>
         </div>
         <div className="list-body">
@@ -71,6 +102,7 @@ export default function List({
                 attributes={task.attributes}
                 taskIndex={index}
                 updateTaskAttributes={updateTaskAttributes}
+                handleTaskDeleteAux={handleTaskDeleteAux}
               />
             ))}
           </div>

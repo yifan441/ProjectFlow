@@ -7,6 +7,8 @@ export default function ProjectDashboard({
   handleUpdateTaskAttributes,
   projectIndex,
   projectObj,
+  handleListDelete,
+  handleTaskDelete,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
   const [query, setQuery] = useState('');
@@ -80,7 +82,11 @@ export default function ProjectDashboard({
                 handleAddTask={handleAddTask}
                 handleUpdateTaskAttributes={handleUpdateTaskAttributes}
                 projectIndex={projectIndex}
-                listIndex={index}
+                listIndex={
+                  listsArray.indexOf(list) // need to get og index, not index after filtering
+                }
+                handleListDelete={handleListDelete}
+                handleTaskDelete={handleTaskDelete}
               />
             ))
           )}

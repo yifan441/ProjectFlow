@@ -15,7 +15,6 @@ export default function ProjectNavigationPanel({
   const dropDownSvgRef = useRef();
   const dropDownRef = useRef();
 
-  // TODO: doesn't work properly yet
   useEffect(() => {
     const closeDropDown = (e) => {
       if (e.target !== dropDownRef.current && e.target !== dropDownSvgRef.current) {
@@ -78,10 +77,10 @@ export default function ProjectNavigationPanel({
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-chevron-right"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-chevron-right"
                 >
                   <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
@@ -100,9 +99,9 @@ export default function ProjectNavigationPanel({
                     height="16"
                     fill="none"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
                   >
                     <circle cx="2.5" cy="8" r=".75" /> <circle cx="8" cy="8" r=".75" />
                     <circle cx="13.5" cy="8" r=".75" />
