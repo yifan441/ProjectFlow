@@ -177,6 +177,20 @@ export default function Dashboard() {
     // TODO: add a window.alert('are you sure you want to delete the project?') security feature --> maybe type project name to delete
   }
 
+  // deletes a list
+  function handleListDelete(projectIndex, listIndex) {
+    const newProjects = [...projects];
+    newProjects[projectIndex].lists.splice(listIndex, 1);
+    setProjects(newProjects);
+  }
+
+  // deletes a task
+  function handleTaskDelete(projectIndex, listIndex, taskIndex) {
+    const newProjects = [...projects];
+    newProjects[projectIndex].lists[listIndex].tasks.splice(taskIndex, 1);
+    setProjects(newProjects);
+  }
+
   // adds a project
   function handleProjectAdd(newProjectObj) {
     setProjects([...projects, newProjectObj]); // TODO rewatch useState gotcha video, might have to use (prev) => {return [...prev, newProjectObj]}
@@ -198,6 +212,7 @@ export default function Dashboard() {
 
   // updates task attributes
   function handleUpdateTaskAttributes(attributeType, newValue, projectIndex, listIndex, taskIndex) {
+    console.log(`projectIndex: ${projectIndex}, listIndex: ${listIndex}, taskIndex: ${taskIndex}`);
     const newProjectsData = [...projects];
     if (attributeType === 'complete') {
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].attributes.complete =
@@ -213,6 +228,7 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
+  // renames a project
   function handleRenameProject(newName, projectId) {
     const newProjectsData = [...projects];
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
@@ -245,6 +261,8 @@ export default function Dashboard() {
             handleUpdateTaskAttributes={handleUpdateTaskAttributes}
             projectIndex={selectedProject.index}
             projectObj={selectedProject.obj}
+            handleListDelete={handleListDelete}
+            handleTaskDelete={handleTaskDelete}
           />
         )}
       </div>
