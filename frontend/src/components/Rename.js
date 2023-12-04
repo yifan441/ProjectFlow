@@ -107,7 +107,7 @@ export function RenameList({
         renameBoxList.style.display = 'none';
         setInputValue('');
     };
-    
+
     let listId = selectedListId;
     document.addEventListener(getUniqueDocId('listRename',listId), handleRenameEvent);
     const uniqueId = getUniqueDocId('renameListBox',listId);
@@ -132,6 +132,79 @@ export function RenameList({
             </form>
         </div>
     );
+}
 
-    //Just need to add buttons and other things.
+export function RenameTask({
+    selectedListId,
+    selectedProjectId,
+    selectedTaskId,
+    handleRenameTask,
+}) {
+    const [inputValue, setInputValue] = useState('');
+
+    //possibly add in some string appender that prints the correct ids
+
+    const getUniqueDocId = (stringVal, intVal) => {
+        const result = stringVal + intVal;
+        return result;
+    }
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    // Updates name of selected project
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (inputValue === '') return;
+        let newName = inputValue;
+        let projectId = selectedProjectId;
+        let listId = selectedListId;
+        let taskId = selectedTaskId;
+        handleRenameTask(newName, projectId, listId, taskId);//edit this to the new function (renamelist)
+        document.removeEventListener(getUniqueDocId('taskRename',taskId), handleRenameEvent)
+        const renameBox = document.getElementById(getUniqueDocId('renameTaskBox',taskId)); //change this to something specific to list
+        renameBox.style.display = 'none';
+        setInputValue('');
+    };
+
+    //Displays renaming feature
+    const handleRenameEvent = () => {
+        let taskId = selectedTaskId;
+        const renameBoxTask = document.getElementById(getUniqueDocId('renameTaskBox',taskId));
+        renameBoxTask.style.display = 'block';
+    };
+
+    const handleCancelButton = () => {
+        let taskId = selectedTaskId;
+        document.removeEventListener(getUniqueDocId('taskRename',taskId), handleRenameEvent);
+        const renameBoxTask = document.getElementById(getUniqueDocId('renameTaskBox',taskId));
+        renameBoxTask.style.display = 'none';
+        setInputValue('');
+    };
+
+    let taskId = selectedTaskId;
+    document.addEventListener(getUniqueDocId('taskRename',taskId), handleRenameEvent);
+    const uniqueId = getUniqueDocId('renameTaskBox',taskId);
+
+
+    return (
+        <div id={uniqueId} style={{ display: 'none' }}>
+            <form action="" className="task-renamer" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={inputValue}
+                    onChange={handleChange}
+                    placeholder="Rename Task"
+                    aria-label="Rename Task"
+                />
+                <button type="submit" className="btn-create" aria-label="Rename selected task">
+                    Confirm
+                </button>
+                <button type="button" onClick={handleCancelButton} className="btn-cancel" aria-label="Cancel rename task">
+                    Cancel
+                </button>
+            </form>
+        </div>
+    );
 }

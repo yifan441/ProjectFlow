@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import List from './List';
-import { RenameList } from './Rename.js'
 
 export default function ProjectDashboard({
   handleAddList,
@@ -12,6 +11,7 @@ export default function ProjectDashboard({
   handleTaskDelete,
   handleRenameList,
   selectedProjectId,
+  handleRenameTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
   const [query, setQuery] = useState('');
@@ -108,6 +108,7 @@ export default function ProjectDashboard({
                 handleRenameList={handleRenameList}
                 selectedProjectId={selectedProjectId}
                 selectedListId={list.id}
+                handleRenameTask={handleRenameTask}
               />
             ))
           )}
