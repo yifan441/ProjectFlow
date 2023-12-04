@@ -164,8 +164,6 @@ export default function Dashboard() {
         const newSelectedProj = { ...projects[newIndex] };
         setSelectedProject({ id: id, obj: newSelectedProj, index: newIndex });
       }
-    } else if (id === selectedProject.id) {
-      document.dispatchEvent(new CustomEvent('renameFlag'));
     }
   }
 
@@ -236,6 +234,14 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
+  function handleRenameList(newName, projectId, listId){
+    const newProjectsData = [...projects];
+    const projectIndex = projects.findIndex((proj) => proj.id === projId);
+    const listIndex = projects[projectIndex].lists.findIndex((list) === list.id === listId);
+    newProjectsData[projectIndex].lists[listIndex].name = newName;
+    setProjects(newProjectsData);
+  }
+
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -263,6 +269,8 @@ export default function Dashboard() {
             projectObj={selectedProject.obj}
             handleListDelete={handleListDelete}
             handleTaskDelete={handleTaskDelete}
+            handleRenameList={handleRenameList}
+            listIndex={selectedProject}
           />
         )}
       </div>
