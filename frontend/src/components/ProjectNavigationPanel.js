@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import RenameProject from './Rename.js';
+import { RenameProject } from './Rename.js';
 import '../styles/ProjectNavigationPanel.css';
 
 export default function ProjectNavigationPanel({
@@ -112,6 +112,7 @@ export default function ProjectNavigationPanel({
                         <li
                           key="rename"
                           onClick={() => {
+                            document.dispatchEvent(new CustomEvent('renameFlag'));
                             setIsDropDownOpen(!isDropdownOpen);
                           }}
                         >

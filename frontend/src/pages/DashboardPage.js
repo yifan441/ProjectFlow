@@ -236,8 +236,8 @@ export default function Dashboard() {
 
   function handleRenameList(newName, projectId, listId){
     const newProjectsData = [...projects];
-    const projectIndex = projects.findIndex((proj) => proj.id === projId);
-    const listIndex = projects[projectIndex].lists.findIndex((list) === list.id === listId);
+    const projectIndex = projects.findIndex((proj) => proj.id === projectId);
+    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId);
     newProjectsData[projectIndex].lists[listIndex].name = newName;
     setProjects(newProjectsData);
   }
@@ -270,7 +270,7 @@ export default function Dashboard() {
             handleListDelete={handleListDelete}
             handleTaskDelete={handleTaskDelete}
             handleRenameList={handleRenameList}
-            listIndex={selectedProject}
+            selectedProjectId={selectedProject.id}
           />
         )}
       </div>

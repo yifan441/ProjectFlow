@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { RenameList } from './Rename';
 import Task from './Task';
 
 export default function List({
@@ -9,6 +10,9 @@ export default function List({
   handleUpdateTaskAttributes,
   handleListDelete,
   handleTaskDelete,
+  handleRenameList,
+  selectedProjectId,
+  selectedListId,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
@@ -55,6 +59,11 @@ export default function List({
     handleTaskDelete(projectIndex, listIndex, taskIndex);
   }
 
+  const handleRenameButton = () => {
+    const uniqueEvent = 'listRename' + selectedListId;
+    document.dispatchEvent(new CustomEvent(uniqueEvent));
+  }
+
   return (
     <>
       <div className="list-div">
@@ -63,6 +72,9 @@ export default function List({
             <h3 className="list-title" style={{ display: 'inline-block' }}>
               {listObj.name}
             </h3>
+            <button type="button" onClick={handleRenameButton} className="btn-rename-list" aria-label="Rename List">
+              Rename
+            </button>
             <div className="list-delete-btn-div" style={{ display: 'inline-block' }}>
               <svg
                 onClick={() => {
@@ -83,8 +95,11 @@ export default function List({
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>
             </div>
+            <RenameList
+              handleRenameList={handleRenameList}
+              selectedProjectId={selectedProjectId}
+              selectedListId={selectedListId} />
           </div>
-
           <span className="task-count">{getTaskCompletion(listObj)}</span>
         </div>
         <div className="list-body">

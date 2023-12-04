@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import List from './List';
-import { RenameLists } from './Rename.js'
+import { RenameList } from './Rename.js'
 
 export default function ProjectDashboard({
   handleAddList,
@@ -105,6 +105,9 @@ export default function ProjectDashboard({
                 }
                 handleListDelete={handleListDelete}
                 handleTaskDelete={handleTaskDelete}
+                handleRenameList={handleRenameList}
+                selectedProjectId={selectedProjectId}
+                selectedListId={list.id}
               />
             ))
           )}
