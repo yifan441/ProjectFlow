@@ -6,12 +6,15 @@ const app = express()
 const bcrypt = require ('bcryptjs')
 const jwt = require ('jsonwebtoken')
 const fs = require ('fs')
+const axios = require ('axios')
 
 app.use(cors())
 app.use(express.json())
 
 mongoose.connect('mongodb://127.0.0.1:27017/test');
-
+ 
+//TODO : ENCRYPT API KEY & KEY FOR LOCAL STORAGE (FOR SAFETY)
+OPENAI_API_KEY="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"
 const secretJson = fs.readFileSync('secret.json', 'utf8');
 const secretObject = JSON.parse(secretJson);
 const secretKey = secretObject.secretKey;
@@ -87,6 +90,41 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
       }
 });
+
+app.post ('/autoProject', async (req, res) => {
+  const { pdfText } = req.body; // Assuming the input is sent in the request body
+  const passagePrompt = pdfText;
+
+  const client = axios.create({
+    headers: {
+      Authorization: 'Bearer ' + OPENAI_API_KEY,
+    },
+  });
+
+  const query = "From this project spec, please extract the project title, three overarching tasks, and 2-3 subtasks \
+  for each of these tasks needed to complete the project. Return this information in \
+  JSON string format where each project has a name (variable: name) and list of tasks (variable: lists), and each task \
+  has a name (variable: name) and list of subtasks (variable: tasks), which also have a name (variable: name). Dont put \
+  quotes around the variable names.";
+
+  const params = {
+    prompt: passagePrompt + '\n' + '"""' + '\n' + query,
+    model: 'text-davinci-003',
+    max_tokens: 1000,
+    temperature: 0,
+  };
+
+  try {
+    const result = await client.post('https://api.openai.com/v1/completions', params);
+    res.status(200).json({ message: 'Success', result: result.data.choices[0].text });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+
+
+});
+
 
 // Login endpoint
 app.post('/login', async (req, res) => {
