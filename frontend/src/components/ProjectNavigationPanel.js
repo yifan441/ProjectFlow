@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import RenameProject from './Rename.js';
 import '../styles/ProjectNavigationPanel.css';
+import { readPDFFile } from './readPDFFile.js';
+import axios from 'axios';
+const { addIdToJsonString } = require('./jsonUtils');
+
 
 export default function ProjectNavigationPanel({
   selectedProjectId,
@@ -27,10 +31,17 @@ export default function ProjectNavigationPanel({
       document.removeEventListener('click', closeDropDown);
     };
   });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [showFileInput, setShowFileInput] = useState(false);
 
   // updates inputValue to be user inputed value everytime a change is detected
   const handleChange = (e) => {
     setInputValue(e.target.value);
+  };
+  
+  //updates the selected file if user clicks pdf file button multiple times
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
 
   // creates a new project object and adds it to list of projects
@@ -40,6 +51,37 @@ export default function ProjectNavigationPanel({
     let newProjectObj = createProject(inputValue);
     handleProjectAdd(newProjectObj); // calls parent function
     setInputValue('');
+  };
+
+
+  const handleFileSubmit = async (file) => {
+    try {
+        const pdfText = await readPDFFile(file);
+        try {
+          const response = await axios.post('http://localhost:3001/autoProject', { pdfText });
+          console.log(response.data.result);
+          const pdfData = addIdToJsonString (response.data.result);
+          console.log((JSON.stringify(pdfData)));
+          handleProjectAdd(pdfData);
+        } catch (error) {
+          console.log("Error with OpenAI Request.", error.message);
+        }
+    } catch (error) {
+        console.error('Error reading PDF File:', error.message);
+    }
+  }
+
+  // calls built-in file submit handling - will put parsing/other methods in this function.]
+  const handleFileSubmitInternal = (e) => {
+    e.preventDefault();
+    if (selectedFile) {
+      handleFileSubmit(selectedFile);
+      setSelectedFile(null);
+    }
+  };
+
+  const toggleFileInput = () => {
+    setShowFileInput(!showFileInput);
   };
 
   // creates and returns a new project object
@@ -149,6 +191,26 @@ export default function ProjectNavigationPanel({
           <button type="submit" className="btn-create" aria-label="create new project">
             +
           </button>
+          <button onClick={toggleFileInput} className="btn-create-pdf" aria-label="create project from PDF">
+            Create Project from PDF
+          </button>
+          {showFileInput && (
+            <>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                accept=".pdf"
+                aria-label="Select PDF file"
+              />
+              <button
+                onClick={handleFileSubmitInternal}
+                className="btn-submit-pdf"
+                aria-label="submit PDF"
+              >
+                Submit PDF
+              </button>
+            </>
+          )}
         </form>
       </div>
     </>
