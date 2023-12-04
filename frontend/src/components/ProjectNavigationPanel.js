@@ -59,9 +59,7 @@ export default function ProjectNavigationPanel({
         const pdfText = await readPDFFile(file);
         try {
           const response = await axios.post('http://localhost:3001/autoProject', { pdfText });
-          console.log(response.data.result);
           const pdfData = addIdToJsonString (response.data.result);
-          console.log((JSON.stringify(pdfData)));
           handleProjectAdd(pdfData);
         } catch (error) {
           console.log("Error with OpenAI Request.", error.message);
