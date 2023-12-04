@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import RenameProject from './Rename.js';
+import { RenameProject } from './Rename.js';
 import '../styles/ProjectNavigationPanel.css';
 import { readPDFFile } from './readPDFFile.js';
 import axios from 'axios';
@@ -154,6 +154,7 @@ export default function ProjectNavigationPanel({
                         <li
                           key="rename"
                           onClick={() => {
+                            document.dispatchEvent(new CustomEvent('renameFlag'));
                             setIsDropDownOpen(!isDropdownOpen);
                           }}
                         >
