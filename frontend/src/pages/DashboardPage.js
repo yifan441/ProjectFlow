@@ -89,6 +89,9 @@ export default function Dashboard() {
         });
         if (response.status === 200) {
           console.log('retrieved dashboard');
+          const userName = response.data.name;
+          // HERE IS UR USERNAME
+          console.log(userName);
           setProjects(response.data.dashboard);
         } else {
           console.error('Error fetching user dashboard:', response.data.message);

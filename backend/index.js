@@ -170,7 +170,8 @@ app.get('/user/dashboard', verifyToken, async (req, res) => {
     }
 
     const dashboardData = JSON.parse(user.userDashboard)
-    res.status(200).json({ dashboard: dashboardData });
+    console.log(user.name);
+    res.status(200).json({ dashboard: dashboardData, name:user.name });
 
   } catch (error) {
     console.error('Error fetching user dashboard:', error);
