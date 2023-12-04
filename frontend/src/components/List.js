@@ -13,6 +13,7 @@ export default function List({
   handleRenameList,
   selectedProjectId,
   selectedListId,
+  handleRenameTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
@@ -118,6 +119,10 @@ export default function List({
                 taskIndex={index}
                 updateTaskAttributes={updateTaskAttributes}
                 handleTaskDeleteAux={handleTaskDeleteAux}
+                selectedProjectId={selectedProjectId}
+                selectedListId={selectedListId}
+                selectedTaskId={task.id}
+                handleRenameTask={handleRenameTask}
               />
             ))}
           </div>

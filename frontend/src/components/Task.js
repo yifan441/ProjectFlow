@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { RenameTask } from './Rename'
 
 export default function Task({
   name,
@@ -9,6 +10,10 @@ export default function Task({
   taskIndex,
   updateTaskAttributes,
   handleTaskDeleteAux,
+  handleRenameTask,
+  selectedProjectId,
+  selectedListId,
+  selectedTaskId,
 }) {
   const parsedDueDate = attributes.dueDate !== null ? new Date(attributes.dueDate) : null;
   const [isChecked, setIsChecked] = useState(attributes.complete);
@@ -64,6 +69,11 @@ export default function Task({
   //   </div>
   // );
 
+  const handleRenameButton = () => {
+    const uniqueEvent = 'taskRename' + selectedTaskId;
+    document.dispatchEvent(new CustomEvent(uniqueEvent));
+  }
+
   return (
     <>
       <div className="task">
@@ -73,6 +83,9 @@ export default function Task({
             <span className="custom-checkbox"></span>
             {name}
           </label>
+          <button type="button" onClick={handleRenameButton} className="btn-rename-list" aria-label="Rename List">
+            Rename
+          </button>
         </div>
 
         {/* Dropdown menu for task priority */}
@@ -98,10 +111,10 @@ export default function Task({
             timeFormat="HH:mm"
             isClearable
 
-            // TODO: build a toggle to makes choosing a time optional
-            // dateFormat={showTimeInput ? 'MMMM d, yyyy h:mm aa' : 'MMMM d, yyyy'}
-            // showTimeInput={showTimeInput}
-            // customInput={<CustomInput />}
+          // TODO: build a toggle to makes choosing a time optional
+          // dateFormat={showTimeInput ? 'MMMM d, yyyy h:mm aa' : 'MMMM d, yyyy'}
+          // showTimeInput={showTimeInput}
+          // customInput={<CustomInput />}
           />
         </div>
         <div className="task-delete-btn-div" style={{ display: 'inline-block' }}>
@@ -124,6 +137,12 @@ export default function Task({
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
           </svg>
         </div>
+        <RenameTask
+          selectedProjectId={selectedProjectId}
+          selectedListId={selectedListId}
+          selectedTaskId={selectedTaskId}
+          handleRenameTask={handleRenameTask}
+        />
       </div>
     </>
   );
