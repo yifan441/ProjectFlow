@@ -1,42 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
 export default function Calendar({ projectsData }) {
+  const [selectedPriority, setSelectedPriority] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredEvents, setFilteredEvents] = useState([]);
+
   const transformDataToEvents = () => {
     let events = [];
     projectsData.forEach((project) => {
       project.lists.forEach((list) => {
         list.tasks.forEach((task) => {
           if (task.attributes.dueDate) {
-            let priorityColor = '';
-            switch (task.attributes.priority) {
-              case 'high':
-                priorityColor = 'red';
-                break;
-              case 'medium':
-                priorityColor = 'orange';
-                break;
-              case 'low':
-                priorityColor = 'green';
-                break;
-              default:
-                priorityColor = 'blue';
-                break;
-            }
-
             const event = {
+              id: task.id,
               title: task.name,
               start: new Date(task.attributes.dueDate),
               end: new Date(task.attributes.dueDate),
-              priority: task.attributes.priority,
-              backgroundColor: priorityColor, // Change 'color' to 'backgroundColor'
               project: project.name,
               list: list.name,
-              task: task.name,
+              task: task,
+              priority: task.attributes.priority,
             };
             events.push(event);
           }
@@ -48,26 +36,92 @@ export default function Calendar({ projectsData }) {
 
   const events = transformDataToEvents();
 
-  const handleEventClick = (event) => {
-    const { project, list, task } = event;
-    alert(`Project: ${project}\nList: ${list}\nTask: ${task}`);
+  const eventStyleGetter = (event, start, end, isSelected) => {
+    let priorityColor = '';
+    switch (event.priority) {
+      case 'high':
+        priorityColor = 'red';
+        break;
+      case 'medium':
+        priorityColor = 'orange';
+        break;
+      case 'low':
+        priorityColor = 'green';
+        break;
+      default:
+        priorityColor = 'blue';
+        break;
+    }
+
+    const style = {
+      backgroundColor: priorityColor,
+    };
+    return {
+      style: style,
+    };
   };
+
+  const handleEventClick = (event) => {
+    console.log('Clicked event:', event);
+  };
+
+  const handlePriorityChange = (selectedPriority) => {
+    setSelectedPriority(selectedPriority);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  useEffect(() => {
+    if (searchQuery.trim() !== '') {
+      const filtered = events.filter(
+        (event) =>
+          event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          event.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          event.list.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredEvents(filtered);
+    } else {
+      setFilteredEvents(events);
+    }
+  }, [searchQuery, events]);
 
   return (
     <div className="calendar-page-container">
       <h1>Calendar</h1>
+      <div style={{ marginBottom: '20px' }}>
+        <label>
+          Filter by Priority:{' '}
+          <select
+            value={selectedPriority}
+            onChange={(e) => handlePriorityChange(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </label>
+      </div>
+      <div style={{ marginBottom: '20px' }}>
+        <label>
+          Search Tasks:
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+        </label>
+      </div>
       <div style={{ height: 500 }}>
         <BigCalendar
           localizer={localizer}
-          events={events}
+          events={searchQuery.trim() !== '' ? filteredEvents : events}
           startAccessor="start"
           endAccessor="end"
           style={{ height: '100%' }}
-          eventPropGetter={(event) => ({
-            style: {
-              backgroundColor: event.backgroundColor, // Apply backgroundColor
-            },
-          })}
+          eventPropGetter={eventStyleGetter}
           onSelectEvent={handleEventClick}
         />
       </div>
