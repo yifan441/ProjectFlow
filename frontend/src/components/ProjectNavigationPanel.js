@@ -4,6 +4,7 @@ import '../styles/ProjectNavigationPanel.css';
 import { readPDFFile } from './readPDFFile.js';
 import axios from 'axios';
 import { ReorderProject } from '../components/Reorder';
+import { DisplayLoadEvent } from './userMessages';
 const { addIdToJsonString } = require('./jsonUtils');
 
 
@@ -41,6 +42,12 @@ export default function ProjectNavigationPanel({
     setInputValue(e.target.value);
   };
 
+  const handleRemoveLoadEvent = () => {
+    console.log("handleRemoveCalled");
+    const loadMessage = document.getElementById('loadingPDF');
+    loadMessage.style.display = 'none';
+  };
+
   //updates the selected file if user clicks pdf file button multiple times
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -55,8 +62,10 @@ export default function ProjectNavigationPanel({
     setInputValue('');
   };
 
-
   const handleFileSubmit = async (file) => {
+    //Trying to display loading messages when loading PDF but this code isn't executed"
+    console.log("dispatching beginLoadingPDF");
+    document.dispatchEvent(new CustomEvent('beginLoadingPDF'));
     try {
       const pdfText = await readPDFFile(file);
       try {
@@ -65,6 +74,7 @@ export default function ProjectNavigationPanel({
         const pdfData = addIdToJsonString(response.data.result);
         // console.log((JSON.stringify(pdfData)));
         handleProjectAdd(pdfData);
+        handleRemoveLoadEvent();
       } catch (error) {
         console.log("Error with OpenAI Request.", error.message);
       }
@@ -173,20 +183,20 @@ export default function ProjectNavigationPanel({
                         </li>
                         {/* Implementation of UP/DOWN reordering for projects*/}
                         <li key="move-up">
-                          <button 
-                          key = "up"
-                          style={{ fontSize: '8px' }} 
-                          onClick={() => {
-                            handleMoveProject(1);
+                          <button
+                            key="up"
+                            style={{ fontSize: '8px' }}
+                            onClick={() => {
+                              handleMoveProject(1);
                             }}>
                             &#9650; {/*Unicode for up arrow*/}
                           </button>
                         </li>
                         <li key="move-down">
-                        <button style={{ fontSize: '8px' }} 
-                        onClick={() => {
-                          handleMoveProject(0);
-                          }}>
+                          <button style={{ fontSize: '8px' }}
+                            onClick={() => {
+                              handleMoveProject(0);
+                            }}>
                             &#9660; {/*Unicode for down arrow*/}
                           </button>
                         </li>
@@ -231,9 +241,11 @@ export default function ProjectNavigationPanel({
               >
                 Submit PDF
               </button>
+              
             </>
           )}
         </form>
+        <DisplayLoadEvent />
       </div>
     </>
   );

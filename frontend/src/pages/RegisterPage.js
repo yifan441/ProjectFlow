@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PasswordSuitability from '../components/PasswordSuitability';
+import { UserAlreadyExists } from '../components/userMessages';
 
 function RegisterPage() {
   const [name, setName] = useState();
@@ -13,6 +14,10 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const resetExistErrors = document.getElementById('userExists');
+    resetExistErrors.style.display = 'none';
+    const resetPwdErrors = document.getElementById('passwordMessage');
+    resetPwdErrors.style.display = 'none';
       try {
         const response = await axios.post('http://localhost:3001/register', {
           name,
@@ -27,7 +32,9 @@ function RegisterPage() {
           localStorage.setItem('userData', JSON.stringify(user));
           navigate('/dashboard');
         } else if (response.status === 409) {
+          //User already exists
           console.log(response.data.message);
+          document.dispatchEvent(new CustomEvent('existingUser'));
         } 
 
         //code error for invalid password input
@@ -80,8 +87,11 @@ function RegisterPage() {
               autoComplete="off"
               name="email"
               className="form-control rounded-0"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
+          </div>
+          <div className="user-exist-error">
+            <UserAlreadyExists />
           </div>
           <div className="mb-3">
             <label htmlFor="email">
@@ -95,7 +105,9 @@ function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="invalid-password">
           <PasswordSuitability />
+          </div>
           <div className="mb-3">
             <label htmlFor="pwd_requirments" style={{ fontSize: '10px', opacity: '0.7', fontWeight: 'normal' }}>
               Password of at least 8 characters with:<br /> 1 Uppercase Character<br /> 1 Lowercase Character<br /> 1 Special Character
