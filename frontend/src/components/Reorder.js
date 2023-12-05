@@ -1,24 +1,23 @@
 import React from 'react';
 
-export function ReorderProject({
+export function Reorder({
     selectedProjectId,
     handleMoveProject,
 }) {
 
-    const thisId = selectedProjectId;
-
     return (
         <div>
-            <button style={{fontSize: '8px'}}  onClick={() => handleMoveProject(thisId, 1)}>
+            <button style={{fontSize: '8px'}}  onClick={() => handleMoveProject(1)}>
                 &#9650; {/*Unicode for up arrow*/}
             </button>
-            <button style={{fontSize: '8px'}} onClick={() => handleMoveProject(thisId, 0)}>
+            <button style={{fontSize: '8px'}} onClick={() => handleMoveProject(0)}>
                 &#9660; {/*Unicode for down arrow*/}
             </button>
         </div>
     )
 }
 
+// For creating a deep copy of the "projects" array
 export function deepCopyArray(arr) {
     return arr.map(item => {
       if (Array.isArray(item)) {
@@ -50,24 +49,3 @@ export function deepCopyArray(arr) {
     }
     return copiedObject;
   }
-
- export const deepCopyProject = (inputObject) => {
-    if (typeof inputObject !== 'object' || inputObject === null) {
-      // Base case: return primitive values directly
-      return inputObject;
-    }
-
-    if (Array.isArray(inputObject)) {
-      // If it's an array, recursively copy each element
-      return inputObject.map((item) => deepCopyProject(item));
-    }
-
-    // If it's an object, recursively copy each property
-    const copiedObject = {};
-    for (const key in inputObject) {
-      if (Object.prototype.hasOwnProperty.call(inputObject, key)) {
-        copiedObject[key] = deepCopyProject(inputObject[key]);
-      }
-    }
-    return copiedObject;
-  };

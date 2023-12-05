@@ -171,6 +171,7 @@ export default function ProjectNavigationPanel({
                         >
                           Delete Project
                         </li>
+                        {/* Implementation of UP/DOWN reordering for projects*/}
                         <li key="move-up">
                           <button 
                           key = "up"
