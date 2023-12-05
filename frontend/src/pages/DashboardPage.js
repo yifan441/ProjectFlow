@@ -79,6 +79,7 @@ export default function Dashboard() {
         const authToken = localStorage.getItem('authToken');
         if (!authToken) {
           console.log('User is not logged in');
+          navigate('/');
           return;
         }
 
@@ -113,6 +114,7 @@ export default function Dashboard() {
         const authToken = localStorage.getItem('authToken');
         if (!authToken) {
           console.log('User is not logged in');
+          navigate('/');
           return;
         }
         const copy = projects;
@@ -136,6 +138,10 @@ export default function Dashboard() {
           // Optionally, you can handle success if needed
         } else {
           console.error('Error updating user dashboard:', response.data.message);
+          if (localStorage.getItem('authToken')) {
+            handleLogout();
+          }
+          else { navigate ('/'); }
         }
       } catch (error) {
         console.error('Error updating user dashboard:', error);

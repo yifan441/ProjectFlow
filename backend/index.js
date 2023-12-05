@@ -205,24 +205,3 @@ app.post('/user/updateDashboard', verifyToken, async (req, res) => {
 app.listen(3001, () => {
     console.log("Server is running")
 })
-
-app.post('/user/updateDashboard', verifyToken, async (req, res) => {
-  const userEmail = req.user.email; 
-  const updatedProjectData = req.body.updatedProjectData;
-
-  try {
-    const user = await RegisterModel.findOne({email : userEmail});
-
-    if (!user) {
-      return res.status(404).json({message: "User not found"});
-    }
-  user.userDashboard = updatedProjectData;
-  await user.save();
-  
-  res.status(200).json({message: 'User dashboard updated successfully'});
-  } catch (error) {
-    console.error('Error updating user dashboard:', error);
-    res.status(500).json({message: 'Internal server error'});
-  }
-
-});
