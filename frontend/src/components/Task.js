@@ -14,6 +14,7 @@ export default function Task({
   selectedProjectId,
   selectedListId,
   selectedTaskId,
+  handleMoveTask,
 }) {
   const parsedDueDate = attributes.dueDate !== null ? new Date(attributes.dueDate) : null;
   const [isChecked, setIsChecked] = useState(attributes.complete);
@@ -83,9 +84,27 @@ export default function Task({
             <span className="custom-checkbox"></span>
             {name}
           </label>
-          <button type="button" onClick={handleRenameButton} className="btn-rename-list" aria-label="Rename List">
-            Rename
-          </button>
+          <div className="task-reorder" style={{ display: 'inline-block' }}>
+              <button
+                key="up"
+                style={{ fontSize: '8px' }}
+                onClick={() => {
+                  handleMoveTask(1, selectedProjectId, selectedListId, selectedTaskId);
+                }}>
+                &#9650; {/*Unicode for up arrow*/}
+              </button>
+              <button style={{ fontSize: '8px' }}
+                onClick={() => {
+                  handleMoveTask(0, selectedProjectId, selectedListId, selectedTaskId);
+                }}>
+                &#9660; {/*Unicode for down arrow*/}
+              </button>
+            </div>
+            <div className="rename-button" style={{ display: 'inline-block' }}>
+              <button type="button" onClick={handleRenameButton} className="btn-rename-task" aria-label="Rename Task">
+                Rename
+              </button>
+              </div>
         </div>
 
         {/* Dropdown menu for task priority */}

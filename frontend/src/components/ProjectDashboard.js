@@ -12,6 +12,8 @@ export default function ProjectDashboard({
   handleRenameList,
   selectedProjectId,
   handleRenameTask,
+  handleMoveList,
+  handleMoveTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
   const [query, setQuery] = useState('');
@@ -109,6 +111,8 @@ export default function ProjectDashboard({
                 selectedProjectId={selectedProjectId}
                 selectedListId={list.id}
                 handleRenameTask={handleRenameTask}
+                handleMoveList={handleMoveList}
+                handleMoveTask={handleMoveTask}
               />
             ))
           )}

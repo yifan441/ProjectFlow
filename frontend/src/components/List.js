@@ -14,6 +14,8 @@ export default function List({
   selectedProjectId,
   selectedListId,
   handleRenameTask,
+  handleMoveList,
+  handleMoveTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
 
@@ -73,9 +75,27 @@ export default function List({
             <h3 className="list-title" style={{ display: 'inline-block' }}>
               {listObj.name}
             </h3>
-            <button type="button" onClick={handleRenameButton} className="btn-rename-list" aria-label="Rename List">
-              Rename
-            </button>
+            <div className="list-reorder" style={{ display: 'inline-block' }}>
+              <button
+                key="up"
+                style={{ fontSize: '8px' }}
+                onClick={() => {
+                  handleMoveList(1, selectedProjectId, selectedListId);
+                }}>
+                &#9650; {/*Unicode for up arrow*/}
+              </button>
+              <button style={{ fontSize: '8px' }}
+                onClick={() => {
+                  handleMoveList(0, selectedProjectId, selectedListId);
+                }}>
+                &#9660; {/*Unicode for down arrow*/}
+              </button>
+            </div>
+            <div className="rename-button" style={{ display: 'inline-block' }}>
+              <button type="button" onClick={handleRenameButton} className="btn-rename-list" aria-label="Rename List">
+                Rename
+              </button>
+            </div>
             <div className="list-delete-btn-div" style={{ display: 'inline-block' }}>
               <svg
                 onClick={() => {
@@ -96,10 +116,12 @@ export default function List({
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>
             </div>
-            <RenameList
-              handleRenameList={handleRenameList}
-              selectedProjectId={selectedProjectId}
-              selectedListId={selectedListId} />
+            <div className="rename-entry">
+              <RenameList
+                handleRenameList={handleRenameList}
+                selectedProjectId={selectedProjectId}
+                selectedListId={selectedListId} />
+            </div>
           </div>
           <span className="task-count">{getTaskCompletion(listObj)}</span>
         </div>
@@ -123,6 +145,7 @@ export default function List({
                 selectedListId={selectedListId}
                 selectedTaskId={task.id}
                 handleRenameTask={handleRenameTask}
+                handleMoveTask={handleMoveTask}
               />
             ))}
           </div>
