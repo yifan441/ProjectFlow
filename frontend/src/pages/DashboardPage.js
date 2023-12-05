@@ -5,6 +5,7 @@ import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
 import { useNavigate } from 'react-router-dom';
+import { deepCopyArray, deepCopyObject, deepCopyProject } from '../components/Reorder'
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -260,6 +261,29 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
+  function handleMoveProject(moveDir) {
+    
+    const newProjectsData = deepCopyArray(projects);
+    const projectIndex = projects.findIndex((proj) => proj.id === selectedProject.id);
+
+    //moveDir = 1 means move up
+    if (moveDir === 1 && projectIndex > 0) {
+      const projectAtIndex = deepCopyObject(newProjectsData[projectIndex]);
+      const projectAbove = deepCopyObject(newProjectsData[projectIndex-1]);
+      newProjectsData[projectIndex-1] = projectAtIndex;
+      newProjectsData[projectIndex] = projectAbove;
+    }
+
+    //moveDir = 0 means move down
+    else if (moveDir === 0 && projectIndex < projects.length-1){
+      const projectAtIndex = deepCopyObject(newProjectsData[projectIndex]);
+      const projectBelow = deepCopyObject(newProjectsData[projectIndex+1]);
+      newProjectsData[projectIndex+1] = projectAtIndex;
+      newProjectsData[projectIndex] = projectBelow;
+    }
+    setProjects(newProjectsData);
+  }
+
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -270,6 +294,7 @@ export default function Dashboard() {
           handleProjectAdd={handleProjectAdd}
           handleRenameProject={handleRenameProject}
           handleProjectDelete={handleProjectDelete}
+          handleMoveProject={handleMoveProject}
         />
         <button onClick={handleLogout} className="logout-button">
           Logout

@@ -3,6 +3,7 @@ import { RenameProject } from './Rename.js';
 import '../styles/ProjectNavigationPanel.css';
 import { readPDFFile } from './readPDFFile.js';
 import axios from 'axios';
+import { ReorderProject } from '../components/Reorder';
 const { addIdToJsonString } = require('./jsonUtils');
 
 
@@ -13,6 +14,7 @@ export default function ProjectNavigationPanel({
   handleProjectAdd,
   handleRenameProject,
   handleProjectDelete,
+  handleMoveProject,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
   const [isDropdownOpen, setIsDropDownOpen] = useState('false');
@@ -38,7 +40,7 @@ export default function ProjectNavigationPanel({
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
-  
+
   //updates the selected file if user clicks pdf file button multiple times
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -56,18 +58,18 @@ export default function ProjectNavigationPanel({
 
   const handleFileSubmit = async (file) => {
     try {
-        const pdfText = await readPDFFile(file);
-        try {
-          const response = await axios.post('http://localhost:3001/autoProject', { pdfText });
-          // console.log(response.data.result);
-          const pdfData = addIdToJsonString (response.data.result);
-          // console.log((JSON.stringify(pdfData)));
-          handleProjectAdd(pdfData);
-        } catch (error) {
-          console.log("Error with OpenAI Request.", error.message);
-        }
+      const pdfText = await readPDFFile(file);
+      try {
+        const response = await axios.post('http://localhost:3001/autoProject', { pdfText });
+        // console.log(response.data.result);
+        const pdfData = addIdToJsonString(response.data.result);
+        // console.log((JSON.stringify(pdfData)));
+        handleProjectAdd(pdfData);
+      } catch (error) {
+        console.log("Error with OpenAI Request.", error.message);
+      }
     } catch (error) {
-        console.error('Error reading PDF File:', error.message);
+      console.error('Error reading PDF File:', error.message);
     }
   }
 
@@ -168,6 +170,24 @@ export default function ProjectNavigationPanel({
                           }}
                         >
                           Delete Project
+                        </li>
+                        <li key="move-up">
+                          <button 
+                          key = "up"
+                          style={{ fontSize: '8px' }} 
+                          onClick={() => {
+                            handleMoveProject(1);
+                            }}>
+                            &#9650; {/*Unicode for up arrow*/}
+                          </button>
+                        </li>
+                        <li key="move-down">
+                        <button style={{ fontSize: '8px' }} 
+                        onClick={() => {
+                          handleMoveProject(0);
+                          }}>
+                            &#9660; {/*Unicode for down arrow*/}
+                          </button>
                         </li>
                       </ul>
                     </div>
