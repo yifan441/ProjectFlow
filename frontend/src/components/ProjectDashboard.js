@@ -48,14 +48,20 @@ export default function ProjectDashboard({
 
   return (
     <>
-    <div className="color-block">
-
-    </div>
+      <div className="color-block"></div>
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
           <div className="search-bar-div">
            {/* Static magnifying glass figure */}
+            <input 
+              className="search-bar"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onclick={()=>setQuery('')}
+              type="search"
+              placeholder="Search lists"
+            />
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 width="23" 
@@ -67,12 +73,6 @@ export default function ProjectDashboard({
               <ellipse cx="10.6675" cy="11" rx="6.4733" ry="7" stroke="#7D7C78" strokeWidth="2" />
               <path d="M18.9903 20L16.216 17" stroke="#7D7C78" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            <input className="search-bar"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="search"
-              placeholder="Search lists"
-            />
           </div>
           <form action="" className="new-list-form" onSubmit={handleSubmit}>
             <input
@@ -82,8 +82,8 @@ export default function ProjectDashboard({
               placeholder="New list"
               aria-label="New list"
             />
-            <button type="submit" className="btn-create" aria-label="create new list">
-              +
+            <button type="submit" className="add-list-btn" aria-label="create new list">
+              New
             </button>
           </form>
         </div>

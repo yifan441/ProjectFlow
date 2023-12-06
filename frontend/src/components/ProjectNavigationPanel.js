@@ -94,7 +94,7 @@ export default function ProjectNavigationPanel({
   }
 
   return (
-    <>
+    <div className="navigation-panel-outer-div">
       <h1>Projects</h1>
       <p
         className={'home' === selectedProjectId ? 'active-project' : 'home'}
@@ -214,6 +214,6 @@ export default function ProjectNavigationPanel({
           )}
         </form>
       </div>
-    </>
+    </div>
   );
 }

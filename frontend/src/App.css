@@ -70,36 +70,123 @@
 
 }
 
-.search-bar {
-  position: relative;
-  left: 200px;
-  top: 120px;
-  right: 1000px;
-  bottom: 700px;
 
-  width: 190px;
-  height: 44px;
+.search-bar-div {
+  position: relative;
+  width: 190px; /* Adjust as needed */
+  height: 44px; /* Adjust as needed */
   display: flex;
   align-items: center;
-  flex-shrink: 0;
   border-radius: 10px;
   border: 3px solid #D9D9D9;
   background: #FFF;
-  box-sizing: border-box; /* Ensures border is included within width and height */
+}
 
+.search-bar {
+  flex: 1;
+  padding-left: 30px; /* Space for the icon */
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px; /* Adjust font size */
 }
 
 .search-icon {
-  
-  left: 5px; /* Adjust the distance from the left */
-  top: 50%; /* Align icon vertically */
-  transform: translateY(-50%); /*Center the icon vertically*/
+  position: absolute;
+  left: 5px; /* Adjust the position of the icon */
+  top: 50%;
+  transform: translateY(-50%);
   width: 22.194px;
   height: 24px;
+  pointer-events: none; /* Ignore pointer events to let clicks pass through to input */
+}
+
+.add-list-btn {
+  width: 102px;
+  height: 48px;
   flex-shrink: 0;
+  border-radius: 4px;
+  background: #6485D9;
+ 
+  color: #FFF;
+  font-family: Nunito;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.add-list-btn:hover{
+  background: #5776C5;
+}
+
+.add-list-btn:active{
+  background: #3F60B5;
+}
+
+/* coloring left background panel */
+.navbar-div{
+  background-color: #F7F7F5;;
 }
 
 
+/* .container {
+  display: flex; */
+  /* Other container styles */
+/* } */
+
+.color-block{
+  /* position: fixed; */
+  height: 155px;
+  width: 100%;
+  background: #A1BAFA;
+  top: 0; /* Positioned at the top */
+  left: 0; /* Positioned at the left */
+  z-index: 9999; /* Ensure it's at the top of other content */
+}
+
+
+.content-below-block {
+  margin-top: 50px; /* Adjust this value to match the height of the color block */
+}
+
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox-label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px; /* Adjust margin as needed */
+}
+
+.custom-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 22px;
+  background-color: #fff;
+  border: 2px solid #D9D9D9;
+  border-radius: 8px;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox-label .custom-checkbox::after {
+  content: '';
+  position: absolute;
+  top: 2px; /* Adjust position of checkmark */
+  left: 4px; /* Adjust position of checkmark */
+  width: 5px; /* Checkmark size */
+  height: 9px; /* Checkmark size */
+  border: solid #555; /* Checkmark color */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  border-radius: 8px;
+  background: #6D89D1;
+}
 
 /* chat gpt how to put login button at bottom left corner, sticky? */
 /* padding versus margins */ 
