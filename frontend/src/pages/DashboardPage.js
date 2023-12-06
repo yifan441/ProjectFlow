@@ -253,6 +253,9 @@ export default function Dashboard() {
     const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId);
     newProjectsData[projectIndex].lists[listIndex].name = newName;
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   function handleRenameTask(newName, projectId, listId, taskId) {
@@ -264,6 +267,9 @@ export default function Dashboard() {
     );
     newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].name = newName;
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   function handleMoveProject(moveDir) {
