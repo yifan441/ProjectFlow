@@ -31,8 +31,7 @@ ul,
 .display-div {
   flex: 13;
   background-color: #fff;
-  overflow-y: auto;
-  overflow-x: auto;
+  height: 100%;
 }
 
 .logout-div {
@@ -205,11 +204,39 @@ ul,
   font-size: 9px;
 }
 
-/* Maddy's CSS */
+/************************************************/
+/*          ProjectDashboard.js                 */
+/************************************************/
+
+.project-display-div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.color-block {
+  height: 100px;
+  width: 100%;
+  background: #a1bafa;
+}
+
+/* header */
+
+.project-display-header-div {
+  height: 140px;
+  margin: 20px 20px 20px 45px;
+  border-bottom: 3px solid #d9d9d9;
+}
+
+.project-title-and-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .search-bar-div {
   position: relative;
-  width: 190px; /* Adjust as needed */
+  width: 270px; /* Adjust as needed */
   height: 44px; /* Adjust as needed */
   display: flex;
   align-items: center;
@@ -237,19 +264,29 @@ ul,
   pointer-events: none; /* Ignore pointer events to let clicks pass through to input */
 }
 
+.new-list-form {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
 .add-list-btn {
-  width: 102px;
-  height: 48px;
-  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
   border-radius: 4px;
   background: #6485d9;
-
   color: #fff;
   font-family: Nunito;
-  font-size: 24px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
 }
 
 .add-list-btn:hover {
@@ -260,19 +297,155 @@ ul,
   background: #3f60b5;
 }
 
-/* .container {
-  display: flex; */
-/* Other container styles */
-/* } */
+/* body */
 
-.color-block {
-  /* position: fixed; */
-  height: 155px;
-  width: 100%;
-  background: #a1bafa;
-  top: 0; /* Positioned at the top */
-  left: 0; /* Positioned at the left */
-  z-index: 9999; /* Ensure it's at the top of other content */
+.project-display-lists-div {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 70%;
+  background-color: #fff;
+  margin-left: 45px;
+}
+
+/************************************************/
+/*                  List.js                     */
+/************************************************/
+
+.list-title-div {
+  display: flex;
+  align-items: center;
+}
+
+.list-more-actions-div {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.list-dropdown-menu {
+  left: 400px;
+}
+
+.list-div {
+  /* border: 1px solid black; */
+  margin: 10px 10px 40px 0px;
+}
+
+.task-attribute-label-div {
+  display: flex;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  margin-top: 14px;
+  border-bottom: 3px solid #d9d9d9;
+}
+
+.label {
+  padding: 5px 0px 5px 5px;
+  display: flex;
+  align-items: center;
+}
+
+#label-task-name {
+  /* background-color: rgb(135, 135, 182); */
+  flex: 50%;
+}
+
+#label-priority {
+  /* background-color: rgb(177, 116, 116); */
+  flex: 15%;
+}
+
+#label-due {
+  /* background-color: rgb(125, 125, 175); */
+  flex: 30%;
+}
+
+#label-trash {
+  /* background-color: rgb(172, 120, 120); */
+  flex: 5%;
+}
+
+.label > svg {
+  margin-right: 7px;
+}
+
+.new-task-btn {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  background: 0;
+  color: #7d7c78;
+  font-family: Nunito;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  border: 0;
+}
+
+.list-form {
+  display: flex;
+  align-items: center;
+}
+
+.new-list-input {
+  border: none;
+}
+
+.new-task-form-div {
+  border-bottom: 3px solid #d9d9d9;
+  padding-bottom: 8px;
+  padding-top: 6px;
+}
+
+/************************************************/
+/*                  Task.js                     */
+/************************************************/
+
+.task {
+  display: flex;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  margin-top: 14px;
+  border-bottom: 3px solid #d9d9d9;
+}
+
+.field {
+  padding: 5px 0px 5px 20px;
+}
+
+#task-name-div {
+  flex: 50%;
+}
+
+#task-priority-div {
+  flex: 15%;
+  display: flex;
+  align-items: center;
+}
+
+#task-date-div {
+  flex: 30%;
+  display: flex;
+  align-items: center;
+}
+
+#task-delete-btn-div {
+  flex: 5%;
+}
+
+.custom-checkbox {
+  margin-right: 15px;
+}
+
+.task-reorder {
+  margin-left: 20px;
+  margin-right: 15px;
 }
 
 .content-below-block {
@@ -309,17 +482,3 @@ input[type='checkbox'] {
   background-color: #6d89d1; /* Background color for checked state */
   border-radius: 6px; /* Adjust border-radius as needed */
 }
-
-/* chat gpt how to put login button at bottom left corner, sticky? */
-/* padding versus margins */
-
-/* figure out how to move svg icon */
-
-/* TODO:
-- style the 'New' list button 
-- navigation-panel-outer-div -- change panel color gray
-- color-block div style it change color and change sizing of it -- change it so it fits the proper length to the panel
-- look into custom check mark (find checkmark class name), while styling 2 separate style checked versus nonchecked
-  - chat GPT how to make custom check and hide default one etc
-- 
-*/

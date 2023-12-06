@@ -1,4 +1,3 @@
-import '../styles/Dashboard.css';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
@@ -72,6 +71,7 @@ export default function Dashboard() {
   const [projects, setProjects] = useState([]); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null, index: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState('');
 
   // requests data from backend on mount
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function Dashboard() {
           console.log('retrieved dashboard');
           const userName = response.data.name;
           // HERE IS UR USERNAME
-          console.log(userName);
+          setUsername(userName);
           setProjects(response.data.dashboard);
         } else {
           console.error('Error fetching user dashboard:', response.data.message);
@@ -398,7 +398,7 @@ export default function Dashboard() {
       </div>
       <div className="display-div">
         {selectedProject.id === 'home' ? (
-          <Home projectsData={projects} />
+          <Home projectsData={projects} username={username} />
         ) : (
           <ProjectDashboard
             handleAddList={handleAddList}
