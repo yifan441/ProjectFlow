@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 //Incorporates a functionality suite that allows users to edit the names of Projects, List entries, and tasks
 
@@ -23,6 +23,7 @@ export function RenameProject({
         const renameBox = document.getElementById('renameBox');
         renameBox.style.display = 'none';
         setInputValue('');
+        setInitialClick(3);
     };
 
     //Displays renaming feature
@@ -38,10 +39,38 @@ export function RenameProject({
         setInputValue('');
     };
 
+
+
+    const [initialClick, setInitialClick] = useState(3);
+    const renameRef = useRef();
+
+    useEffect(() => {
+        const closeRename = (e) => {
+            {
+                if (initialClick!==0) {
+                    setInitialClick(initialClick-1);
+                    return;
+                }
+                else {
+                    document.removeEventListener('renameFlag', handleRenameEvent);
+                    const renameBox = document.getElementById('renameBox');
+                    renameBox.style.display = 'none';
+                    setInputValue('');
+                    setInitialClick(3);
+                }
+            }
+        };
+        document.addEventListener('click', closeRename);
+
+        return () => {
+            document.removeEventListener('click', closeRename);
+        };
+    });
+
     document.addEventListener('renameFlag', handleRenameEvent);
 
     return (
-        <div id="renameBox" style={{ display: 'none' }}>
+        <div id="renameBox" style={{ display: 'none' }} ref={renameRef}>
             <form action="" className="new-list-form" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -87,34 +116,61 @@ export function RenameList({
         let projectId = selectedProjectId;
         let listId = selectedListId;
         handleRenameList(newName, projectId, listId);//edit this to the new function (renamelist)
-        document.removeEventListener(getUniqueDocId('listRename',listId), handleRenameEvent)
-        const renameBox = document.getElementById(getUniqueDocId('renameListBox',listId)); //change this to something specific to list
+        document.removeEventListener(getUniqueDocId('listRename', listId), handleRenameEvent)
+        const renameBox = document.getElementById(getUniqueDocId('renameListBox', listId)); //change this to something specific to list
         renameBox.style.display = 'none';
         setInputValue('');
+        setInitialClick(3);
     };
 
     //Displays renaming feature
     const handleRenameEvent = () => {
         let listId = selectedListId;
-        const renameBoxList = document.getElementById(getUniqueDocId('renameListBox',listId));
+        const renameBoxList = document.getElementById(getUniqueDocId('renameListBox', listId));
         renameBoxList.style.display = 'block';
     };
 
     const handleCancelButton = () => {
         let listId = selectedListId;
-        document.removeEventListener(getUniqueDocId('listRename',listId), handleRenameEvent);
-        const renameBoxList = document.getElementById(getUniqueDocId('renameListBox',listId));
+        document.removeEventListener(getUniqueDocId('listRename', listId), handleRenameEvent);
+        const renameBoxList = document.getElementById(getUniqueDocId('renameListBox', listId));
         renameBoxList.style.display = 'none';
         setInputValue('');
     };
 
     let listId = selectedListId;
-    document.addEventListener(getUniqueDocId('listRename',listId), handleRenameEvent);
-    const uniqueId = getUniqueDocId('renameListBox',listId);
+    document.addEventListener(getUniqueDocId('listRename', listId), handleRenameEvent);
+    const uniqueId = getUniqueDocId('renameListBox', listId);
+
+    const [initialClick, setInitialClick] = useState(3);
+    const renameRef = useRef();
+
+    useEffect(() => {
+        const closeRename = (e) => {
+            {
+                if (initialClick!==0) {
+                    setInitialClick(initialClick-1);
+                    return;
+                }
+                else {
+                    document.removeEventListener('listRename', handleRenameEvent);
+                    const renameBox = document.getElementById(uniqueId);
+                    renameBox.style.display = 'none';
+                    setInputValue('');
+                    setInitialClick(3);
+                }
+            }
+        };
+        document.addEventListener('click', closeRename);
+
+        return () => {
+            document.removeEventListener('click', closeRename);
+        };
+    });
 
 
     return (
-        <div id={uniqueId} style={{ display: 'none' }}>
+        <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
             <form action="" className="list-renamer" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -162,34 +218,62 @@ export function RenameTask({
         let listId = selectedListId;
         let taskId = selectedTaskId;
         handleRenameTask(newName, projectId, listId, taskId);//edit this to the new function (renamelist)
-        document.removeEventListener(getUniqueDocId('taskRename',taskId), handleRenameEvent)
-        const renameBox = document.getElementById(getUniqueDocId('renameTaskBox',taskId)); //change this to something specific to list
+        document.removeEventListener(getUniqueDocId('taskRename', taskId), handleRenameEvent)
+        const renameBox = document.getElementById(getUniqueDocId('renameTaskBox', taskId)); //change this to something specific to list
         renameBox.style.display = 'none';
         setInputValue('');
+        setInitialClick(3);
     };
 
     //Displays renaming feature
     const handleRenameEvent = () => {
         let taskId = selectedTaskId;
-        const renameBoxTask = document.getElementById(getUniqueDocId('renameTaskBox',taskId));
+        const renameBoxTask = document.getElementById(getUniqueDocId('renameTaskBox', taskId));
         renameBoxTask.style.display = 'block';
     };
 
     const handleCancelButton = () => {
         let taskId = selectedTaskId;
-        document.removeEventListener(getUniqueDocId('taskRename',taskId), handleRenameEvent);
-        const renameBoxTask = document.getElementById(getUniqueDocId('renameTaskBox',taskId));
+        document.removeEventListener(getUniqueDocId('taskRename', taskId), handleRenameEvent);
+        const renameBoxTask = document.getElementById(getUniqueDocId('renameTaskBox', taskId));
         renameBoxTask.style.display = 'none';
         setInputValue('');
     };
 
     let taskId = selectedTaskId;
-    document.addEventListener(getUniqueDocId('taskRename',taskId), handleRenameEvent);
-    const uniqueId = getUniqueDocId('renameTaskBox',taskId);
+    document.addEventListener(getUniqueDocId('taskRename', taskId), handleRenameEvent);
+    const uniqueId = getUniqueDocId('renameTaskBox', taskId);
+
+    const [initialClick, setInitialClick] = useState(3);
+    const renameRef = useRef();
+
+    useEffect(() => {
+        const closeRename = (e) => {
+            {
+                if (initialClick!==0) {
+                    setInitialClick(initialClick-1);
+                    return;
+                }
+                else {
+                    document.removeEventListener('taskRename', handleRenameEvent);
+                    const renameBox = document.getElementById(uniqueId);
+                    renameBox.style.display = 'none';
+                    setInputValue('');
+                    setInitialClick(3);
+                }
+            }
+        };
+        document.addEventListener('click', closeRename);
+
+        return () => {
+            document.removeEventListener('click', closeRename);
+        };
+    });
+
 
 
     return (
-        <div id={uniqueId} style={{ display: 'none' }}>
+        <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
             <form action="" className="task-renamer" onSubmit={handleSubmit}>
                 <input
                     type="text"

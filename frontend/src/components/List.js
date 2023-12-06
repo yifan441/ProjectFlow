@@ -91,36 +91,6 @@ export default function List({
             <h3 className="list-title" style={{ display: 'inline-block' }}>
               {listObj.name}
             </h3>
-            <div className="list-reorder" style={{ display: 'inline-block' }}>
-              <button
-                key="up"
-                style={{ fontSize: '8px' }}
-                onClick={() => {
-                  handleMoveList(1, selectedProjectId, selectedListId);
-                }}
-              >
-                &#9650; {/*Unicode for up arrow*/}
-              </button>
-              <button
-                style={{ fontSize: '8px' }}
-                onClick={() => {
-                  handleMoveList(0, selectedProjectId, selectedListId);
-                }}
-              >
-                &#9660; {/*Unicode for down arrow*/}
-              </button>
-            </div>
-            <div className="rename-button" style={{ display: 'inline-block' }}>
-              <button
-                type="button"
-                onClick={handleRenameButton}
-                className="btn-rename-list"
-                aria-label="Rename List"
-              >
-                Rename
-              </button>
-            </div>
-
             <div className="list-more-actions-div" style={{ display: 'inline-block' }}>
               <svg
                 className="list-more-actions-svg"
@@ -143,6 +113,35 @@ export default function List({
               {isDropdownOpen && (
                 <div className="list-dropdown-menu" ref={dropDownRef}>
                   <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+                    <li
+                      key="rename"
+                      onClick={() => {
+                        handleRenameButton();
+                        setIsDropDownOpen(!isDropdownOpen);
+                      }}
+                    >
+                      Rename
+                    </li>
+                    <li key="up">
+                      <button
+                      key="but-up"
+                      style={{ fontSize: '8px' }}
+                      onClick={() => {
+                        handleMoveList(1, selectedProjectId, selectedListId);
+                      }}>
+                      &#9650; {/*Unicode for up arrow*/}
+                      </button>
+                    </li>
+                    <li key="down">
+                      <button
+                      key="but-down"
+                      style={{ fontSize: '8px' }}
+                      onClick={() => {
+                        handleMoveList(0, selectedProjectId, selectedListId);
+                      }}>
+                      &#9660; {/*Unicode for down arrow*/}
+                      </button>
+                    </li>
                     <li
                       key="delete"
                       onClick={() => {
