@@ -242,6 +242,9 @@ export default function Dashboard() {
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
     newProjectsData[projectIndex].name = newName;
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return {...prevState, obj: newProjectsData[projectIndex]};
+    });
   }
 
   function handleRenameList(newName, projectId, listId) {
@@ -305,6 +308,9 @@ export default function Dashboard() {
       newProjectsData[projectIndex].lists[listIndex-1] = listAtIndex;
       newProjectsData[projectIndex].lists[listIndex] = listAbove;
       setProjects(newProjectsData);
+      setSelectedProject((prevState) => {
+        return {...prevState, obj: newProjectsData[projectIndex]};
+      });
     }
 
     //moveDir = 0 means move down
@@ -315,6 +321,9 @@ export default function Dashboard() {
       newProjectsData[projectIndex].lists[listIndex+1] = listAtIndex;
       newProjectsData[projectIndex].lists[listIndex] = listBelow;
       setProjects(newProjectsData);
+      setSelectedProject((prevState) => {
+        return {...prevState, obj: newProjectsData[projectIndex]};
+      });
     }
     setProjects(newProjectsData);
   }
@@ -340,6 +349,9 @@ export default function Dashboard() {
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex-1] = taskAtIndex;
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex] = taskAbove;
       setProjects(newProjectsData);
+      setSelectedProject((prevState) => {
+        return {...prevState, obj: newProjectsData[projectIndex]};
+      });
     }
 
     //moveDir = 0 means move down
@@ -350,6 +362,9 @@ export default function Dashboard() {
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex+1] = taskAtIndex;
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex] = taskBelow;
       setProjects(newProjectsData);
+      setSelectedProject((prevState) => {
+        return {...prevState, obj: newProjectsData[projectIndex]};
+      });
     }
     setProjects(newProjectsData);
   }

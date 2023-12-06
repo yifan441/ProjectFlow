@@ -37,6 +37,8 @@ export default function ProjectNavigationPanel({
   const [selectedFile, setSelectedFile] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
 
+
+
   // updates inputValue to be user inputed value everytime a change is detected
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -166,8 +168,8 @@ export default function ProjectNavigationPanel({
                         <li
                           key="rename"
                           onClick={() => {
-                            document.dispatchEvent(new CustomEvent('renameFlag'));
                             setIsDropDownOpen(!isDropdownOpen);
+                            document.dispatchEvent(new CustomEvent('renameFlag'));
                           }}
                         >
                           Rename
