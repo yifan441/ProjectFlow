@@ -18,7 +18,7 @@ export default function List({
   handleMoveTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
-  const [isDropdownOpen, setIsDropDownOpen] = useState('false');
+  const [isDropdownOpen, setIsDropDownOpen] = useState(false);
   const dropDownSvgRef = useRef();
   const dropDownRef = useRef();
 

@@ -49,31 +49,36 @@ export default function ProjectDashboard({
   );
 
   return (
-    <>
+    <div className="project-dashboard-outer-div">
       <div className="color-block"></div>
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
           <div className="search-bar-div">
-           {/* Static magnifying glass figure */}
-            <input 
+            {/* Static magnifying glass figure */}
+            <input
               className="search-bar"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onclick={()=>setQuery('')}
+              onclick={() => setQuery('')}
               type="search"
               placeholder="Search lists"
             />
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="23" 
-                height="24" 
-                viewBox="0 0 23 24" 
-                fill="none"
-                className="search-icon"
-              >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="23"
+              height="24"
+              viewBox="0 0 23 24"
+              fill="none"
+              className="search-icon"
+            >
               <ellipse cx="10.6675" cy="11" rx="6.4733" ry="7" stroke="#7D7C78" strokeWidth="2" />
-              <path d="M18.9903 20L16.216 17" stroke="#7D7C78" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M18.9903 20L16.216 17"
+                stroke="#7D7C78"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </div>
           <form action="" className="new-list-form" onSubmit={handleSubmit}>
@@ -117,6 +122,6 @@ export default function ProjectDashboard({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
