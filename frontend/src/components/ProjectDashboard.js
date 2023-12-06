@@ -48,27 +48,26 @@ export default function ProjectDashboard({
 
   return (
     <>
+    <div className="color-block">
+
+    </div>
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
-          <div>
+          <div className="search-bar-div">
            {/* Static magnifying glass figure */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-search" // Add a class for styling if needed
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="23" 
+                height="24" 
+                viewBox="0 0 23 24" 
+                fill="none"
+                className="search-icon"
+              >
+              <ellipse cx="10.6675" cy="11" rx="6.4733" ry="7" stroke="#7D7C78" strokeWidth="2" />
+              <path d="M18.9903 20L16.216 17" stroke="#7D7C78" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            <input
+            <input className="search-bar"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               type="search"

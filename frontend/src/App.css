@@ -36,3 +36,81 @@
     transform: rotate(360deg);
   }
 }
+
+
+.logout-button { 
+  /* what position do we want? behavior when we scroll? */
+  position: fixed; 
+  bottom: 10px;
+  left: 10px;
+  width: 200px;
+  height: 40px;
+  flex-shrink: 0;
+  /* text font */
+  color: #626060;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  padding: 8px 16px;
+  background-color: #F7F7F5;
+  border: .7px solid #626060;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #E1E1E1;
+  }
+
+  &:active {
+    background-color: #D8D7D4;
+  }
+
+}
+
+.search-bar {
+  position: relative;
+  left: 200px;
+  top: 120px;
+  right: 1000px;
+  bottom: 700px;
+
+  width: 190px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 3px solid #D9D9D9;
+  background: #FFF;
+  box-sizing: border-box; /* Ensures border is included within width and height */
+
+}
+
+.search-icon {
+  
+  left: 5px; /* Adjust the distance from the left */
+  top: 50%; /* Align icon vertically */
+  transform: translateY(-50%); /*Center the icon vertically*/
+  width: 22.194px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+
+
+/* chat gpt how to put login button at bottom left corner, sticky? */
+/* padding versus margins */ 
+
+/* figure out how to move svg icon */
+
+/* TODO:
+- style the 'New' list button 
+- navigation-panel-outer-div -- change panel color gray
+- color-block div style it change color and change sizing of it -- change it so it fits the proper length to the panel
+- look into custom check mark (find checkmark class name), while styling 2 separate style checked versus nonchecked
+  - chat GPT how to make custom check and hide default one etc
+- 
+*/

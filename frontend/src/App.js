@@ -6,14 +6,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
-      <div className="app">
-        <Routes> 
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element = {<RegisterPage />} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-        </Routes>
-      </div>
+    <div>
+      <Dashboard />
+    </div>
   );
 };
 
 export default App;
+
+
+{/* <div className="app">
+<Routes> 
+  <Route path="/" element={<LoginPage />} />
+  <Route path="/register" element = {<RegisterPage />} />
+  <Route path="/dashboard" element={<Dashboard/>} />
+</Routes>
+</div> */}
