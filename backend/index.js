@@ -17,6 +17,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test');
 const secretJson = fs.readFileSync('secret.json', 'utf8');
 const secretObject = JSON.parse(secretJson);
 const secretKey = secretObject.secretKey;
+const OPENAI_API_KEY = secretObject.OPENAI_API_KEY;
 
 const verifyToken = (req, res, next) => {
   
