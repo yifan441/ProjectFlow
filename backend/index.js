@@ -14,10 +14,10 @@ app.use(express.json())
 mongoose.connect('mongodb://127.0.0.1:27017/test');
  
 //TODO : ENCRYPT API KEY & KEY FOR LOCAL STORAGE (FOR SAFETY)
-OPENAI_API_KEY="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"
 const secretJson = fs.readFileSync('secret.json', 'utf8');
 const secretObject = JSON.parse(secretJson);
 const secretKey = secretObject.secretKey;
+const OPENAI_API_KEY = secretObject.OPENAI_API_KEY;
 
 const verifyToken = (req, res, next) => {
   
