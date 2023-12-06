@@ -74,18 +74,24 @@ export default function Calendar({ projectsData }) {
   };
 
   useEffect(() => {
+    let filtered = events;
     if (searchQuery.trim() !== '') {
-      const filtered = events.filter(
+      filtered = filtered.filter(
         (event) =>
           event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           event.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
           event.list.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setFilteredEvents(filtered);
-    } else {
-      setFilteredEvents(events);
     }
-  }, [searchQuery, events]);
+
+    if (selectedPriority !== 'all') {
+      filtered = filtered.filter(
+        (event) => event.priority === selectedPriority
+      );
+    }
+
+    setFilteredEvents(filtered);
+  }, [searchQuery, selectedPriority, events]);
 
   return (
     <div className="calendar-page-container">
@@ -117,12 +123,13 @@ export default function Calendar({ projectsData }) {
       <div style={{ height: 500 }}>
         <BigCalendar
           localizer={localizer}
-          events={searchQuery.trim() !== '' ? filteredEvents : events}
+          events={filteredEvents}
           startAccessor="start"
           endAccessor="end"
           style={{ height: '100%' }}
           eventPropGetter={eventStyleGetter}
           onSelectEvent={handleEventClick}
+          toolbar={[]}
         />
       </div>
     </div>
