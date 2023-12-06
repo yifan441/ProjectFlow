@@ -142,33 +142,6 @@ export function RenameList({
     document.addEventListener(getUniqueDocId('listRename', listId), handleRenameEvent);
     const uniqueId = getUniqueDocId('renameListBox', listId);
 
-    const [initialClick, setInitialClick] = useState(3);
-    const renameRef = useRef();
-
-    useEffect(() => {
-        const closeRename = (e) => {
-            {
-                if (initialClick!==0) {
-                    setInitialClick(initialClick-1);
-                    return;
-                }
-                else {
-                    document.removeEventListener('listRename', handleRenameEvent);
-                    const renameBox = document.getElementById(uniqueId);
-                    renameBox.style.display = 'none';
-                    setInputValue('');
-                    setInitialClick(3);
-                }
-            }
-        };
-        document.addEventListener('click', closeRename);
-
-        return () => {
-            document.removeEventListener('click', closeRename);
-        };
-    });
-
-
     return (
         <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
             <form action="" className="list-renamer" onSubmit={handleSubmit}>
@@ -243,33 +216,6 @@ export function RenameTask({
     let taskId = selectedTaskId;
     document.addEventListener(getUniqueDocId('taskRename', taskId), handleRenameEvent);
     const uniqueId = getUniqueDocId('renameTaskBox', taskId);
-
-    const [initialClick, setInitialClick] = useState(3);
-    const renameRef = useRef();
-
-    useEffect(() => {
-        const closeRename = (e) => {
-            {
-                if (initialClick!==0) {
-                    setInitialClick(initialClick-1);
-                    return;
-                }
-                else {
-                    document.removeEventListener('taskRename', handleRenameEvent);
-                    const renameBox = document.getElementById(uniqueId);
-                    renameBox.style.display = 'none';
-                    setInputValue('');
-                    setInitialClick(3);
-                }
-            }
-        };
-        document.addEventListener('click', closeRename);
-
-        return () => {
-            document.removeEventListener('click', closeRename);
-        };
-    });
-
 
 
     return (
