@@ -80,7 +80,7 @@ export default function Task({
         <div className="task-name-div" style={{ width: '100px', display: 'inline-block' }}>
           <input type="checkbox" id={id} checked={isChecked} onChange={handleCheckboxChange} />
           <label htmlFor={id}>
-            <span className="custom-checkbox"></span>
+            <span className={isChecked ? "custom-checkbox checked" : "custom-checkbox"}></span>
             {name}
           </label>
           <button type="button" onClick={handleRenameButton} className="btn-rename-list" aria-label="Rename List">
