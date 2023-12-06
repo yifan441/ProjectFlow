@@ -253,6 +253,9 @@ export default function Dashboard() {
     const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId);
     newProjectsData[projectIndex].lists[listIndex].name = newName;
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   function handleRenameTask(newName, projectId, listId, taskId) {
@@ -264,6 +267,9 @@ export default function Dashboard() {
     );
     newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].name = newName;
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   function handleMoveProject(moveDir) {
@@ -343,7 +349,7 @@ export default function Dashboard() {
     console.log('taskIndex is: ', taskIndex);
 
     console.log('Attempt to enter move up');
-    if (moveDir === 1 && listIndex > 0) {
+    if (moveDir === 1 && taskIndex > 0) {
       console.log('Entered move up');
       const taskAtIndex = deepCopyObject(
         newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]
@@ -360,7 +366,7 @@ export default function Dashboard() {
     }
 
     //moveDir = 0 means move down
-    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length - 1) {
+    else if (moveDir === 0 && taskIndex < projects[projectIndex].lists[listIndex].tasks.length - 1) {
       console.log('Entered move down');
       const taskAtIndex = deepCopyObject(
         newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]

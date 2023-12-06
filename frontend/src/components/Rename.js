@@ -120,7 +120,7 @@ export function RenameList({
         const renameBox = document.getElementById(getUniqueDocId('renameListBox', listId)); //change this to something specific to list
         renameBox.style.display = 'none';
         setInputValue('');
-        setInitialClick(3);
+        //setInitialClick(3);
     };
 
     //Displays renaming feature
@@ -142,35 +142,8 @@ export function RenameList({
     document.addEventListener(getUniqueDocId('listRename', listId), handleRenameEvent);
     const uniqueId = getUniqueDocId('renameListBox', listId);
 
-    const [initialClick, setInitialClick] = useState(3);
-    const renameRef = useRef();
-
-    useEffect(() => {
-        const closeRename = (e) => {
-            {
-                if (initialClick!==0) {
-                    setInitialClick(initialClick-1);
-                    return;
-                }
-                else {
-                    document.removeEventListener('listRename', handleRenameEvent);
-                    const renameBox = document.getElementById(uniqueId);
-                    renameBox.style.display = 'none';
-                    setInputValue('');
-                    setInitialClick(3);
-                }
-            }
-        };
-        document.addEventListener('click', closeRename);
-
-        return () => {
-            document.removeEventListener('click', closeRename);
-        };
-    });
-
-
     return (
-        <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
+        <div id={uniqueId} style={{ display: 'none' }}>
             <form action="" className="list-renamer" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -222,7 +195,7 @@ export function RenameTask({
         const renameBox = document.getElementById(getUniqueDocId('renameTaskBox', taskId)); //change this to something specific to list
         renameBox.style.display = 'none';
         setInputValue('');
-        setInitialClick(3);
+        //setInitialClick(3);
     };
 
     //Displays renaming feature
@@ -244,36 +217,9 @@ export function RenameTask({
     document.addEventListener(getUniqueDocId('taskRename', taskId), handleRenameEvent);
     const uniqueId = getUniqueDocId('renameTaskBox', taskId);
 
-    const [initialClick, setInitialClick] = useState(3);
-    const renameRef = useRef();
-
-    useEffect(() => {
-        const closeRename = (e) => {
-            {
-                if (initialClick!==0) {
-                    setInitialClick(initialClick-1);
-                    return;
-                }
-                else {
-                    document.removeEventListener('taskRename', handleRenameEvent);
-                    const renameBox = document.getElementById(uniqueId);
-                    renameBox.style.display = 'none';
-                    setInputValue('');
-                    setInitialClick(3);
-                }
-            }
-        };
-        document.addEventListener('click', closeRename);
-
-        return () => {
-            document.removeEventListener('click', closeRename);
-        };
-    });
-
-
 
     return (
-        <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
+        <div id={uniqueId} style={{ display: 'none' }}>
             <form action="" className="task-renamer" onSubmit={handleSubmit}>
                 <input
                     type="text"
