@@ -1,11 +1,10 @@
-import '../styles/Dashboard.css';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
 import { useNavigate } from 'react-router-dom';
-import { Reorder, deepCopyArray, deepCopyObject } from '../components/Reorder'
+import { Reorder, deepCopyArray, deepCopyObject } from '../components/Reorder';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -72,6 +71,7 @@ export default function Dashboard() {
   const [projects, setProjects] = useState([]); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null, index: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState('');
 
   // requests data from backend on mount
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function Dashboard() {
           console.log('retrieved dashboard');
           const userName = response.data.name;
           // HERE IS UR USERNAME
-          console.log(userName);
+          setUsername(userName);
           setProjects(response.data.dashboard);
         } else {
           console.error('Error fetching user dashboard:', response.data.message);
@@ -141,8 +141,9 @@ export default function Dashboard() {
           console.error('Error updating user dashboard:', response.data.message);
           if (localStorage.getItem('authToken')) {
             handleLogout();
+          } else {
+            navigate('/');
           }
-          else { navigate ('/'); }
         }
       } catch (error) {
         console.error('Error updating user dashboard:', error);
@@ -236,14 +237,13 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
-  
   function handleRenameProject(newName, projectId) {
     const newProjectsData = [...projects];
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
     newProjectsData[projectIndex].name = newName;
     setProjects(newProjectsData);
     setSelectedProject((prevState) => {
-      return {...prevState, obj: newProjectsData[projectIndex]};
+      return { ...prevState, obj: newProjectsData[projectIndex] };
     });
   }
 
@@ -259,30 +259,31 @@ export default function Dashboard() {
     const newProjectsData = [...projects];
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
     const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId);
-    const taskIndex = projects[projectIndex].lists[listIndex].tasks.findIndex((task) => task.id === taskId);
+    const taskIndex = projects[projectIndex].lists[listIndex].tasks.findIndex(
+      (task) => task.id === taskId
+    );
     newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].name = newName;
     setProjects(newProjectsData);
   }
 
   function handleMoveProject(moveDir) {
-    
     const newProjectsData = deepCopyArray(projects);
     const projectIndex = projects.findIndex((proj) => proj.id === selectedProject.id);
 
     //moveDir = 1 means move up
     if (moveDir === 1 && projectIndex > 0) {
       const projectAtIndex = deepCopyObject(newProjectsData[projectIndex]);
-      const projectAbove = deepCopyObject(newProjectsData[projectIndex-1]);
-      newProjectsData[projectIndex-1] = projectAtIndex;
+      const projectAbove = deepCopyObject(newProjectsData[projectIndex - 1]);
+      newProjectsData[projectIndex - 1] = projectAtIndex;
       newProjectsData[projectIndex] = projectAbove;
       setProjects(newProjectsData);
     }
 
     //moveDir = 0 means move down
-    else if (moveDir === 0 && projectIndex < projects.length-1){
+    else if (moveDir === 0 && projectIndex < projects.length - 1) {
       const projectAtIndex = deepCopyObject(newProjectsData[projectIndex]);
-      const projectBelow = deepCopyObject(newProjectsData[projectIndex+1]);
-      newProjectsData[projectIndex+1] = projectAtIndex;
+      const projectBelow = deepCopyObject(newProjectsData[projectIndex + 1]);
+      newProjectsData[projectIndex + 1] = projectAtIndex;
       newProjectsData[projectIndex] = projectBelow;
       setProjects(newProjectsData);
     }
@@ -290,11 +291,10 @@ export default function Dashboard() {
   }
 
   function handleMoveList(moveDir, projectId, listId) {
-
     console.log('List Move Attempt');
     const newProjectsData = deepCopyArray(projects);
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
-    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId)
+    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId);
 
     //moveDir = 1 means move up
     console.log('projectIndex is: ', projectIndex);
@@ -304,37 +304,38 @@ export default function Dashboard() {
     if (moveDir === 1 && listIndex > 0) {
       console.log('Entered move up');
       const listAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex]);
-      const listAbove = deepCopyObject(newProjectsData[projectIndex].lists[listIndex-1]);
-      newProjectsData[projectIndex].lists[listIndex-1] = listAtIndex;
+      const listAbove = deepCopyObject(newProjectsData[projectIndex].lists[listIndex - 1]);
+      newProjectsData[projectIndex].lists[listIndex - 1] = listAtIndex;
       newProjectsData[projectIndex].lists[listIndex] = listAbove;
       setProjects(newProjectsData);
       setSelectedProject((prevState) => {
-        return {...prevState, obj: newProjectsData[projectIndex]};
+        return { ...prevState, obj: newProjectsData[projectIndex] };
       });
     }
 
     //moveDir = 0 means move down
-    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length-1){
+    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length - 1) {
       console.log('Entered move down');
       const listAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex]);
-      const listBelow = deepCopyObject(newProjectsData[projectIndex].lists[listIndex+1]);
-      newProjectsData[projectIndex].lists[listIndex+1] = listAtIndex;
+      const listBelow = deepCopyObject(newProjectsData[projectIndex].lists[listIndex + 1]);
+      newProjectsData[projectIndex].lists[listIndex + 1] = listAtIndex;
       newProjectsData[projectIndex].lists[listIndex] = listBelow;
       setProjects(newProjectsData);
       setSelectedProject((prevState) => {
-        return {...prevState, obj: newProjectsData[projectIndex]};
+        return { ...prevState, obj: newProjectsData[projectIndex] };
       });
     }
     setProjects(newProjectsData);
   }
 
   function handleMoveTask(moveDir, projectId, listId, taskId) {
-
     console.log('Task Move Attempt');
     const newProjectsData = deepCopyArray(projects);
     const projectIndex = projects.findIndex((proj) => proj.id === projectId);
-    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId)
-    const taskIndex = projects[projectIndex].lists[listIndex].tasks.findIndex((task) => task.id === taskId);
+    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId);
+    const taskIndex = projects[projectIndex].lists[listIndex].tasks.findIndex(
+      (task) => task.id === taskId
+    );
 
     //moveDir = 1 means move up
     console.log('projectIndex is: ', projectIndex);
@@ -344,26 +345,34 @@ export default function Dashboard() {
     console.log('Attempt to enter move up');
     if (moveDir === 1 && listIndex > 0) {
       console.log('Entered move up');
-      const taskAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]);
-      const taskAbove = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex-1]);
-      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex-1] = taskAtIndex;
+      const taskAtIndex = deepCopyObject(
+        newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]
+      );
+      const taskAbove = deepCopyObject(
+        newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex - 1]
+      );
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex - 1] = taskAtIndex;
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex] = taskAbove;
       setProjects(newProjectsData);
       setSelectedProject((prevState) => {
-        return {...prevState, obj: newProjectsData[projectIndex]};
+        return { ...prevState, obj: newProjectsData[projectIndex] };
       });
     }
 
     //moveDir = 0 means move down
-    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length-1){
+    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length - 1) {
       console.log('Entered move down');
-      const taskAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]);
-      const taskBelow = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex+1]);
-      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex+1] = taskAtIndex;
+      const taskAtIndex = deepCopyObject(
+        newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]
+      );
+      const taskBelow = deepCopyObject(
+        newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex + 1]
+      );
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex + 1] = taskAtIndex;
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex] = taskBelow;
       setProjects(newProjectsData);
       setSelectedProject((prevState) => {
-        return {...prevState, obj: newProjectsData[projectIndex]};
+        return { ...prevState, obj: newProjectsData[projectIndex] };
       });
     }
     setProjects(newProjectsData);
@@ -381,13 +390,15 @@ export default function Dashboard() {
           handleProjectDelete={handleProjectDelete}
           handleMoveProject={handleMoveProject}
         />
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+        <div className="logout-div">
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
       </div>
       <div className="display-div">
         {selectedProject.id === 'home' ? (
-          <Home projectsData={projects} />
+          <Home projectsData={projects} username={username} />
         ) : (
           <ProjectDashboard
             handleAddList={handleAddList}

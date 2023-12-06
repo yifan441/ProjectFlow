@@ -49,75 +49,80 @@ export default function ProjectDashboard({
   );
 
   return (
-    <>
-      <div className="project-display-div">
-        <div className="project-display-header-div">
-          <h1>{projectName}</h1>
-          <div>
-           {/* Static magnifying glass figure */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-search" // Add a class for styling if needed
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="search"
-              placeholder="Search lists"
-            />
-          </div>
-          <form action="" className="new-list-form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleChange}
-              placeholder="New list"
-              aria-label="New list"
-            />
-            <button type="submit" className="btn-create" aria-label="create new list">
-              +
-            </button>
-          </form>
-        </div>
-        <hr className="line" />
-        <div className="project-display-lists-div">
-          {filteredLists.length === 0 ? (
-            <p>No list found</p>
-          ) : (
-            filteredLists.map((list, index) => (
-              <List
-                key={list.id}
-                listObj={list}
-                handleAddTask={handleAddTask}
-                handleUpdateTaskAttributes={handleUpdateTaskAttributes}
-                projectIndex={projectIndex}
-                listIndex={
-                  listsArray.indexOf(list) // need to get og index, not index after filtering
-                }
-                handleListDelete={handleListDelete}
-                handleTaskDelete={handleTaskDelete}
-                handleRenameList={handleRenameList}
-                selectedProjectId={selectedProjectId}
-                selectedListId={list.id}
-                handleRenameTask={handleRenameTask}
-                handleMoveList={handleMoveList}
-                handleMoveTask={handleMoveTask}
+    <div className="project-display-div">
+      <div className="color-block"></div>
+      <div className="project-display-header-div">
+        <div className="project-title-and-search">
+          <h1 style={{ display: 'inline-block' }}>{projectName}</h1>
+          <div className="outer-search-div" style={{ display: 'inline-block' }}>
+            <div className="search-bar-div">
+              {/* Static magnifying glass figure */}
+              <input
+                className="search-bar"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onclick={() => setQuery('')}
+                type="search"
+                placeholder="Search lists"
               />
-            ))
-          )}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23"
+                height="24"
+                viewBox="0 0 23 24"
+                fill="none"
+                className="search-icon"
+              >
+                <ellipse cx="10.6675" cy="11" rx="6.4733" ry="7" stroke="#7D7C78" strokeWidth="2" />
+                <path
+                  d="M18.9903 20L16.216 17"
+                  stroke="#7D7C78"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
+        <form action="" className="new-list-form" onSubmit={handleSubmit}>
+          <button type="submit" className="add-list-btn" aria-label="create new list">
+            +
+          </button>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleChange}
+            placeholder="New list"
+            aria-label="New list"
+          />
+        </form>
       </div>
-    </>
+      <div className="project-display-lists-div">
+        {filteredLists.length === 0 ? (
+          <p>No list found</p>
+        ) : (
+          filteredLists.map((list, index) => (
+            <List
+              key={list.id}
+              listObj={list}
+              handleAddTask={handleAddTask}
+              handleUpdateTaskAttributes={handleUpdateTaskAttributes}
+              projectIndex={projectIndex}
+              listIndex={
+                listsArray.indexOf(list) // need to get og index, not index after filtering
+              }
+              handleListDelete={handleListDelete}
+              handleTaskDelete={handleTaskDelete}
+              handleRenameList={handleRenameList}
+              selectedProjectId={selectedProjectId}
+              selectedListId={list.id}
+              handleRenameTask={handleRenameTask}
+              handleMoveList={handleMoveList}
+              handleMoveTask={handleMoveTask}
+            />
+          ))
+        )}
+      </div>
+    </div>
   );
 }

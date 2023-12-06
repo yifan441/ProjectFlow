@@ -1,38 +1,484 @@
-.App {
-  text-align: center;
+/************************************************/
+/*               Global styles                  */
+/************************************************/
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+ul,
+.project-list {
+  padding-left: 0px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/************************************************/
+/*               Dashboard.js                   */
+/************************************************/
+
+.outer-container-div {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.navbar-div {
+  flex: 3;
+  background-color: #f7f7f5;
+}
+
+.display-div {
+  flex: 13;
+  background-color: #fff;
+  height: 100%;
+}
+
+.logout-div {
+  height: 5%;
+  background-color: #f7f7f5;
+  height: 9vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-button {
+  /* what position do we want? behavior when we scroll? */
+  /* position: fixed;
+  bottom: 10px;
+  left: 10px; */
+  width: 90%;
+  height: 40px;
+  /* flex-shrink: 0; */
+  /* text font */
+  color: #626060;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  padding: 8px 16px;
+  background-color: #f7f7f5;
+  border: 1px solid #626060;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e1e1e1;
+  }
+
+  &:active {
+    background-color: #d8d7d4;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/************************************************/
+/*          ProjectNavigationPanel.js           */
+/************************************************/
+
+.nav-panel-outer-div {
+  padding: 6% 3%;
+  font-family: 'Nunito', sans-serif;
+  height: 91vh;
+
+  &:not(.actively-selected) {
+    color: #626060;
+  }
+}
+
+.actively-selected {
+  background-color: #e8e8e5;
+  font-weight: bold;
+  color: 000;
+  border-radius: 6px;
+  color: #000;
+}
+
+/* Header Portion */
+
+.nav-panel-header-div {
+  height: 200px;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.home > svg {
+  margin-right: 7%;
+}
+
+/* Project List Middle Portion */
+
+.project-list-div {
+  height: 71%;
+  overflow-y: auto;
+}
+
+.project-div {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.project-list-svg {
+  margin-right: 10px;
+}
+
+.projects-span {
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-left: 7px;
+}
+
+.project-list-item:hover,
+.home:hover {
+  background-color: #e7e7e4;
+  border-radius: 6px;
+}
+
+.actively-selected:hover {
+  background-color: #dfdfdc;
+  border-radius: 6px;
+}
+
+.project-list-item:active,
+.home:active,
+.actively-selected:active {
+  background-color: #d0cfcd;
+  border-radius: 6px;
+}
+
+/* Drop down menu */
+
+.navbar-dropdown-menu,
+.list-dropdown-menu {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  width: 150px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 180px;
+  color: #626060;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.dropdown-menu-svg {
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
+.navbar-dropdown-menu li,
+.list-dropdown-menu li {
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+
+.navbar-dropdown-menu li div,
+.list-dropdown-menu li div {
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: #e7e7e4;
+    font-weight: bold;
+  }
+
+  &:active {
+    background-color: #d0cfcd;
+  }
+}
+
+.up-down-button {
+  border: 2px solid #626060;
+  border-radius: 6px;
+  padding: 2px 5px;
+  margin-left: 5px;
+  font-size: 9px;
+}
+
+/************************************************/
+/*          ProjectDashboard.js                 */
+/************************************************/
+
+.project-display-div {
+  height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.color-block {
+  height: 100px;
+  width: 100%;
+  background: #a1bafa;
+}
+
+/* header */
+
+.project-display-header-div {
+  height: 140px;
+  margin: 20px 20px 20px 45px;
+  border-bottom: 3px solid #d9d9d9;
+}
+
+.project-title-and-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-bar-div {
+  position: relative;
+  width: 270px; /* Adjust as needed */
+  height: 44px; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  border: 3px solid #d9d9d9;
+  background: #fff;
+}
+
+.search-bar {
+  flex: 1;
+  padding-left: 30px; /* Space for the icon */
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px; /* Adjust font size */
+}
+
+.search-icon {
+  position: absolute;
+  left: 5px; /* Adjust the position of the icon */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22.194px;
+  height: 24px;
+  pointer-events: none; /* Ignore pointer events to let clicks pass through to input */
+}
+
+.new-list-form {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.add-list-btn {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  background: #6485d9;
+  color: #fff;
+  font-family: Nunito;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-right: 8px;
 }
 
-.App-link {
-  color: #61dafb;
+.add-list-btn:hover {
+  background: #5776c5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-list-btn:active {
+  background: #3f60b5;
+}
+
+/* body */
+
+.project-display-lists-div {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 70%;
+  background-color: #fff;
+  margin-left: 45px;
+}
+
+/************************************************/
+/*                  List.js                     */
+/************************************************/
+
+.list-title-div {
+  display: flex;
+  align-items: center;
+}
+
+.list-more-actions-div {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.list-dropdown-menu {
+  left: 400px;
+}
+
+.list-div {
+  /* border: 1px solid black; */
+  margin: 10px 10px 40px 0px;
+}
+
+.task-attribute-label-div {
+  display: flex;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  margin-top: 14px;
+  border-bottom: 3px solid #d9d9d9;
+}
+
+.label {
+  padding: 5px 0px 5px 5px;
+  display: flex;
+  align-items: center;
+}
+
+#label-task-name {
+  /* background-color: rgb(135, 135, 182); */
+  flex: 50%;
+}
+
+#label-priority {
+  /* background-color: rgb(177, 116, 116); */
+  flex: 15%;
+}
+
+#label-due {
+  /* background-color: rgb(125, 125, 175); */
+  flex: 30%;
+}
+
+#label-trash {
+  /* background-color: rgb(172, 120, 120); */
+  flex: 5%;
+}
+
+.label > svg {
+  margin-right: 7px;
+}
+
+.new-task-btn {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  background: 0;
+  color: #7d7c78;
+  font-family: Nunito;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  border: 0;
+}
+
+.list-form {
+  display: flex;
+  align-items: center;
+}
+
+.new-list-input {
+  border: none;
+}
+
+.new-task-form-div {
+  border-bottom: 3px solid #d9d9d9;
+  padding-bottom: 8px;
+  padding-top: 6px;
+}
+
+/************************************************/
+/*                  Task.js                     */
+/************************************************/
+
+.task {
+  display: flex;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  margin-top: 14px;
+  border-bottom: 3px solid #d9d9d9;
+}
+
+.field {
+  padding: 5px 0px 5px 20px;
+}
+
+#task-name-div {
+  flex: 50%;
+}
+
+#task-priority-div {
+  flex: 15%;
+  display: flex;
+  align-items: center;
+}
+
+#task-date-div {
+  flex: 30%;
+  display: flex;
+  align-items: center;
+}
+
+#task-delete-btn-div {
+  flex: 5%;
+}
+
+.custom-checkbox {
+  margin-right: 15px;
+}
+
+.task-reorder {
+  margin-left: 20px;
+  margin-right: 15px;
+}
+
+.content-below-block {
+  margin-top: 50px; /* Adjust this value to match the height of the color block */
+}
+
+input[type='checkbox'] {
+  appearance: none;
+}
+
+.custom-checkbox {
+  position: relative;
+  width: 28px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  display: inline-block; /* Ensures block-level display for the span */
+  vertical-align: middle; /* Aligns checkbox with text */
+}
+
+.custom-checkbox.checked {
+  border-color: transparent; /* No border for checked state */
+}
+/* adds the svg button  */
+.custom-checkbox.checked::before {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5.33333 13.3334L10.2505 17.8723C10.7022 18.2893 11.4198 18.2037 11.7608 17.6922L20 5.33337" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>');
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background-color: #6d89d1; /* Background color for checked state */
+  border-radius: 6px; /* Adjust border-radius as needed */
 }
