@@ -3,7 +3,7 @@ import { RenameProject } from './Rename.js';
 import { readPDFFile } from './readPDFFile.js';
 import axios from 'axios';
 import { ReorderProject } from '../components/Reorder';
-import { DisplayLoadEvent } from './userMessages';
+import { DisplayLoadEvent, DisplayInvalidLoadEvent, DisplayOpenAIError } from './userMessages';
 const { addIdToJsonString } = require('./jsonUtils');
 
 export default function ProjectNavigationPanel({
@@ -77,13 +77,18 @@ export default function ProjectNavigationPanel({
         const pdfData = addIdToJsonString(response.data.result);
         // console.log((JSON.stringify(pdfData)));
         handleProjectAdd(pdfData);
-        handleRemoveLoadEvent();
+        
       } catch (error) {
         console.log('Error with OpenAI Request.', error.message);
+        console.log('dispatching errorAI');
+        document.dispatchEvent(new CustomEvent('errorAI'));
       }
     } catch (error) {
       console.error('Error reading PDF File:', error.message);
+      console.log('dispatching errorReadingPDF');
+      document.dispatchEvent(new CustomEvent('errorReadingPDF'));
     }
+    handleRemoveLoadEvent();
   };
 
   // calls built-in file submit handling - will put parsing/other methods in this function.]
@@ -179,6 +184,8 @@ export default function ProjectNavigationPanel({
           )}
         </form>
         <DisplayLoadEvent />
+        <DisplayInvalidLoadEvent />
+        <DisplayOpenAIError />
       </div>
       <span className="projects-span">Projects</span>
       <div className="project-list-div">

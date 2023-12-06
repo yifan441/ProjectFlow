@@ -66,3 +66,46 @@ export const DisplayLoadEvent = () => {
     );
   };
 
+  export const DisplayInvalidLoadEvent = () => {
+    useEffect(() => {
+        const handleInvalidLoad = () => {
+            const message = document.getElementById('errorReadingPDF');
+            message.style.display = 'block';
+        };
+
+        console.log("Adding readPDFError listener");
+        document.addEventListener('readPDFError', handleInvalidLoad);
+
+        return () => {
+            document.removeEventListener('readPDFError', handleInvalidLoad);
+        };
+    }, []);
+
+    return (
+        <div id="errorReadingPDF" style={{ display: 'none', color: 'red', fontSize: '10px' }}>
+        Error reading PDF.
+      </div>
+    );
+  };
+
+  export const DisplayOpenAIError = () => {
+    useEffect(() => {
+        const handleOpenAIError = () => {
+            const message = document.getElementById('invalidAI');
+            message.style.display = 'block';
+        };
+
+        console.log("Adding errorAI listener");
+        document.addEventListener('errorAI', handleOpenAIError);
+
+        return () => {
+            document.removeEventListener('errorAI', handleOpenAIError);
+        };
+    }, []);
+
+    return (
+        <div id="invalidAI" style={{ display: 'none', color: 'red', fontSize: '10px' }}>
+        Error with OpenAI request.
+      </div>
+    );
+  };
