@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
@@ -6,9 +6,10 @@ import Home from '../components/Home';
 import { useNavigate } from 'react-router-dom';
 import { Reorder, deepCopyArray, deepCopyObject } from '../components/Reorder';
 
+
 export default function Dashboard() {
   const navigate = useNavigate();
-
+  const isFirstRender = useRef(true);
   // visual representation of an example of a possible user data array
   let dummyUserData = [
     {
@@ -67,7 +68,6 @@ export default function Dashboard() {
       ],
     },
   ];
-
   const [projects, setProjects] = useState([]); // array of all project objects
   const [selectedProject, setSelectedProject] = useState({ id: 'home', obj: null, index: null }); // currently selected project id + obj
   const [loading, setLoading] = useState(true);
@@ -110,47 +110,48 @@ export default function Dashboard() {
 
   // sends updated data to backend everytime projects variable changes
   useEffect(() => {
-    async function updateBackend() {
-      try {
-        const authToken = localStorage.getItem('authToken');
-        if (!authToken) {
-          console.log('User is not logged in');
-          navigate('/');
-          return;
-        }
-        const copy = projects;
-        const updatedProjectData = JSON.stringify(copy);
-
-        const response = await axios.post(
-          'http://localhost:3001/user/updateDashboard',
-          {
-            updatedProjectData,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          console.log('Updated info sent to backend');
-          // Optionally, you can handle success if needed
-        } else {
-          console.error('Error updating user dashboard:', response.data.message);
-          if (localStorage.getItem('authToken')) {
-            handleLogout();
-          } else {
+    if (!isFirstRender.current) {
+      async function updateBackend() {
+        try {
+          const authToken = localStorage.getItem('authToken');
+          if (!authToken) {
+            console.log('User is not logged in');
             navigate('/');
+            return;
           }
+          const copy = projects;
+          const updatedProjectData = JSON.stringify(copy);
+
+          const response = await axios.post(
+            'http://localhost:3001/user/updateDashboard',
+            {
+              updatedProjectData,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          if (response.status === 200) {
+            console.log('Updated info sent to backend');
+            // Optionally, you can handle success if needed
+          } else {
+            console.error('Error updating user dashboard:', response.data.message);
+            navigate ('/');
+          }
+        } catch (error) {
+          console.error('Error updating user dashboard:', error);
         }
-      } catch (error) {
-        console.error('Error updating user dashboard:', error);
       }
+      updateBackend();
     }
-    updateBackend();
-  }, [projects, navigate]);
+    else {
+      isFirstRender.current = false;
+    }
+}, [projects, navigate]);
 
   // render loading screen
   if (loading) {
