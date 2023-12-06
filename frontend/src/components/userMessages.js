@@ -4,7 +4,7 @@ export const DisplayLoadEvent = () => {
     useEffect(() => {
       const handleLoadEvent = () => {
         const loadMessage = document.getElementById('loadingPDF');
-        loadMessage.style.diplay = 'block';
+        loadMessage.style.display = 'block';
       };
 
       console.log("Adding beginLoadingPDF lisener");
