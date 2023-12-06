@@ -61,7 +61,12 @@ export default function ProjectNavigationPanel({
   };
 
   const handleFileSubmit = async (file) => {
-    //Trying to display loading messages when loading PDF but this code isn't executed"
+    //On submit, turn off all display messages
+    const removeAIError = document.getElementById('invalidAI');
+    const removeReadError = document.getElementById('errorReadingPDF');
+    removeAIError.style.display = 'none';
+    removeReadError.style.display = 'none';
+
     console.log('dispatching beginLoadingPDF');
     document.dispatchEvent(new CustomEvent('beginLoadingPDF'));
     try {
