@@ -195,7 +195,6 @@ app.post('/user/updateDashboard', verifyToken, async (req, res) => {
 
   res.status(200).json({message: 'User dashboard updated successfully'});
   } catch (error) {
-    console.error('Error updating user dashboard:', error);
     res.status(500).json({message: 'Internal server error'});
   }
 
