@@ -120,7 +120,7 @@ export function RenameList({
         const renameBox = document.getElementById(getUniqueDocId('renameListBox', listId)); //change this to something specific to list
         renameBox.style.display = 'none';
         setInputValue('');
-        setInitialClick(3);
+        //setInitialClick(3);
     };
 
     //Displays renaming feature
@@ -143,7 +143,7 @@ export function RenameList({
     const uniqueId = getUniqueDocId('renameListBox', listId);
 
     return (
-        <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
+        <div id={uniqueId} style={{ display: 'none' }}>
             <form action="" className="list-renamer" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -195,7 +195,7 @@ export function RenameTask({
         const renameBox = document.getElementById(getUniqueDocId('renameTaskBox', taskId)); //change this to something specific to list
         renameBox.style.display = 'none';
         setInputValue('');
-        setInitialClick(3);
+        //setInitialClick(3);
     };
 
     //Displays renaming feature
@@ -219,7 +219,7 @@ export function RenameTask({
 
 
     return (
-        <div id={uniqueId} style={{ display: 'none' }} ref={renameRef}>
+        <div id={uniqueId} style={{ display: 'none' }}>
             <form action="" className="task-renamer" onSubmit={handleSubmit}>
                 <input
                     type="text"
