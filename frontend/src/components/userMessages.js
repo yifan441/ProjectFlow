@@ -16,7 +16,7 @@ export const DisplayLoadEvent = () => {
     }, []);
 
     return (
-      <div id="loadingPDF" style={{ display: 'none', color: 'red', fontSize: '10px' }}>
+      <div id="loadingPDF" style={{ display: 'none', color: 'blue', fontSize: '10px' }}>
         Loading auto-generated project from PDF
       </div>
     );
@@ -61,7 +61,7 @@ export const DisplayLoadEvent = () => {
 
     return (
         <div id="userExists" style={{ display: 'none', color: 'red', fontSize: '10px' }}>
-        Account registered to this email already exists.
+        Username or email already connected to an account.
       </div>
     );
   };

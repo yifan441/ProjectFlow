@@ -61,7 +61,7 @@ export default function ProjectDashboard({
                 className="search-bar"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onclick={() => setQuery('')}
+                onClick={() => setQuery('')}
                 type="search"
                 placeholder="Search lists"
               />
