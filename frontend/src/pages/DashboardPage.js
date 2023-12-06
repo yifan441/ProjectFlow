@@ -78,11 +78,6 @@ export default function Dashboard() {
     const fetchUserDashboard = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        if (!authToken) {
-          console.log('User is not logged in');
-          navigate('/');
-          return;
-        }
 
         const response = await axios.get('http://localhost:3001/user/dashboard', {
           headers: {
@@ -99,6 +94,7 @@ export default function Dashboard() {
           console.error('Error fetching user dashboard:', response.data.message);
         }
       } catch (error) {
+        navigate ('/');
         console.error('Error fetching user dashboard:', error);
       } finally {
         setLoading(false);
@@ -110,13 +106,17 @@ export default function Dashboard() {
 
   // sends updated data to backend everytime projects variable changes
   useEffect(() => {
+    const handleNotValidated = () => {
+      localStorage.removeItem('userData');
+      navigate ('/');
+    }
     if (!isFirstRender.current) {
       async function updateBackend() {
         try {
           const authToken = localStorage.getItem('authToken');
           if (!authToken) {
-            console.log('User is not logged in');
-            navigate('/');
+            handleNotValidated();
+            console.error('User is not logged in');
             return;
           }
           const copy = projects;
@@ -139,10 +139,11 @@ export default function Dashboard() {
             console.log('Updated info sent to backend');
             // Optionally, you can handle success if needed
           } else {
+            handleNotValidated();
             console.error('Error updating user dashboard:', response.data.message);
-            navigate ('/');
           }
         } catch (error) {
+          handleNotValidated();
           console.error('Error updating user dashboard:', error);
         }
       }
