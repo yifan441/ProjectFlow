@@ -2,12 +2,18 @@ import { useState } from 'react';
 import List from './List';
 
 export default function ProjectDashboard({
-  handleProjectDelete,
   handleAddList,
   handleAddTask,
   handleUpdateTaskAttributes,
   projectIndex,
   projectObj,
+  handleListDelete,
+  handleTaskDelete,
+  handleRenameList,
+  selectedProjectId,
+  handleRenameTask,
+  handleMoveList,
+  handleMoveTask,
 }) {
   const [inputValue, setInputValue] = useState(''); // input value for "new project" text field
   const [query, setQuery] = useState('');
@@ -47,9 +53,23 @@ export default function ProjectDashboard({
       <div className="project-display-div">
         <div className="project-display-header-div">
           <h1>{projectName}</h1>
-          <button onClick={handleProjectDelete}> delete project</button>
           <div>
-            Search:
+           {/* Static magnifying glass figure */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-search" // Add a class for styling if needed
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -82,7 +102,17 @@ export default function ProjectDashboard({
                 handleAddTask={handleAddTask}
                 handleUpdateTaskAttributes={handleUpdateTaskAttributes}
                 projectIndex={projectIndex}
-                listIndex={index}
+                listIndex={
+                  listsArray.indexOf(list) // need to get og index, not index after filtering
+                }
+                handleListDelete={handleListDelete}
+                handleTaskDelete={handleTaskDelete}
+                handleRenameList={handleRenameList}
+                selectedProjectId={selectedProjectId}
+                selectedListId={list.id}
+                handleRenameTask={handleRenameTask}
+                handleMoveList={handleMoveList}
+                handleMoveTask={handleMoveTask}
               />
             ))
           )}
