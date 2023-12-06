@@ -10,31 +10,51 @@ export default function Calendar({ projectsData }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
 
-  const transformDataToEvents = () => {
-    let events = [];
-    projectsData.forEach((project) => {
-      project.lists.forEach((list) => {
-        list.tasks.forEach((task) => {
-          if (task.attributes.dueDate) {
-            const event = {
-              id: task.id,
-              title: task.name,
-              start: new Date(task.attributes.dueDate),
-              end: new Date(task.attributes.dueDate),
-              project: project.name,
-              list: list.name,
-              task: task,
-              priority: task.attributes.priority,
-            };
-            events.push(event);
-          }
+  useEffect(() => {
+    const transformDataToEvents = () => {
+      let events = [];
+      projectsData.forEach((project) => {
+        project.lists.forEach((list) => {
+          list.tasks.forEach((task) => {
+            if (task.attributes.dueDate) {
+              const event = {
+                id: task.id,
+                title: task.name,
+                start: new Date(task.attributes.dueDate),
+                end: new Date(task.attributes.dueDate),
+                project: project.name,
+                list: list.name,
+                task: task,
+                priority: task.attributes.priority,
+              };
+              events.push(event);
+            }
+          });
         });
       });
-    });
-    return events;
-  };
+      return events;
+    };
 
-  const events = transformDataToEvents();
+    const events = transformDataToEvents();
+
+    let filtered = [...events];
+    if (searchQuery.trim() !== '') {
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          event.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          event.list.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (selectedPriority !== 'all') {
+      filtered = filtered.filter(
+        (event) => event.priority === selectedPriority
+      );
+    }
+
+    setFilteredEvents(filtered);
+  }, [searchQuery, selectedPriority, projectsData]);
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     let priorityColor = '';
@@ -72,26 +92,6 @@ export default function Calendar({ projectsData }) {
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
-
-  useEffect(() => {
-    let filtered = events;
-    if (searchQuery.trim() !== '') {
-      filtered = filtered.filter(
-        (event) =>
-          event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          event.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          event.list.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    if (selectedPriority !== 'all') {
-      filtered = filtered.filter(
-        (event) => event.priority === selectedPriority
-      );
-    }
-
-    setFilteredEvents(filtered);
-  }, [searchQuery, selectedPriority, events]);
 
   return (
     <div className="calendar-page-container">
@@ -135,3 +135,4 @@ export default function Calendar({ projectsData }) {
     </div>
   );
 }
+
