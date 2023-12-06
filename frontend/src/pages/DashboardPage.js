@@ -5,6 +5,7 @@ import ProjectNavigationPanel from '../components/ProjectNavigationPanel';
 import ProjectDashboard from '../components/ProjectDashboard';
 import Home from '../components/Home';
 import { useNavigate } from 'react-router-dom';
+import { Reorder, deepCopyArray, deepCopyObject } from '../components/Reorder'
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -260,6 +261,99 @@ export default function Dashboard() {
     setProjects(newProjectsData);
   }
 
+  function handleMoveProject(moveDir) {
+    
+    const newProjectsData = deepCopyArray(projects);
+    const projectIndex = projects.findIndex((proj) => proj.id === selectedProject.id);
+
+    //moveDir = 1 means move up
+    if (moveDir === 1 && projectIndex > 0) {
+      const projectAtIndex = deepCopyObject(newProjectsData[projectIndex]);
+      const projectAbove = deepCopyObject(newProjectsData[projectIndex-1]);
+      newProjectsData[projectIndex-1] = projectAtIndex;
+      newProjectsData[projectIndex] = projectAbove;
+      setProjects(newProjectsData);
+    }
+
+    //moveDir = 0 means move down
+    else if (moveDir === 0 && projectIndex < projects.length-1){
+      const projectAtIndex = deepCopyObject(newProjectsData[projectIndex]);
+      const projectBelow = deepCopyObject(newProjectsData[projectIndex+1]);
+      newProjectsData[projectIndex+1] = projectAtIndex;
+      newProjectsData[projectIndex] = projectBelow;
+      setProjects(newProjectsData);
+    }
+    setProjects(newProjectsData);
+  }
+
+  function handleMoveList(moveDir, projectId, listId) {
+
+    console.log('List Move Attempt');
+    const newProjectsData = deepCopyArray(projects);
+    const projectIndex = projects.findIndex((proj) => proj.id === projectId);
+    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId)
+
+    //moveDir = 1 means move up
+    console.log('projectIndex is: ', projectIndex);
+    console.log('listIndex is: ', listIndex);
+
+    console.log('Attempt to enter move up');
+    if (moveDir === 1 && listIndex > 0) {
+      console.log('Entered move up');
+      const listAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex]);
+      const listAbove = deepCopyObject(newProjectsData[projectIndex].lists[listIndex-1]);
+      newProjectsData[projectIndex].lists[listIndex-1] = listAtIndex;
+      newProjectsData[projectIndex].lists[listIndex] = listAbove;
+      setProjects(newProjectsData);
+    }
+
+    //moveDir = 0 means move down
+    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length-1){
+      console.log('Entered move down');
+      const listAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex]);
+      const listBelow = deepCopyObject(newProjectsData[projectIndex].lists[listIndex+1]);
+      newProjectsData[projectIndex].lists[listIndex+1] = listAtIndex;
+      newProjectsData[projectIndex].lists[listIndex] = listBelow;
+      setProjects(newProjectsData);
+    }
+    setProjects(newProjectsData);
+  }
+
+  function handleMoveTask(moveDir, projectId, listId, taskId) {
+
+    console.log('Task Move Attempt');
+    const newProjectsData = deepCopyArray(projects);
+    const projectIndex = projects.findIndex((proj) => proj.id === projectId);
+    const listIndex = projects[projectIndex].lists.findIndex((list) => list.id === listId)
+    const taskIndex = projects[projectIndex].lists[listIndex].tasks.findIndex((task) => task.id === taskId);
+
+    //moveDir = 1 means move up
+    console.log('projectIndex is: ', projectIndex);
+    console.log('listIndex is: ', listIndex);
+    console.log('taskIndex is: ', taskIndex);
+
+    console.log('Attempt to enter move up');
+    if (moveDir === 1 && listIndex > 0) {
+      console.log('Entered move up');
+      const taskAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]);
+      const taskAbove = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex-1]);
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex-1] = taskAtIndex;
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex] = taskAbove;
+      setProjects(newProjectsData);
+    }
+
+    //moveDir = 0 means move down
+    else if (moveDir === 0 && listIndex < projects[projectIndex].lists.length-1){
+      console.log('Entered move down');
+      const taskAtIndex = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]);
+      const taskBelow = deepCopyObject(newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex+1]);
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex+1] = taskAtIndex;
+      newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex] = taskBelow;
+      setProjects(newProjectsData);
+    }
+    setProjects(newProjectsData);
+  }
+
   return (
     <div className="outer-container-div">
       <div className="navbar-div">
@@ -270,6 +364,7 @@ export default function Dashboard() {
           handleProjectAdd={handleProjectAdd}
           handleRenameProject={handleRenameProject}
           handleProjectDelete={handleProjectDelete}
+          handleMoveProject={handleMoveProject}
         />
         <button onClick={handleLogout} className="logout-button">
           Logout
@@ -290,6 +385,8 @@ export default function Dashboard() {
             handleRenameList={handleRenameList}
             selectedProjectId={selectedProject.id}
             handleRenameTask={handleRenameTask}
+            handleMoveList={handleMoveList}
+            handleMoveTask={handleMoveTask}
           />
         )}
       </div>

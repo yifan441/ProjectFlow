@@ -7,10 +7,8 @@
     "start:backend": "cd backend && npm start",
     "start:frontend": "cd frontend && npm start"
   },
-  "dependencies": {
-    "dotenv": "^16.3.1",
-    "openai": "^4.20.1",
-    "pdf2json": "^3.0.5",
-    "react-router-dom": "^6.20.0"
-  }
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
 }

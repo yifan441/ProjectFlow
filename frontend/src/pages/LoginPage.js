@@ -3,6 +3,7 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { InvalidLogin } from '../components/userMessages';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,8 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const resetLoginErrors = document.getElementById('loginError');
+    resetLoginErrors.style.display = 'none';
     try {
       // Send a login request to the server
       const response = await axios.post(
@@ -34,11 +37,12 @@ function LoginPage() {
         navigate('/dashboard');
 
       } else {
-
+        document.dispatchEvent(new CustomEvent('invalidLogin'));
         console.log(response.data.message);
       }
     } catch (error) {
       console.error('Error during login:', error);
+      
     }
   };
 
@@ -58,7 +62,7 @@ function LoginPage() {
               name="email"
               className="form-control rounded-0"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
           </div>
           <div className="mb-3">
@@ -77,6 +81,9 @@ function LoginPage() {
           <button type="submit" className="btn btn-success w-100 rounded-0">
             Log In
           </button>
+          <div className="login-error-box">
+            <InvalidLogin />
+          </div>
           <div className="mt-3 text-center">
             <p>
               Don't have an account?{' '}
