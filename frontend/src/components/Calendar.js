@@ -9,6 +9,7 @@ export default function Calendar({ projectsData }) {
   const [selectedPriority, setSelectedPriority] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const transformDataToEvents = () => {
@@ -82,6 +83,7 @@ export default function Calendar({ projectsData }) {
   };
 
   const handleEventClick = (event) => {
+    setSelectedEvent(event);
     console.log('Clicked event:', event);
   };
 
@@ -91,6 +93,10 @@ export default function Calendar({ projectsData }) {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedEvent(null); // Close the popup by resetting selected event to null
   };
 
   return (
@@ -132,6 +138,17 @@ export default function Calendar({ projectsData }) {
           toolbar={[]}
         />
       </div>
+      {selectedEvent && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Task Details</h2>
+            <p>Project: {selectedEvent.project}</p>
+            <p>List: {selectedEvent.list}</p>
+            <p>Task: {selectedEvent.title}</p>
+            <button onClick={handleClosePopup}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
