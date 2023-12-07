@@ -684,6 +684,178 @@ input[type='checkbox'] {
 /*                 LoginPage.js                 */
 /************************************************/
 
+.landing-page-container {
+  background-color: #A1BAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.landing-middle-div {
+  text-align: center; /* Center text content */
+  /* Other styles for your landing middle div */
+}
+
+
+.landing-page-content-box {
+  padding: 20px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  width: 550px;
+  height: 400px;
+  margin: auto; /* Center the box horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: #FFF;
+}
+
+.landing-page-content-box span {
+  font-weight: 200; 
+}
+
+.landing-page-buttons {
+  margin-top: 20px; /* Adjust spacing between buttons and text */
+}
+
+.landing-page-content-box h2 {
+  display: flex;
+  align-items: center; /* Align the items vertically */
+  gap: 8px; /* Adjust the spacing between the text and the SVG */
+}
+
+.landing-login-btn {
+  border: none;
+  color: #FFFFFF;
+  margin-top: 40px;
+  width: 420px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #6485D9;
+}
+
+.landing-sign-up-btn{
+  color: #6485D9;
+  margin-top: 30px;
+  width: 420px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 3px solid #6485D9;
+  background: #FFF;
+}
+
+
+/* STYLE HOVER ON BUTTON? */
+
 /************************************************/
 /*              RegisterPage.js                 */
 /************************************************/
+
+.register-screen-container {
+  background-color: #A1BAFA; 
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /*Center vertically */
+  height: 100vh; /* Make the container cover the entire viewport height */
+}
+
+/* Style the white box */
+.register-middle-div {
+  width: 650px;
+  height: 650px;
+  padding: 40px;
+  border-radius: 20px;
+  background: #FFF; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Adjust vertical spacing */
+  /* align-items: center; Center horizontally */
+  /* text-align: center; */
+}
+
+.register-middle-div h2 {
+  font-family: 'Nunito', sans-serif;
+  margin-bottom: 50px;
+  padding-left: 40px;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.register-form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px; /* Adjust the margin between each form field */
+  padding-left: 40px;
+}
+
+.register-form-field label {
+  margin-bottom: 9px;
+  color: #000;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.register-input-box {
+  width: 400px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 2px solid #D8D8D8;
+  background: #FFF;
+  padding-left: 10px;
+}
+
+.register-input-box::placeholder {
+  color: #A9A9A9;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  /* Additional styles if needed */
+}
+
+.register-password-requirements {
+  padding-left: 40px;
+  margin-top: 7px; /* requirement text not moving closer to input box? */
+  color: #7D7C78;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145.948%; /* 21.892px */
+}
+
+.register-btn{
+  width: 400px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #6485D9;
+  margin-top: 0px; /* Adjust top margin if needed */
+  color: #FFFFFF;
+  border: none;
+  margin-left: 40px;
+}
+
+.register-existing-account{
+  padding-left: 130px;
+  padding-top: 15px;
+}
+
+.register-screen-text-span {
+  color: #007bff; /* Set the color to a typical link color */
+  cursor: pointer; /* Show pointer cursor on hover */
+  text-decoration: underline; /* Underline to indicate a link */
+}
