@@ -77,7 +77,6 @@ export default function ProjectNavigationPanel({
         const pdfData = addIdToJsonString(response.data.result);
         // console.log((JSON.stringify(pdfData)));
         handleProjectAdd(pdfData);
-        
       } catch (error) {
         console.log('Error with OpenAI Request.', error.message);
         console.log('dispatching errorAI');
@@ -144,8 +143,21 @@ export default function ProjectNavigationPanel({
         </div>
         <div className="new-project">
           <form action="" className="new-project-form" onSubmit={handleSubmit}>
-            <button type="submit" className="btn-create" aria-label="create new project">
-              +
+            <button type="submit" className="create-project-btn" aria-label="create new project">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M21.5 11C21.5 16.799 16.799 21.5 11 21.5C5.20101 21.5 0.5 16.799 0.5 11C0.5 5.20101 5.20101 0.5 11 0.5C16.799 0.5 21.5 5.20101 21.5 11ZM11 17.8333C10.4477 17.8333 10 17.3856 10 16.8333V12H5.16667C4.61438 12 4.16667 11.5523 4.16667 11C4.16667 10.4477 4.61438 10 5.16667 10H10V5.16667C10 4.61438 10.4477 4.16667 11 4.16667C11.5523 4.16667 12 4.61438 12 5.16667V10H16.8333C17.3856 10 17.8333 10.4477 17.8333 11C17.8333 11.5523 17.3856 12 16.8333 12H12V16.8333C12 17.3856 11.5523 17.8333 11 17.8333Z"
+                  fill="#626060"
+                />
+              </svg>
             </button>
             <input
               type="text"
@@ -153,36 +165,57 @@ export default function ProjectNavigationPanel({
               onChange={handleChange}
               placeholder="New project"
               aria-label="New project"
+              className="create-project-input"
             />
           </form>
         </div>
 
-        <form action="" className="ai-new-project-form" onSubmit={handleSubmit}>
-          <button
-            onClick={toggleFileInput}
-            className="btn-create-pdf"
-            aria-label="create project from PDF"
-          >
-            Create Project from PDF
-          </button>
-          {showFileInput && (
-            <>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                accept=".pdf"
-                aria-label="Select PDF file"
-              />
-              <button
-                onClick={handleFileSubmitInternal}
-                className="btn-submit-pdf"
-                aria-label="submit PDF"
+        <div className="ai-new-project">
+          <form action="" className="ai-new-project-form" onSubmit={handleSubmit}>
+            <button
+              onClick={toggleFileInput}
+              className="btn-create-pdf"
+              aria-label="create project from PDF"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23"
+                height="29"
+                viewBox="0 0 23 29"
+                fill="none"
+                style={{ marginRight: '22px' }}
               >
-                Submit PDF
-              </button>
-            </>
-          )}
-        </form>
+                <path
+                  d="M14.4999 0L14.864 3.86125C15.2967 8.45077 17.9554 12.1157 21.3974 12.8675L22.2333 13.05L21.3974 13.2326C17.9554 13.9843 15.2967 17.6492 14.864 22.2388L14.4999 26.1L14.1359 22.2388C13.7032 17.6492 11.0445 13.9843 7.60248 13.2326L6.7666 13.05L7.60248 12.8675C11.0445 12.1157 13.7032 8.45078 14.1359 3.86125L14.4999 0Z"
+                  fill="#6485D9"
+                />
+                <path
+                  d="M5.8 12.5667L6.07304 14.9978C6.39757 17.8875 8.39158 20.1951 10.9731 20.6684L11.6 20.7833L10.9731 20.8983C8.39158 21.3716 6.39757 23.6791 6.07304 26.5688L5.8 29L5.52697 26.5688C5.20244 23.6791 3.20842 21.3716 0.626909 20.8983L0 20.7833L0.626909 20.6684C3.20842 20.1951 5.20244 17.8875 5.52697 14.9978L5.8 12.5667Z"
+                  fill="#6485D9"
+                />
+              </svg>
+              AI Project Builder
+            </button>
+            {showFileInput && (
+              <div className="choose-file-div">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  accept=".pdf"
+                  aria-label="Select PDF file"
+                  className="ai-new-project-input"
+                />
+                <button
+                  onClick={handleFileSubmitInternal}
+                  className="btn-submit-pdf"
+                  aria-label="submit PDF"
+                >
+                  Submit PDF
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
         <DisplayLoadEvent />
         <DisplayInvalidLoadEvent />
         <DisplayOpenAIError />
@@ -332,7 +365,6 @@ export default function ProjectNavigationPanel({
                             }}
                           >
                             <div>
-                              {' '}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="23"

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PasswordSuitability from '../components/PasswordSuitability';
@@ -59,77 +58,91 @@ function RegisterPage() {
   }
 
   const handleLogin = () => {
-    navigate('/');
+    navigate('/login');
   };
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Register</h2>
+    <div className="register-screen-container">
+      <div className="register-middle-div">
+        <h2>Sign up</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Name</strong>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setName(e.target.value)}
-            />
+          {/* <div className="register-margin"> */}
+              <div className="register-form-field">
+                <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                placeholder="Enter name"
+                autoComplete="off"
+                name="name"
+                className="register-input-box"
+                onChange={(e) => setName(e.target.value)}
+              />
+              </div>
+          {/* </div> */}
+          <div className="register-form-field">
+            {/* <div className="register-margin"> */}
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="Enter email"
+                autoComplete="off"
+                name="email"
+                className="register-input-box"
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
+              />
+            {/* </div> */}
           </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email</strong>
-            </label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setEmail(e.target.value.toLowerCase())}
-            />
-          </div>
+
           <div className="user-exist-error">
             <UserAlreadyExists />
           </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Password</strong>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="password"
-              className="form-control rounded-0"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+
+          <div className="register-form-field">
+            {/* <div className="register-margin"> */}
+              <label htmlFor="password">
+                Password
+              </label>
+              <input
+                type="password"
+                placeholder="Enter password"
+                name="password"
+                className="register-input-box"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            {/* </div> */}
           </div>
+
           <div className="invalid-password">
             <PasswordSuitability />
           </div>
-          <div className="mb-3">
+          <div className="register-password-requirements">
             <label
               htmlFor="pwd_requirments"
               style={{ fontSize: '10px', opacity: '0.7', fontWeight: 'normal' }}
             >
               Password of at least 8 characters with:
-              <br /> 1 Uppercase Character
-              <br /> 1 Lowercase Character
-              <br /> 1 Special Character
+              <ul>
+                <li>1 Uppercase Character</li>
+                <li>1 Lowercase Character</li>
+                <li>1 Special Character</li>
+                <li>1 Digit</li>
+              </ul>
             </label>
           </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
+          <button type="submit" className="register-btn">
             Register
           </button>
-          <button
-            onClick={handleLogin}
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
-          >
-            Already Have An Account? Log In
-          </button>
+
+          <div className="register-existing-account">
+            <p>
+              Already have an account?{' '}
+              <span
+                onClick={handleLogin}
+                className="register-screen-text-span"
+              >
+                Log In
+              </span>
+            </p>
+          </div>
         </form>
       </div>
     </div>

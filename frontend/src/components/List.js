@@ -64,7 +64,15 @@ export default function List({
       const completeTaskCount = list.tasks.filter((task) => task.attributes.complete).length;
       const totalTaskCount = list.tasks.length;
       const percentageComplete = Math.floor((completeTaskCount / totalTaskCount) * 100);
-      return `${percentageComplete}% Complete`;
+      return (
+        <div className="task-completion-div-content">
+          <div className="task-completion-visual-div">
+            <div className="visual-bottom-div"></div>
+            <div className="visual-top-div" style={{ width: `${percentageComplete}%` }}></div>
+          </div>
+          <span>{`${percentageComplete}% Complete`}</span>
+        </div>
+      );
     } else {
       return 'No tasks created';
     }
@@ -90,20 +98,18 @@ export default function List({
           <h3 className="list-title" style={{ display: 'inline-block' }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
+              width="29"
               height="24"
-              viewBox="0 0 24 24"
+              viewBox="0 0 29 24"
               fill="none"
               style={{ marginRight: '5px' }}
             >
               <path
-                d="M14.6358 3.90949C15.2888 3.47412 15.6153 3.25643 15.9711 3.29166C16.3269 3.32689 16.6044 3.60439 17.1594 4.15938L19.8406 6.84062C20.3956 7.39561 20.6731 7.67311 20.7083 8.02888C20.7436 8.38465 20.5259 8.71118 20.0905 9.36424L18.4419 11.8372C17.88 12.68 17.5991 13.1013 17.3749 13.5511C17.2086 13.8845 17.0659 14.2292 16.9476 14.5825C16.7882 15.0591 16.6889 15.5557 16.4902 16.5489L16.2992 17.5038C16.2986 17.5072 16.2982 17.5089 16.298 17.5101C16.1556 18.213 15.3414 18.5419 14.7508 18.1351C14.7497 18.1344 14.7483 18.1334 14.7455 18.1315V18.1315C14.7322 18.1223 14.7255 18.1177 14.7189 18.1131C11.2692 15.7225 8.27754 12.7308 5.88691 9.28108C5.88233 9.27448 5.87772 9.26782 5.86851 9.25451V9.25451C5.86655 9.25169 5.86558 9.25028 5.86486 9.24924C5.45815 8.65858 5.78704 7.84444 6.4899 7.70202C6.49113 7.70177 6.49282 7.70144 6.49618 7.70076L7.45114 7.50977C8.44433 7.31113 8.94092 7.21182 9.4175 7.05236C9.77083 6.93415 10.1155 6.79139 10.4489 6.62514C10.8987 6.40089 11.32 6.11998 12.1628 5.55815L14.6358 3.90949Z"
+                d="M6.04163 10C6.04163 8.11438 6.04163 7.17157 6.62741 6.58579C7.2132 6 8.15601 6 10.0416 6H15.2679C16.0815 6 16.4883 6 16.8544 6.15092C17.2206 6.30184 17.5092 6.58849 18.0865 7.1618L20.1004 9.1618C21.4468 10.4989 22.12 11.1675 22.12 12C22.12 12.8325 21.4468 13.5011 20.1004 14.8382L18.0865 16.8382C17.5092 17.4115 17.2206 17.6982 16.8544 17.8491C16.4883 18 16.0815 18 15.2679 18H10.0416C8.15601 18 7.2132 18 6.62741 17.4142C6.04163 16.8284 6.04163 15.8856 6.04163 14V10Z"
                 fill="black"
-                stroke="black"
-                stroke-width="2"
               />
-              <path d="M5 19L9.5 14.5" stroke="black" stroke-width="2" stroke-linecap="round" />
             </svg>
+
             {listObj.name}
           </h3>
 
@@ -206,9 +212,7 @@ export default function List({
             />
           </div>
         </div>
-        <span className="task-count" style={{ marginLeft: '30px' }}>
-          {getTaskCompletion(listObj)}
-        </span>
+        <div className="task-completion-div">{getTaskCompletion(listObj)}</div>
       </div>
       <div className="list-body">
         <div className="task-attribute-label-div">

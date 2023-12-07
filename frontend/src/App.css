@@ -107,10 +107,77 @@ ul,
   align-items: center;
   padding: 3px;
   cursor: pointer;
+  margin-bottom: 3px;
 }
 
 .home > svg {
-  margin-right: 7%;
+  margin-right: 20px;
+}
+
+.new-project,
+.ai-new-project {
+  padding: 3px 3px 3px 1px;
+  margin-bottom: 3px;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: #e7e7e4;
+  }
+
+  &:active {
+    background-color: #d0cfcd;
+  }
+}
+
+.create-project-btn {
+  border: 0;
+  margin-right: 17px;
+  background: 0;
+}
+
+.create-project-input {
+  border: 0;
+  background: 0;
+  padding-left: 0;
+  cursor: pointer;
+
+  &::placeholder {
+    color: #626060;
+  }
+
+  &:focus {
+    background: #e8e8e5;
+  }
+}
+
+.btn-create-pdf {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: 0;
+  color: #626060;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.ai-new-project-input {
+  max-width: 250px;
+  margin-bottom: 10px;
+}
+
+.btn-submit-pdf {
+  display: block;
+  border-radius: 3px;
+  color: white;
+  background-color: #6485d9;
+
+  &:hover {
+    background-color: #5776c5;
+  }
+
+  &:active {
+    background-color: #3f60b5;
+  }
 }
 
 /* Project List Middle Portion */
@@ -121,7 +188,7 @@ ul,
 }
 
 .project-div {
-  padding: 5px;
+  padding: 3.5px;
   cursor: pointer;
 }
 
@@ -157,7 +224,7 @@ ul,
 
 .navbar-dropdown-menu,
 .list-dropdown-menu {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background: white;
   width: 150px;
@@ -204,6 +271,11 @@ ul,
   font-size: 9px;
 }
 
+.task-renamer {
+  display: flex;
+  flex-direction: column;
+}
+
 /************************************************/
 /*          ProjectDashboard.js                 */
 /************************************************/
@@ -223,7 +295,7 @@ ul,
 /* header */
 
 .project-display-header-div {
-  height: 140px;
+  height: 130px;
   margin: 20px 20px 20px 45px;
   border-bottom: 3px solid #d9d9d9;
 }
@@ -311,6 +383,15 @@ ul,
 /*                  List.js                     */
 /************************************************/
 
+/* outer container */
+
+.list-div {
+  /* border: 1px solid black; */
+  margin: 10px 10px 40px 0px;
+}
+
+/* header */
+
 .list-title-div {
   display: flex;
   align-items: center;
@@ -325,10 +406,45 @@ ul,
   left: 400px;
 }
 
-.list-div {
-  /* border: 1px solid black; */
-  margin: 10px 10px 40px 0px;
+/* task completion */
+
+.task-completion-div {
+  /* display: flex;
+  align-items: center; */
+  margin-left: 35px;
 }
+
+.task-completion-div-content {
+  display: flex;
+  align-items: center;
+}
+
+.task-completion-visual-div {
+  position: relative;
+  width: 150px;
+  height: 8px;
+  margin-right: 20px;
+}
+
+.visual-bottom-div,
+.visual-top-div {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.visual-bottom-div {
+  background-color: #d9d9d9;
+}
+
+.visual-top-div {
+  background-color: #a1bafa;
+  /* width: 33%; */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* task attributes bar */
 
 .task-attribute-label-div {
   display: flex;
@@ -399,8 +515,7 @@ ul,
 
 .new-task-form-div {
   border-bottom: 3px solid #d9d9d9;
-  padding-bottom: 8px;
-  padding-top: 6px;
+  padding: 3px 0px 3px 0;
 }
 
 /************************************************/
@@ -409,9 +524,8 @@ ul,
 
 .task {
   display: flex;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-  margin-top: 14px;
+  padding: 2px 0px 2px 0;
+
   border-bottom: 3px solid #d9d9d9;
 }
 
@@ -481,6 +595,10 @@ input[type='checkbox'] {
   height: 24px;
   background-color: #6d89d1; /* Background color for checked state */
   border-radius: 6px; /* Adjust border-radius as needed */
+}
+
+.react-datepicker-wrapper input {
+  width: 250px; /* Adjust the width as needed */
 }
 
 /************************************************/
@@ -560,4 +678,184 @@ input[type='checkbox'] {
   &:active {
     background: #3f60b5;
   }
+}
+
+/************************************************/
+/*                 LoginPage.js                 */
+/************************************************/
+
+.landing-page-container {
+  background-color: #A1BAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.landing-middle-div {
+  text-align: center; /* Center text content */
+  /* Other styles for your landing middle div */
+}
+
+
+.landing-page-content-box {
+  padding: 20px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  width: 550px;
+  height: 400px;
+  margin: auto; /* Center the box horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: #FFF;
+}
+
+.landing-page-content-box span {
+  font-weight: 200; 
+}
+
+.landing-page-buttons {
+  margin-top: 20px; /* Adjust spacing between buttons and text */
+}
+
+.landing-page-content-box h2 {
+  display: flex;
+  align-items: center; /* Align the items vertically */
+  gap: 8px; /* Adjust the spacing between the text and the SVG */
+}
+
+.landing-login-btn {
+  border: none;
+  color: #FFFFFF;
+  margin-top: 40px;
+  width: 420px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #6485D9;
+}
+
+.landing-sign-up-btn{
+  color: #6485D9;
+  margin-top: 30px;
+  width: 420px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 3px solid #6485D9;
+  background: #FFF;
+}
+
+
+/* STYLE HOVER ON BUTTON? */
+
+/************************************************/
+/*              RegisterPage.js                 */
+/************************************************/
+
+.register-screen-container {
+  background-color: #A1BAFA; 
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /*Center vertically */
+  height: 100vh; /* Make the container cover the entire viewport height */
+}
+
+/* Style the white box */
+.register-middle-div {
+  width: 650px;
+  height: 650px;
+  padding: 40px;
+  border-radius: 20px;
+  background: #FFF; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Adjust vertical spacing */
+  /* align-items: center; Center horizontally */
+  /* text-align: center; */
+}
+
+.register-middle-div h2 {
+  font-family: 'Nunito', sans-serif;
+  margin-bottom: 50px;
+  padding-left: 40px;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.register-form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px; /* Adjust the margin between each form field */
+  padding-left: 40px;
+}
+
+.register-form-field label {
+  margin-bottom: 9px;
+  color: #000;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.register-input-box {
+  width: 400px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 2px solid #D8D8D8;
+  background: #FFF;
+  padding-left: 10px;
+}
+
+.register-input-box::placeholder {
+  color: #A9A9A9;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  /* Additional styles if needed */
+}
+
+.register-password-requirements {
+  padding-left: 40px;
+  margin-top: 7px; /* requirement text not moving closer to input box? */
+  color: #7D7C78;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145.948%; /* 21.892px */
+}
+
+.register-btn{
+  width: 400px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #6485D9;
+  margin-top: 0px; /* Adjust top margin if needed */
+  color: #FFFFFF;
+  border: none;
+  margin-left: 40px;
+}
+
+.register-existing-account{
+  padding-left: 130px;
+  padding-top: 15px;
+}
+
+.register-screen-text-span {
+  color: #007bff; /* Set the color to a typical link color */
+  cursor: pointer; /* Show pointer cursor on hover */
+  text-decoration: underline; /* Underline to indicate a link */
 }

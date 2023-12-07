@@ -43,8 +43,8 @@ function LoginPage() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25">
+    <div className="login-screen-container d-flex justify-content-center align-items-center bg-primary vh-100">
+      <div className="login-middle-div bg-white">
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -53,7 +53,7 @@ function LoginPage() {
             </label>
             <input
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter email"
               autoComplete="off"
               name="email"
               className="form-control rounded-0"
@@ -67,7 +67,7 @@ function LoginPage() {
             </label>
             <input
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter password"
               name="password"
               className="form-control rounded-0"
               value={password}
@@ -83,8 +83,11 @@ function LoginPage() {
           <div className="mt-3 text-center">
             <p>
               Don't have an account?{' '}
-              <span onClick={() => navigate('/register')} className="text-primary cursor-pointer">
-                Register
+              <span
+                onClick={() => navigate('/register')}
+                className="login-register-text-span text-primary cursor-pointer"
+              >
+                Sign up
               </span>
             </p>
           </div>
