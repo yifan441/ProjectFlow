@@ -193,6 +193,9 @@ export default function Dashboard() {
     const newProjects = [...projects];
     newProjects[projectIndex].lists.splice(listIndex, 1);
     setProjects(newProjects);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjects[projectIndex] };
+    });
   }
 
   // deletes a task
@@ -200,6 +203,9 @@ export default function Dashboard() {
     const newProjects = [...projects];
     newProjects[projectIndex].lists[listIndex].tasks.splice(taskIndex, 1);
     setProjects(newProjects);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjects[projectIndex] };
+    });
   }
 
   // adds a project
@@ -212,6 +218,9 @@ export default function Dashboard() {
     const newProjectsData = [...projects];
     newProjectsData[projectIndex].lists.push(newListObj);
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   // adds a task
@@ -219,6 +228,9 @@ export default function Dashboard() {
     const newProjectsData = [...projects];
     newProjectsData[projectIndex].lists[listIndex].tasks.push(newTaskObj);
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   // updates task attributes
@@ -237,6 +249,9 @@ export default function Dashboard() {
       newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex].attributes.dueDate = newValue;
     }
     setProjects(newProjectsData);
+    setSelectedProject((prevState) => {
+      return { ...prevState, obj: newProjectsData[projectIndex] };
+    });
   }
 
   function handleRenameProject(newName, projectId) {
@@ -285,6 +300,9 @@ export default function Dashboard() {
       newProjectsData[projectIndex - 1] = projectAtIndex;
       newProjectsData[projectIndex] = projectAbove;
       setProjects(newProjectsData);
+      setSelectedProject((prevState) => {
+        return { ...prevState, obj: newProjectsData[projectIndex-1] };
+      });
     }
 
     //moveDir = 0 means move down
@@ -294,8 +312,12 @@ export default function Dashboard() {
       newProjectsData[projectIndex + 1] = projectAtIndex;
       newProjectsData[projectIndex] = projectBelow;
       setProjects(newProjectsData);
+      setSelectedProject((prevState) => {
+        return { ...prevState, obj: newProjectsData[projectIndex+1] };
+      });
     }
     setProjects(newProjectsData);
+
   }
 
   function handleMoveList(moveDir, projectId, listId) {
