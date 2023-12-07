@@ -49,9 +49,7 @@ export default function Calendar({ projectsData }) {
     }
 
     if (selectedPriority !== 'all') {
-      filtered = filtered.filter(
-        (event) => event.priority === selectedPriority
-      );
+      filtered = filtered.filter((event) => event.priority === selectedPriority);
     }
 
     setFilteredEvents(filtered);
@@ -59,23 +57,31 @@ export default function Calendar({ projectsData }) {
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     let priorityColor = '';
+    let textColor = '';
     switch (event.priority) {
       case 'high':
-        priorityColor = 'red';
+        priorityColor = '#FFE2DD';
+        textColor = '#5D1715';
         break;
       case 'medium':
-        priorityColor = 'orange';
+        priorityColor = '#FDECC8';
+        textColor = '#56422E';
         break;
       case 'low':
-        priorityColor = 'green';
+        priorityColor = '#DBEDDB';
+        textColor = '#1C3829';
         break;
       default:
-        priorityColor = 'blue';
+        priorityColor = '#D3E5EF';
+        textColor = '#183347';
         break;
     }
 
     const style = {
       backgroundColor: priorityColor,
+      color: textColor,
+      fontFamily: 'Nunito, sans-serif',
+      paddingLeft: '14px',
     };
     return {
       style: style,
@@ -101,13 +107,13 @@ export default function Calendar({ projectsData }) {
 
   return (
     <div className="calendar-page-container">
-      <h1>Calendar</h1>
       <div style={{ marginBottom: '20px' }}>
         <label>
           Filter by Priority:{' '}
           <select
             value={selectedPriority}
             onChange={(e) => handlePriorityChange(e.target.value)}
+            style={{ marginLeft: '5px' }}
           >
             <option value="all">All</option>
             <option value="high">High</option>
@@ -123,6 +129,7 @@ export default function Calendar({ projectsData }) {
             type="text"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: '10px' }}
           />
         </label>
       </div>
@@ -139,17 +146,18 @@ export default function Calendar({ projectsData }) {
         />
       </div>
       {selectedEvent && (
-        <div className="popup">
+        <div className="calendar-popup">
           <div className="popup-content">
             <h2>Task Details</h2>
             <p>Project: {selectedEvent.project}</p>
             <p>List: {selectedEvent.list}</p>
             <p>Task: {selectedEvent.title}</p>
-            <button onClick={handleClosePopup}>Close</button>
+            <button className="calendar-close-popup-btn" onClick={handleClosePopup}>
+              Close
+            </button>
           </div>
         </div>
       )}
     </div>
   );
 }
-

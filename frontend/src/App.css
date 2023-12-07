@@ -277,7 +277,7 @@ ul,
   border-radius: 4px;
   background: #6485d9;
   color: #fff;
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -375,7 +375,7 @@ ul,
   border-radius: 4px;
   background: 0;
   color: #7d7c78;
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
@@ -481,4 +481,83 @@ input[type='checkbox'] {
   height: 24px;
   background-color: #6d89d1; /* Background color for checked state */
   border-radius: 6px; /* Adjust border-radius as needed */
+}
+
+/************************************************/
+/*                Calendar.js                   */
+/************************************************/
+
+.home-containing-div {
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header-div {
+  height: 120px;
+  margin: 30px 10px 20px 40px;
+  border-bottom: 2px solid #d9d9d9;
+  padding-bottom: 5px;
+}
+
+.home-welcome-text-div {
+  font-size: 40px;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.home-welcome-text-div > svg {
+  margin-right: 16px;
+}
+
+.calendar-icon-label {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.calendar-icon-label > svg {
+  margin-right: 10px;
+}
+
+.calendar-page-container {
+  flex-grow: 1;
+  overflow: auto;
+  margin: 5px 0px 20px 40px;
+  padding-right: 10px;
+}
+
+.calendar-popup {
+  margin-top: 10px;
+}
+
+.calendar-close-popup-btn {
+  width: 80px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  background: #6485d9;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+
+  &:hover {
+    background: #5776c5;
+  }
+
+  &:active {
+    background: #3f60b5;
+  }
 }
