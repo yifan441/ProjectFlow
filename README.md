@@ -15,7 +15,7 @@ Before you begin, please ensure you have downloaded the following on your machin
 Please ensure that you have downloaded the software compatible with your device. These are the only external downloads you must make to allow for backend setup.
 
 ## Installing Dependencies
-After cloning the repo:
+First, clone the repository to your local machine. Run this command in your command prompt:
 
 `git clone https://github.com/vik135/project-planner`
 
