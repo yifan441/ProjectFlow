@@ -383,6 +383,15 @@ ul,
 /*                  List.js                     */
 /************************************************/
 
+/* outer container */
+
+.list-div {
+  /* border: 1px solid black; */
+  margin: 10px 10px 40px 0px;
+}
+
+/* header */
+
 .list-title-div {
   display: flex;
   align-items: center;
@@ -397,10 +406,45 @@ ul,
   left: 400px;
 }
 
-.list-div {
-  /* border: 1px solid black; */
-  margin: 10px 10px 40px 0px;
+/* task completion */
+
+.task-completion-div {
+  /* display: flex;
+  align-items: center; */
+  margin-left: 35px;
 }
+
+.task-completion-div-content {
+  display: flex;
+  align-items: center;
+}
+
+.task-completion-visual-div {
+  position: relative;
+  width: 150px;
+  height: 8px;
+  margin-right: 20px;
+}
+
+.visual-bottom-div,
+.visual-top-div {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.visual-bottom-div {
+  background-color: #d9d9d9;
+}
+
+.visual-top-div {
+  background-color: #a1bafa;
+  /* width: 33%; */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* task attributes bar */
 
 .task-attribute-label-div {
   display: flex;

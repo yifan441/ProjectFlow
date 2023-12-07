@@ -64,7 +64,15 @@ export default function List({
       const completeTaskCount = list.tasks.filter((task) => task.attributes.complete).length;
       const totalTaskCount = list.tasks.length;
       const percentageComplete = Math.floor((completeTaskCount / totalTaskCount) * 100);
-      return `${percentageComplete}% Complete`;
+      return (
+        <div className="task-completion-div-content">
+          <div className="task-completion-visual-div">
+            <div className="visual-bottom-div"></div>
+            <div className="visual-top-div" style={{ width: `${percentageComplete}%` }}></div>
+          </div>
+          <span>{`${percentageComplete}% Complete`}</span>
+        </div>
+      );
     } else {
       return 'No tasks created';
     }
@@ -204,9 +212,7 @@ export default function List({
             />
           </div>
         </div>
-        <span className="task-count" style={{ marginLeft: '30px' }}>
-          {getTaskCompletion(listObj)}
-        </span>
+        <div className="task-completion-div">{getTaskCompletion(listObj)}</div>
       </div>
       <div className="list-body">
         <div className="task-attribute-label-div">
