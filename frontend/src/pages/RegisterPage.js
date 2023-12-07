@@ -62,9 +62,9 @@ function RegisterPage() {
     navigate('/');
   };
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Register</h2>
+    <div className="register-screen-container d-flex justify-content-center align-items-center bg-primary vh-100">
+      <div className="register-middle-div bg-white ">
+        <h2>Sign up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email">
@@ -72,7 +72,7 @@ function RegisterPage() {
             </label>
             <input
               type="text"
-              placeholder="Enter Name"
+              placeholder="Enter name"
               autoComplete="off"
               name="email"
               className="form-control rounded-0"
@@ -85,7 +85,7 @@ function RegisterPage() {
             </label>
             <input
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter email"
               autoComplete="off"
               name="email"
               className="form-control rounded-0"
@@ -101,7 +101,7 @@ function RegisterPage() {
             </label>
             <input
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter password"
               name="password"
               className="form-control rounded-0"
               onChange={(e) => setPassword(e.target.value)}
@@ -116,20 +116,29 @@ function RegisterPage() {
               style={{ fontSize: '10px', opacity: '0.7', fontWeight: 'normal' }}
             >
               Password of at least 8 characters with:
-              <br /> 1 Uppercase Character
-              <br /> 1 Lowercase Character
-              <br /> 1 Special Character
+              <ul>
+                <li>1 Uppercase Character</li>
+                <li>1 Lowercase Character</li>
+                <li>1 Special Character</li>
+                <li>1 Digit</li>
+              </ul>
             </label>
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
             Register
           </button>
-          <button
-            onClick={handleLogin}
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
-          >
-            Already Have An Account? Log In
-          </button>
+
+          <div className="mt-3 text-center">
+            <p>
+              Already Have An Account?{' '}
+              <span
+                onClick={handleLogin}
+                className="register-screen-text-span text-primary cursor-pointer"
+              >
+                Log In
+              </span>
+            </p>
+          </div>
         </form>
       </div>
     </div>
