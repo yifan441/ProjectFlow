@@ -67,7 +67,7 @@ function RegisterPage() {
         <form onSubmit={handleSubmit}>
           {/* <div className="register-margin"> */}
               <div className="register-form-field">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name"><strong>Name</strong></label>
               <input
                 type="text"
                 placeholder="Enter name"
@@ -80,7 +80,7 @@ function RegisterPage() {
           {/* </div> */}
           <div className="register-form-field">
             {/* <div className="register-margin"> */}
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email"><strong>Email</strong></label>
               <input
                 type="email"
                 placeholder="Enter email"
@@ -99,7 +99,7 @@ function RegisterPage() {
           <div className="register-form-field">
             {/* <div className="register-margin"> */}
               <label htmlFor="password">
-                Password
+                <strong>Password</strong>
               </label>
               <input
                 type="password"
