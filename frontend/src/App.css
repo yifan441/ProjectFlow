@@ -107,10 +107,45 @@ ul,
   align-items: center;
   padding: 3px;
   cursor: pointer;
+  margin-bottom: 3px;
 }
 
 .home > svg {
   margin-right: 7%;
+}
+
+.new-project {
+  padding: 3px 3px 3px 1px;
+  margin-bottom: 3px;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: #e7e7e4;
+  }
+
+  &:active {
+    background-color: #d0cfcd;
+  }
+}
+
+.create-project-btn {
+  border: 0;
+  margin-right: 7%;
+  background: 0;
+}
+
+.create-project-input {
+  border: 0;
+  background: 0;
+  padding-left: 0;
+
+  &::placeholder {
+    color: #626060;
+  }
+
+  &:focus {
+    background: #e8e8e5;
+  }
 }
 
 /* Project List Middle Portion */
@@ -223,7 +258,7 @@ ul,
 /* header */
 
 .project-display-header-div {
-  height: 140px;
+  height: 130px;
   margin: 20px 20px 20px 45px;
   border-bottom: 3px solid #d9d9d9;
 }
@@ -399,8 +434,7 @@ ul,
 
 .new-task-form-div {
   border-bottom: 3px solid #d9d9d9;
-  padding-bottom: 8px;
-  padding-top: 6px;
+  padding: 3px 0px 3px 0;
 }
 
 /************************************************/
@@ -409,9 +443,8 @@ ul,
 
 .task {
   display: flex;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-  margin-top: 14px;
+  padding: 2px 0px 2px 0;
+
   border-bottom: 3px solid #d9d9d9;
 }
 
