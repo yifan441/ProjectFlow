@@ -2,7 +2,7 @@
 ## Description
 Welcome to the ProjectFlow App! ProjectFlow is an efficient and appealing app that allows users to visualize and organize assignments.
 Through a variety of special features such as a dynamic calendar, AI-based project planning, and progress visualization, users are able
-to take charge of their their assignments in a timely manner.
+to take charge of their assignments in a timely manner.
 
 
 To make our application available to you, please follow the following steps:
