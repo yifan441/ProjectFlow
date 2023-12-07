@@ -59,7 +59,7 @@ function RegisterPage() {
   }
 
   const handleLogin = () => {
-    navigate('/');
+    navigate('/login');
   };
   return (
     <div className="register-screen-container d-flex justify-content-center align-items-center bg-primary vh-100">

@@ -6,7 +6,6 @@ import Home from '../components/Home';
 import { useNavigate } from 'react-router-dom';
 import { Reorder, deepCopyArray, deepCopyObject } from '../components/Reorder';
 
-
 export default function Dashboard() {
   const navigate = useNavigate();
   const isFirstRender = useRef(true);
@@ -94,7 +93,7 @@ export default function Dashboard() {
           console.error('Error fetching user dashboard:', response.data.message);
         }
       } catch (error) {
-        navigate ('/');
+        navigate('/');
         console.error('Error fetching user dashboard:', error);
       } finally {
         setLoading(false);
@@ -108,8 +107,8 @@ export default function Dashboard() {
   useEffect(() => {
     const handleNotValidated = () => {
       localStorage.removeItem('userData');
-      navigate ('/');
-    }
+      navigate('/');
+    };
     if (!isFirstRender.current) {
       async function updateBackend() {
         try {
@@ -148,11 +147,10 @@ export default function Dashboard() {
         }
       }
       updateBackend();
-    }
-    else {
+    } else {
       isFirstRender.current = false;
     }
-}, [projects, navigate]);
+  }, [projects, navigate]);
 
   // render loading screen
   if (loading) {
@@ -368,7 +366,10 @@ export default function Dashboard() {
     }
 
     //moveDir = 0 means move down
-    else if (moveDir === 0 && taskIndex < projects[projectIndex].lists[listIndex].tasks.length - 1) {
+    else if (
+      moveDir === 0 &&
+      taskIndex < projects[projectIndex].lists[listIndex].tasks.length - 1
+    ) {
       console.log('Entered move down');
       const taskAtIndex = deepCopyObject(
         newProjectsData[projectIndex].lists[listIndex].tasks[taskIndex]
