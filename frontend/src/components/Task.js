@@ -166,6 +166,7 @@ export default function Task({
             timeInputLabel="Time:"
             timeFormat="HH:mm"
             isClearable
+            className="due-date-component"
 
             // TODO: build a toggle to makes choosing a time optional
             // dateFormat={showTimeInput ? 'MMMM d, yyyy h:mm aa' : 'MMMM d, yyyy'}

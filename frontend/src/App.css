@@ -111,10 +111,11 @@ ul,
 }
 
 .home > svg {
-  margin-right: 7%;
+  margin-right: 20px;
 }
 
-.new-project {
+.new-project,
+.ai-new-project {
   padding: 3px 3px 3px 1px;
   margin-bottom: 3px;
   border-radius: 6px;
@@ -130,7 +131,7 @@ ul,
 
 .create-project-btn {
   border: 0;
-  margin-right: 7%;
+  margin-right: 17px;
   background: 0;
 }
 
@@ -138,6 +139,7 @@ ul,
   border: 0;
   background: 0;
   padding-left: 0;
+  cursor: pointer;
 
   &::placeholder {
     color: #626060;
@@ -145,6 +147,36 @@ ul,
 
   &:focus {
     background: #e8e8e5;
+  }
+}
+
+.btn-create-pdf {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: 0;
+  color: #626060;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.ai-new-project-input {
+  max-width: 250px;
+  margin-bottom: 10px;
+}
+
+.btn-submit-pdf {
+  display: block;
+  border-radius: 3px;
+  color: white;
+  background-color: #6485d9;
+
+  &:hover {
+    background-color: #5776c5;
+  }
+
+  &:active {
+    background-color: #3f60b5;
   }
 }
 
@@ -156,7 +188,7 @@ ul,
 }
 
 .project-div {
-  padding: 5px;
+  padding: 3.5px;
   cursor: pointer;
 }
 
@@ -192,7 +224,7 @@ ul,
 
 .navbar-dropdown-menu,
 .list-dropdown-menu {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background: white;
   width: 150px;
@@ -237,6 +269,11 @@ ul,
   padding: 2px 5px;
   margin-left: 5px;
   font-size: 9px;
+}
+
+.task-renamer {
+  display: flex;
+  flex-direction: column;
 }
 
 /************************************************/
@@ -514,6 +551,10 @@ input[type='checkbox'] {
   height: 24px;
   background-color: #6d89d1; /* Background color for checked state */
   border-radius: 6px; /* Adjust border-radius as needed */
+}
+
+.react-datepicker-wrapper input {
+  width: 250px; /* Adjust the width as needed */
 }
 
 /************************************************/

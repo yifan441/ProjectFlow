@@ -170,32 +170,52 @@ export default function ProjectNavigationPanel({
           </form>
         </div>
 
-        <form action="" className="ai-new-project-form" onSubmit={handleSubmit}>
-          <button
-            onClick={toggleFileInput}
-            className="btn-create-pdf"
-            aria-label="create project from PDF"
-          >
-            Create Project from PDF
-          </button>
-          {showFileInput && (
-            <>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                accept=".pdf"
-                aria-label="Select PDF file"
-              />
-              <button
-                onClick={handleFileSubmitInternal}
-                className="btn-submit-pdf"
-                aria-label="submit PDF"
+        <div className="ai-new-project">
+          <form action="" className="ai-new-project-form" onSubmit={handleSubmit}>
+            <button
+              onClick={toggleFileInput}
+              className="btn-create-pdf"
+              aria-label="create project from PDF"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23"
+                height="29"
+                viewBox="0 0 23 29"
+                fill="none"
+                style={{ marginRight: '22px' }}
               >
-                Submit PDF
-              </button>
-            </>
-          )}
-        </form>
+                <path
+                  d="M14.4999 0L14.864 3.86125C15.2967 8.45077 17.9554 12.1157 21.3974 12.8675L22.2333 13.05L21.3974 13.2326C17.9554 13.9843 15.2967 17.6492 14.864 22.2388L14.4999 26.1L14.1359 22.2388C13.7032 17.6492 11.0445 13.9843 7.60248 13.2326L6.7666 13.05L7.60248 12.8675C11.0445 12.1157 13.7032 8.45078 14.1359 3.86125L14.4999 0Z"
+                  fill="#6485D9"
+                />
+                <path
+                  d="M5.8 12.5667L6.07304 14.9978C6.39757 17.8875 8.39158 20.1951 10.9731 20.6684L11.6 20.7833L10.9731 20.8983C8.39158 21.3716 6.39757 23.6791 6.07304 26.5688L5.8 29L5.52697 26.5688C5.20244 23.6791 3.20842 21.3716 0.626909 20.8983L0 20.7833L0.626909 20.6684C3.20842 20.1951 5.20244 17.8875 5.52697 14.9978L5.8 12.5667Z"
+                  fill="#6485D9"
+                />
+              </svg>
+              AI Project Builder
+            </button>
+            {showFileInput && (
+              <div className="choose-file-div">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  accept=".pdf"
+                  aria-label="Select PDF file"
+                  className="ai-new-project-input"
+                />
+                <button
+                  onClick={handleFileSubmitInternal}
+                  className="btn-submit-pdf"
+                  aria-label="submit PDF"
+                >
+                  Submit PDF
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
         <DisplayLoadEvent />
         <DisplayInvalidLoadEvent />
         <DisplayOpenAIError />
@@ -345,7 +365,6 @@ export default function ProjectNavigationPanel({
                             }}
                           >
                             <div>
-                              {' '}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="23"
