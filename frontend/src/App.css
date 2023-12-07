@@ -694,7 +694,6 @@ input[type='checkbox'] {
 
 .landing-middle-div {
   text-align: center; /* Center text content */
-  /* Other styles for your landing middle div */
 }
 
 
@@ -728,6 +727,8 @@ input[type='checkbox'] {
 }
 
 .landing-login-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
   border: none;
   color: #FFFFFF;
   margin-top: 40px;
@@ -738,7 +739,17 @@ input[type='checkbox'] {
   background: #6485D9;
 }
 
+.landing-login-btn:hover {
+  background-color: #5776C5;
+}
+
+.landing-login-btn:active {
+  background-color: #3F60B5; /* Change this color as per your preference */
+}
+
 .landing-sign-up-btn{
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
   color: #6485D9;
   margin-top: 30px;
   width: 420px;
@@ -749,6 +760,13 @@ input[type='checkbox'] {
   background: #FFF;
 }
 
+.landing-sign-up-btn:hover{
+  background-color: #F5F7FB;
+}
+
+.landing-sign-up-btn:active{
+  background-color: #DCE3F2;
+}
 
 /* STYLE HOVER ON BUTTON? */
 
@@ -780,7 +798,7 @@ input[type='checkbox'] {
 
 .register-middle-div h2 {
   font-family: 'Nunito', sans-serif;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding-left: 40px;
   font-size: 40px;
   font-style: normal;
@@ -847,15 +865,133 @@ input[type='checkbox'] {
   color: #FFFFFF;
   border: none;
   margin-left: 40px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+}
+
+.register-btn:hover {
+  background-color: #5776C5;
+}
+
+.register-btn:active {
+  background-color: #3F60B5; 
 }
 
 .register-existing-account{
+  font-family: 'Nunito', sans-serif;
   padding-left: 130px;
   padding-top: 15px;
 }
 
 .register-screen-text-span {
-  color: #007bff; /* Set the color to a typical link color */
+  color: #5A79C6; /* Set the color to a typical link color */
+  cursor: pointer; /* Show pointer cursor on hover */
+  text-decoration: underline; /* Underline to indicate a link */
+}
+
+/************************************************/
+/*              LoginPage.js                    */
+/************************************************/
+
+.login-screen-container{
+  background-color: #A1BAFA; 
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /*Center vertically */
+  height: 100vh; /* Make the container cover the entire viewport height */
+}
+
+/* Style the white box */
+.login-middle-div {
+  width: 530px;
+  height: 450px;
+  padding: 40px;
+  border-radius: 20px;
+  background: #FFF; 
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; Adjust vertical spacing */
+  /* align-items: center; Center horizontally */
+  /* text-align: center; */
+}
+
+.login-middle-div h2 {
+  font-family: 'Nunito', sans-serif;
+  margin-bottom: 30px;
+  padding-left: 40px;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.login-form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px; /* Adjust the margin between each form field */
+  padding-left: 40px;
+}
+
+.login-form-field label {
+  margin-bottom: 9px;
+  color: #000;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.login-input-box {
+  width: 400px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 2px solid #D8D8D8;
+  background: #FFF;
+  padding-left: 10px;
+}
+
+.login-input-box::placeholder {
+  color: #A9A9A9;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.login-login-btn{
+  width: 400px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #6485D9;
+  margin-top: 0px; /* Adjust top margin if needed */
+  color: #FFFFFF;
+  border: none;
+  margin-left: 40px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+}
+
+.login-login-btn:hover {
+  background-color: #5776C5;
+}
+
+.login-login-btn:active {
+  background-color: #3F60B5; /* Change this color as per your preference */
+}
+
+
+.login-no-account{
+  font-family: 'Nunito', sans-serif;
+  padding-left: 140px;
+  padding-top: 15px;
+}
+
+.login-register-text-span{
+  color: #5A79C6; /* Set the color to a typical link color */
   cursor: pointer; /* Show pointer cursor on hover */
   text-decoration: underline; /* Underline to indicate a link */
 }

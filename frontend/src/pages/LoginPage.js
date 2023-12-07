@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { InvalidLogin } from '../components/userMessages';
@@ -43,11 +42,11 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-screen-container d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="login-middle-div bg-white">
+    <div className="login-screen-container">
+      <div className="login-middle-div">
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
+          <div className="login-form-field">
             <label htmlFor="email">
               <strong>Email</strong>
             </label>
@@ -56,12 +55,12 @@ function LoginPage() {
               placeholder="Enter email"
               autoComplete="off"
               name="email"
-              className="form-control rounded-0"
+              className="login-input-box"
               value={email}
               onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
           </div>
-          <div className="mb-3">
+          <div className="login-form-field"> 
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
@@ -69,23 +68,24 @@ function LoginPage() {
               type="password"
               placeholder="Enter password"
               name="password"
-              className="form-control rounded-0"
+              className="login-input-box"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
-            Log In
+        
+          <button type="submit" className="login-login-btn">
+            Login
           </button>
           <div className="login-error-box">
             <InvalidLogin />
           </div>
-          <div className="mt-3 text-center">
+          <div className="login-no-account">
             <p>
               Don't have an account?{' '}
               <span
                 onClick={() => navigate('/register')}
-                className="login-register-text-span text-primary cursor-pointer"
+                className="login-register-text-span"
               >
                 Sign up
               </span>
