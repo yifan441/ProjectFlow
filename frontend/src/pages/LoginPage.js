@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -28,21 +27,18 @@ function LoginPage() {
       );
 
       if (response.status === 200) {
-
         const { token, user } = response.data;
 
         localStorage.setItem('authToken', token);
         localStorage.setItem('userData', JSON.stringify(user));
 
         navigate('/dashboard');
-
       } else {
         document.dispatchEvent(new CustomEvent('invalidLogin'));
         console.log(response.data.message);
       }
     } catch (error) {
       console.error('Error during login:', error);
-      
     }
   };
 
@@ -87,10 +83,7 @@ function LoginPage() {
           <div className="mt-3 text-center">
             <p>
               Don't have an account?{' '}
-              <span
-                onClick={() => navigate('/register')}
-                className="text-primary cursor-pointer"
-              >
+              <span onClick={() => navigate('/register')} className="text-primary cursor-pointer">
                 Register
               </span>
             </p>
@@ -102,4 +95,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
