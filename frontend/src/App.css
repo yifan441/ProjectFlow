@@ -82,6 +82,7 @@ ul,
   padding: 6% 3%;
   font-family: 'Nunito', sans-serif;
   height: 91vh;
+  width: 100%;
 
   &:not(.actively-selected) {
     color: #626060;
@@ -220,10 +221,13 @@ ul,
   border-radius: 6px;
 }
 
-/* Drop down menu */
+/* navbar drop down menu */
 
-.navbar-dropdown-menu,
-.list-dropdown-menu {
+.navbar-more-actions-div {
+  position: relative;
+}
+
+.navbar-dropdown-menu {
   position: fixed;
   z-index: 100;
   background: white;
@@ -236,18 +240,17 @@ ul,
 }
 
 .dropdown-menu-svg {
+  /* same for both navbar and list dropdown svg */
   margin-right: 15px;
   margin-left: 5px;
 }
 
-.navbar-dropdown-menu li,
-.list-dropdown-menu li {
+.navbar-dropdown-menu li {
   font-weight: normal;
   margin-bottom: 5px;
 }
 
-.navbar-dropdown-menu li div,
-.list-dropdown-menu li div {
+.navbar-dropdown-menu li div {
   border-radius: 6px;
   padding: 4px;
   display: flex;
@@ -398,12 +401,45 @@ ul,
 }
 
 .list-more-actions-div {
+  position: relative;
   margin-right: 15px;
   margin-left: 15px;
 }
 
+/* list dropdown menu */
+
 .list-dropdown-menu {
-  left: 400px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  background: white;
+  width: 150px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 180px;
+  color: #626060;
+  padding: 5px;
+  border-radius: 6px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.list-dropdown-menu li {
+  margin-bottom: 5px;
+}
+
+.list-dropdown-menu li div {
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: #e7e7e4;
+  }
+
+  &:active {
+    background-color: #d0cfcd;
+  }
 }
 
 /* task completion */
