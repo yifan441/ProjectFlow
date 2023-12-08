@@ -681,11 +681,11 @@ input[type='checkbox'] {
 }
 
 /************************************************/
-/*                 LoginPage.js                 */
+/*                 LandingPage.js               */
 /************************************************/
 
 .landing-page-container {
-  background-color: #A1BAFA;
+  background-color: #a1bafa;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -695,7 +695,6 @@ input[type='checkbox'] {
 .landing-middle-div {
   text-align: center; /* Center text content */
 }
-
 
 .landing-page-content-box {
   padding: 20px;
@@ -709,11 +708,11 @@ input[type='checkbox'] {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background: #FFF;
+  background: #fff;
 }
 
 .landing-page-content-box span {
-  font-weight: 200; 
+  font-weight: 200;
 }
 
 .landing-page-buttons {
@@ -730,42 +729,42 @@ input[type='checkbox'] {
   font-family: 'Nunito', sans-serif;
   font-size: 18px;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-top: 40px;
   width: 420px;
   height: 50px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: #6485D9;
+  background: #6485d9;
 }
 
 .landing-login-btn:hover {
-  background-color: #5776C5;
+  background-color: #5776c5;
 }
 
 .landing-login-btn:active {
-  background-color: #3F60B5; /* Change this color as per your preference */
+  background-color: #3f60b5; /* Change this color as per your preference */
 }
 
-.landing-sign-up-btn{
+.landing-sign-up-btn {
   font-family: 'Nunito', sans-serif;
   font-size: 18px;
-  color: #6485D9;
+  color: #6485d9;
   margin-top: 30px;
   width: 420px;
   height: 50px;
   flex-shrink: 0;
   border-radius: 12px;
-  border: 3px solid #6485D9;
-  background: #FFF;
+  border: 3px solid #6485d9;
+  background: #fff;
 }
 
-.landing-sign-up-btn:hover{
-  background-color: #F5F7FB;
+.landing-sign-up-btn:hover {
+  background-color: #f5f7fb;
 }
 
-.landing-sign-up-btn:active{
-  background-color: #DCE3F2;
+.landing-sign-up-btn:active {
+  background-color: #dce3f2;
 }
 
 /* STYLE HOVER ON BUTTON? */
@@ -775,7 +774,7 @@ input[type='checkbox'] {
 /************************************************/
 
 .register-screen-container {
-  background-color: #A1BAFA; 
+  background-color: #a1bafa;
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /*Center vertically */
@@ -785,10 +784,10 @@ input[type='checkbox'] {
 /* Style the white box */
 .register-middle-div {
   width: 650px;
-  height: 650px;
-  padding: 40px;
+  height: 680px;
+  padding: 40px 40px 40px 70px;
   border-radius: 20px;
-  background: #FFF; 
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Adjust vertical spacing */
@@ -823,19 +822,18 @@ input[type='checkbox'] {
   line-height: normal;
 }
 
-
 .register-input-box {
   width: 400px;
   height: 45px;
   flex-shrink: 0;
   border-radius: 12px;
-  border: 2px solid #D8D8D8;
-  background: #FFF;
+  border: 2px solid #d8d8d8;
+  background: #fff;
   padding-left: 10px;
 }
 
 .register-input-box::placeholder {
-  color: #A9A9A9;
+  color: #a9a9a9;
   font-family: 'Nunito', sans-serif;
   font-size: 18px;
   font-style: normal;
@@ -847,7 +845,7 @@ input[type='checkbox'] {
 .register-password-requirements {
   padding-left: 40px;
   margin-top: 7px; /* requirement text not moving closer to input box? */
-  color: #7D7C78;
+  color: #7d7c78;
   font-family: 'Nunito', sans-serif;
   font-size: 12px;
   font-style: normal;
@@ -855,14 +853,14 @@ input[type='checkbox'] {
   line-height: 145.948%; /* 21.892px */
 }
 
-.register-btn{
+.register-btn {
   width: 400px;
   height: 45px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: #6485D9;
+  background: #6485d9;
   margin-top: 0px; /* Adjust top margin if needed */
-  color: #FFFFFF;
+  color: #ffffff;
   border: none;
   margin-left: 40px;
   font-family: 'Nunito', sans-serif;
@@ -870,21 +868,21 @@ input[type='checkbox'] {
 }
 
 .register-btn:hover {
-  background-color: #5776C5;
+  background-color: #5776c5;
 }
 
 .register-btn:active {
-  background-color: #3F60B5; 
+  background-color: #3f60b5;
 }
 
-.register-existing-account{
+.register-existing-account {
   font-family: 'Nunito', sans-serif;
   padding-left: 130px;
   padding-top: 15px;
 }
 
 .register-screen-text-span {
-  color: #5A79C6; /* Set the color to a typical link color */
+  color: #5a79c6; /* Set the color to a typical link color */
   cursor: pointer; /* Show pointer cursor on hover */
   text-decoration: underline; /* Underline to indicate a link */
 }
@@ -893,8 +891,8 @@ input[type='checkbox'] {
 /*              LoginPage.js                    */
 /************************************************/
 
-.login-screen-container{
-  background-color: #A1BAFA; 
+.login-screen-container {
+  background-color: #a1bafa;
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /*Center vertically */
@@ -903,11 +901,11 @@ input[type='checkbox'] {
 
 /* Style the white box */
 .login-middle-div {
-  width: 530px;
-  height: 450px;
+  width: 550px;
+  height: 480px;
   padding: 40px;
   border-radius: 20px;
-  background: #FFF; 
+  background: #fff;
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; Adjust vertical spacing */
@@ -947,13 +945,13 @@ input[type='checkbox'] {
   height: 45px;
   flex-shrink: 0;
   border-radius: 12px;
-  border: 2px solid #D8D8D8;
-  background: #FFF;
+  border: 2px solid #d8d8d8;
+  background: #fff;
   padding-left: 10px;
 }
 
 .login-input-box::placeholder {
-  color: #A9A9A9;
+  color: #a9a9a9;
   font-family: 'Nunito', sans-serif;
   font-size: 18px;
   font-style: normal;
@@ -961,14 +959,14 @@ input[type='checkbox'] {
   line-height: normal;
 }
 
-.login-login-btn{
+.login-login-btn {
   width: 400px;
   height: 45px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: #6485D9;
+  background: #6485d9;
   margin-top: 0px; /* Adjust top margin if needed */
-  color: #FFFFFF;
+  color: #ffffff;
   border: none;
   margin-left: 40px;
   font-family: 'Nunito', sans-serif;
@@ -976,22 +974,21 @@ input[type='checkbox'] {
 }
 
 .login-login-btn:hover {
-  background-color: #5776C5;
+  background-color: #5776c5;
 }
 
 .login-login-btn:active {
-  background-color: #3F60B5; /* Change this color as per your preference */
+  background-color: #3f60b5; /* Change this color as per your preference */
 }
 
-
-.login-no-account{
+.login-no-account {
   font-family: 'Nunito', sans-serif;
   padding-left: 140px;
   padding-top: 15px;
 }
 
-.login-register-text-span{
-  color: #5A79C6; /* Set the color to a typical link color */
+.login-register-text-span {
+  color: #5a79c6; /* Set the color to a typical link color */
   cursor: pointer; /* Show pointer cursor on hover */
   text-decoration: underline; /* Underline to indicate a link */
 }

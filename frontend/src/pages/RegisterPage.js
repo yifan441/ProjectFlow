@@ -66,29 +66,33 @@ function RegisterPage() {
         <h2>Sign up</h2>
         <form onSubmit={handleSubmit}>
           {/* <div className="register-margin"> */}
-              <div className="register-form-field">
-                <label htmlFor="name"><strong>Name</strong></label>
-              <input
-                type="text"
-                placeholder="Enter name"
-                autoComplete="off"
-                name="name"
-                className="register-input-box"
-                onChange={(e) => setName(e.target.value)}
-              />
-              </div>
+          <div className="register-form-field">
+            <label htmlFor="name">
+              <strong>Name</strong>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter name"
+              autoComplete="off"
+              name="name"
+              className="register-input-box"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
           {/* </div> */}
           <div className="register-form-field">
             {/* <div className="register-margin"> */}
-              <label htmlFor="email"><strong>Email</strong></label>
-              <input
-                type="email"
-                placeholder="Enter email"
-                autoComplete="off"
-                name="email"
-                className="register-input-box"
-                onChange={(e) => setEmail(e.target.value.toLowerCase())}
-              />
+            <label htmlFor="email">
+              <strong>Email</strong>
+            </label>
+            <input
+              type="email"
+              placeholder="Enter email"
+              autoComplete="off"
+              name="email"
+              className="register-input-box"
+              onChange={(e) => setEmail(e.target.value.toLowerCase())}
+            />
             {/* </div> */}
           </div>
 
@@ -98,16 +102,16 @@ function RegisterPage() {
 
           <div className="register-form-field">
             {/* <div className="register-margin"> */}
-              <label htmlFor="password">
-                <strong>Password</strong>
-              </label>
-              <input
-                type="password"
-                placeholder="Enter password"
-                name="password"
-                className="register-input-box"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            <label htmlFor="password">
+              <strong>Password</strong>
+            </label>
+            <input
+              type="password"
+              placeholder="Enter password"
+              name="password"
+              className="register-input-box"
+              onChange={(e) => setPassword(e.target.value)}
+            />
             {/* </div> */}
           </div>
 
@@ -135,10 +139,7 @@ function RegisterPage() {
           <div className="register-existing-account">
             <p>
               Already have an account?{' '}
-              <span
-                onClick={handleLogin}
-                className="register-screen-text-span"
-              >
+              <span onClick={handleLogin} className="register-screen-text-span">
                 Log In
               </span>
             </p>

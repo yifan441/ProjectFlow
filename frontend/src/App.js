@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from './pages/LandingPage.js';
 import Dashboard from './pages/DashboardPage.js';
 import RegisterPage from './pages/RegisterPage.js';
