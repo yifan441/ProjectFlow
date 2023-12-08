@@ -48,4 +48,5 @@ Once you open the Compass, you can connect to the local port by connecting to `m
 In version 1.0 of our app, please be mindful while using our AI Project Planner tool. Files larger than a certain page amount (over 5 pages) may not be parsed.
 Please limit your use of this functionality to smaller assignment specs (2-4 pages) for maximum performance.
 
-
+**CREDIT:**
+All `<svg>` elements were designed on Figma and then generated with Figma Dev Mode.
