@@ -403,26 +403,23 @@ export default function ProjectNavigationPanel({
                           </li>
                           {/* Implementation of UP/DOWN reordering for projects*/}
                           <li key="move-up">
-                            <div>
-                              <button
-                                key="up"
-                                className="up-down-button"
-                                onClick={() => {
-                                  handleMoveProject(1);
-                                }}
-                              >
+                            <div
+                              onClick={() => {
+                                handleMoveProject(1);
+                              }}
+                            >
+                              <button key="up" className="up-down-button">
                                 &#9650; {/*Unicode for up arrow*/}
                               </button>
                             </div>
                           </li>
                           <li key="move-down">
-                            <div>
-                              <button
-                                className="up-down-button"
-                                onClick={() => {
-                                  handleMoveProject(0);
-                                }}
-                              >
+                            <div
+                              onClick={() => {
+                                handleMoveProject(0);
+                              }}
+                            >
+                              <button className="up-down-button">
                                 &#9660; {/*Unicode for down arrow*/}
                               </button>
                             </div>
