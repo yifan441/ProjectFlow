@@ -29,8 +29,13 @@ And to install all dependencies:
 
 ## Running App on Local Host
 
-Once you have installed all the modules and project dependencies, you are ready to deploy the app! To view and use the app in your local host, change
-your current working directory to project-planner (or root directory of the project), and run:
+Once you have installed all the modules and project dependencies, you are ready to deploy the app! However, you must complete one more setup step, to initialize the backend and database. In the root directory of the project, please create a **.env** file and insert this text:
+
+`MONGO_URI='YOUR_MONGODB_URL'`
+
+Replace "YOUR_MONGODB_URL" with your MongoDB URL Connection String, for example, _mongodb://127.0.0.1:27017/test_
+
+Now, To view and use the app in your local host, change your current working directory to project-planner (or root directory of the project), and run:
 
 `npm start` 
 
