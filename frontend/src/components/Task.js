@@ -84,7 +84,7 @@ export default function Task({
           style={{ width: '100px', display: 'inline-block' }}
         >
           <input type="checkbox" id={id} checked={isChecked} onChange={handleCheckboxChange} />
-          <label htmlFor={id}>
+          <label htmlFor={id} style={{ cursor: 'pointer' }}>
             <span className={isChecked ? 'custom-checkbox checked' : 'custom-checkbox'}></span>
             {name}
           </label>
@@ -107,7 +107,7 @@ export default function Task({
               &#9660; {/*Unicode for down arrow*/}
             </button>
           </div>
-          <div className="rename-button" style={{ display: 'inline-block' }}>
+          <div className="rename-button" style={{ display: 'inline-block', cursor: 'pointer' }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -179,6 +179,7 @@ export default function Task({
             onClick={() => {
               handleTaskDeleteAux(taskIndex);
             }}
+            style={{ cursor: 'pointer' }}
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"

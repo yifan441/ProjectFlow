@@ -123,6 +123,7 @@ export default function List({
               height="23"
               viewBox="0 0 24 23"
               fill="none"
+              style={{ cursor: 'pointer' }}
             >
               <path
                 d="M8 11C8 12.1046 7.10457 13 6 13C4.89543 13 4 12.1046 4 11C4 9.89543 4.89543 9 6 9C7.10457 9 8 9.89543 8 11Z"
@@ -148,7 +149,7 @@ export default function List({
                       setIsDropDownOpen(!isDropdownOpen);
                     }}
                   >
-                    <div>
+                    <div style={{ cursor: 'pointer' }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -186,7 +187,7 @@ export default function List({
                       setIsDropDownOpen(!isDropdownOpen);
                     }}
                   >
-                    <div className="list-delete-btn-div">
+                    <div className="list-delete-btn-div" style={{ cursor: 'pointer' }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="23"
@@ -224,31 +225,27 @@ export default function List({
                     </div>
                   </li>
                   <li key="up">
-                    <div>
-                      <button
-                        key="but-up"
-                        style={{ fontSize: '8px' }}
-                        onClick={() => {
-                          handleMoveList(1, selectedProjectId, selectedListId);
-                          setIsDropDownOpen(!isDropdownOpen);
-                        }}
-                        className="up-down-button"
-                      >
+                    <div
+                      onClick={() => {
+                        handleMoveList(1, selectedProjectId, selectedListId);
+                        setIsDropDownOpen(!isDropdownOpen);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <button key="but-up" style={{ fontSize: '8px' }} className="up-down-button">
                         &#9650; {/*Unicode for up arrow*/}
                       </button>
                     </div>
                   </li>
                   <li key="down">
-                    <div>
-                      <button
-                        key="but-down"
-                        style={{ fontSize: '8px' }}
-                        onClick={() => {
-                          handleMoveList(0, selectedProjectId, selectedListId);
-                          setIsDropDownOpen(!isDropdownOpen);
-                        }}
-                        className="up-down-button"
-                      >
+                    <div
+                      onClick={() => {
+                        handleMoveList(0, selectedProjectId, selectedListId);
+                        setIsDropDownOpen(!isDropdownOpen);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <button key="but-down" style={{ fontSize: '8px' }} className="up-down-button">
                         &#9660; {/*Unicode for down arrow*/}
                       </button>
                     </div>
