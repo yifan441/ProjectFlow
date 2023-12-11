@@ -10,8 +10,11 @@ const axios = require ('axios')
 
 app.use(cors())
 app.use(express.json())
+require ('dotenv').config({ path: '../.env' })
 
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+const mongoURI = process.env.MONGO_URI;
+console.log(mongoURI);
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
  
 //TODO : ENCRYPT API KEY & KEY FOR LOCAL STORAGE (FOR SAFETY)
 const secretJson = fs.readFileSync('secret.json', 'utf8');
