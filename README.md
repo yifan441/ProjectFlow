@@ -50,8 +50,7 @@ If you would like to visualize the database and view database entries, please in
 Once you open the Compass, you can connect to the local port by connecting to `mongodb://localhost:27017/` and navigating to the "test" directory.
 
 **IMPORTANT NOTE:**
-In version 1.0 of our app, please be mindful while using our AI Project Planner tool. Files larger than a certain page amount (over 5 pages) may not be parsed.
-Please limit your use of this functionality to smaller assignment specs (2-4 pages) for maximum performance.
+Due to the nature of this repo being public, the AI project generation feature is temporarily disabled. Please see this [video](https://drive.google.com/file/d/1Mc7YjiUJKoow6Kky5X-_Ozp6hBJodCt4/view?usp=sharing) for a demonstration of the feature.
 
 **CREDIT:**
 All `<svg>` elements were designed on Figma and then generated with Figma Dev Mode.
